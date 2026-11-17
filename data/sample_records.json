@@ -1,0 +1,234 @@
+
+[
+  {
+    "id": "icmr-stw-001",
+    "condition": "Hypertension in Adults",
+    "specialty": "Cardiology",
+    "publication_date": "May 2026",
+    "red_flags": [
+      "Systolic BP >= 180 and/or diastolic BP >= 120 mmHg WITH symptoms of target-organ damage",
+      "Visual disturbance, dizziness, confusion or headache in this context",
+      "Chest pain in this context",
+      "Breathlessness, worse when lying down, or leg swelling in this context",
+      "Sudden weakness, speech or swallowing difficulty, or vision problems in this context"
+    ],
+    "first_line": [
+      "Measure blood pressure accurately at every clinic visit for adults aged 18 years and above",
+      "Confirm hypertension using readings from two different clinic visits, except when systolic BP >= 160 and/or diastolic BP >= 100 mmHg, where one clinic visit is sufficient under this STW",
+      "Advise lifestyle modification, including limiting salt intake to less than 5 g/day and 30 minutes of daily physical activity",
+      "Use the ICMR pharmacotherapy protocols according to the patient's clinical circumstances"
+    ],
+    "investigations": [
+      "Fasting plasma glucose or HbA1c",
+      "Annual serum creatinine",
+      "Urine albumin, sugar and creatinine",
+      "Lipid profile",
+      "Fundoscopy",
+      "ECG or ECHO if required"
+    ],
+    "referral_criteria": [
+      "BP >= 180 systolic and/or >= 120 diastolic with symptoms of target-organ damage: stabilise ABC and refer to emergency care at a higher centre",
+      "For severe BP elevation without signs of acute target-organ damage, follow the STW management protocol and refer/admit if symptoms or organ damage are suspected"
+    ],
+    "level_of_care": "Primary care assessment with emergency referral to a higher centre when indicated",
+    "source": {
+      "title": "Standard Treatment Workflow: Hypertension in Adults",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1778941063_hypertensioninadults_final.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "May 2026",
+       "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+    },
+  {
+    "id": "002",
+    "condition": "Atrial Fibrillation",
+    "specialty": "Cardiology",
+    "red_flags": [
+      "Systolic BP 90 mmHg, heart rate >150 or <50/min",
+      "Ongoing angina",
+      "Congestive heart failure (CHF), transient ischemic attack (TIA) or stroke",
+      "Major bleeding while on oral anticoagulants"
+    ],
+    "first_line": [
+      "Detailed clinical evaluation",
+      "Basic investigations and careful ECG evaluation",
+      "Categorize atrial fibrillation",
+      "Assess stroke risk and need for anticoagulation",
+      "Assess bleeding risk",
+      "At PHC/CHC, the workflow specifies starting oral anticoagulation",
+      "The workflow specifies rate-control medication when heart rate is >110/min and there is no evidence of CHF"
+    ],
+    "investigations": [
+      "Hemogram",
+      "Blood sugar",
+      "Creatinine",
+      "Electrolytes",
+      "12-lead ECG",
+      "Chest X-ray",
+      "Thyroid evaluation",
+      "Liver function test",
+      "Troponins",
+      "Prothrombin time and INR",
+      "Echocardiography"
+    ],
+    "referral_criteria": [
+      "Refer from PHC/CHC if indicators for early intervention are present",
+      "At district hospital, refer if heart rate remains uncontrolled, or CHF or angina is present"
+    ],
+    "level_of_care": "Initial evaluation and management at PHC/CHC, escalation to district hospital and tertiary centre as indicated",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Atrial Fibrillation",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1768823343_cardiology_1-1.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "January 2026",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  }  ,
+  {
+    "id": "003",
+    "condition": "Acute Kidney Injury",
+    "specialty": "Nephrology",
+    "red_flags": [
+      "Indications for dialysis",
+      "Unexplained acute kidney injury",
+      "Involvement of other organs",
+      "Sepsis",
+      "Systemic disease",
+      "Complicated pregnancy"
+    ],
+    "first_line": [
+      "Monitor urine volume and body weight",
+      "Identify and treat life-threatening complications",
+      "Correct hydration status",
+      "Stop nephrotoxic drugs",
+      "Exclude urinary outlet obstruction",
+      "Stabilize blood pressure",
+      "Treat infection",
+      "Assess need for dialysis"
+    ],
+    "investigations": [
+      "Stage AKI using KDIGO criteria",
+      "Check electrolytes and acid-base status",
+      "Urinalysis",
+      "Rule out pre-existing kidney disease",
+      "Ultrasound of KUB region",
+      "Assess for infection",
+      "Investigate the specific cause"
+    ],
+    "referral_criteria": [
+      "Indications for dialysis",
+      "Unexplained AKI",
+      "Involvement of other organs",
+      "Sepsis",
+      "Systemic disease",
+      "Complicated pregnancy"
+    ],
+    "level_of_care": "Primary, secondary and tertiary care, with timely referral after stabilisation",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Acute Kidney Injury",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952346_nephrology_all.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  }
+    ,
+  {
+    "id": "004",
+    "condition": "Acute Rhinosinusitis",
+    "specialty": "ENT",
+    "red_flags": [
+      "Known diabetic or immunocompromised patient",
+      "Orbital involvement: periorbital edema, erythema, displaced globe, ophthalmoplegia or visual disturbance",
+      "Meningitis or altered sensorium",
+      "Frontal fullness",
+      "Non-resolution with oral antibiotics for ten days",
+      "Facial hypoesthesia or facial, palatal or turbinate discoloration suggesting invasive fungal sinusitis"
+    ],
+    "first_line": [
+      "Oral antibiotics as specified in the workflow for 7–10 days",
+      "Topical budesonide or mometasone nasal spray",
+      "Normal saline nasal washes",
+      "Adequate hydration and steam inhalation",
+      "Topical or oral decongestants for 3–5 days",
+      "Antihistamines for patients with co-existing allergy"
+    ],
+    "investigations": [
+      "Anterior rhinoscopy",
+      "Oral examination",
+      "Nasal endoscopy when desirable",
+      "Endoscopy-guided nasal swabs or KOH smear in non-resolving or worsening cases",
+      "CT PNS for suspected complications or non-resolving cases",
+      "Screening for diabetes or immunodeficiency"
+    ],
+    "referral_criteria": [
+      "Orbital or intracranial complications",
+      "Non-resolution after at least 7 days of oral antibiotics",
+      "Worsening symptoms during oral antibiotic treatment",
+      "Suspected invasive fungal sinusitis"
+    ],
+    "level_of_care": "PHC/primary level, district hospital and tertiary care depending on complications",
+    "source": {
+      "title": "Standard Treatment Workflow for the Management of Acute Rhinosinusitis",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952292_ent_acute_rhinosinusitis.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  }
+    ,
+  {
+    "id": "005",
+    "condition": "Diabetes Mellitus Type 2",
+    "specialty": "Endocrinology",
+    "red_flags": [
+      "Osmotic symptoms: polyuria, polydipsia and polyphagia",
+      "Unexplained weight loss",
+      "Non-healing wounds",
+      "Paraesthesia",
+      "Recurrent infections",
+      "Blurring of vision"
+    ],
+    "first_line": [
+      "Dietary modification",
+      "Avoidance of tobacco and restriction or avoidance of alcohol",
+      "Physical activity",
+      "Pharmacotherapy according to HbA1c and the workflow",
+      "Follow up to meet metabolic targets"
+    ],
+    "investigations": [
+      "HbA1c",
+      "Creatinine",
+      "Potassium",
+      "Fasting lipid profile",
+      "Urine routine examination and spot albumin-creatinine ratio",
+      "Liver function tests: ALT and AST",
+      "ECG",
+      "Echocardiography or abdominal ultrasound as indicated"
+    ],
+    "referral_criteria": [
+      "Endocrinology for uncontrolled hyperglycemia",
+      "Ophthalmology at initial evaluation and every year",
+      "Nephrology for deranged renal function",
+      "Cardiology for coronary artery disease, heart failure or arrhythmia"
+    ],
+    "level_of_care": "Diabetes assessment and monitoring with specialist referral according to complications and control",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Diabetes Mellitus Type 2",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1726567245_diabetes_mellitus_type_2.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "July 2022",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  }
+]
