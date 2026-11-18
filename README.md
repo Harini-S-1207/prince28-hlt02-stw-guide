@@ -1,47 +1,66 @@
 # STW Guide
 
-Gives a PHC doctor the ICMR Standard Treatment Workflow for a condition: red flags, first-line management and when to refer, with the STW cited.
+STW Guide helps PHC doctors access ICMR Standard Treatment Workflows, including red flags, first-line management, and referral criteria, with source citations.
 
-**Status:** Day 1 foundation (FastAPI skeleton, quality gates). Live URL from Day 5.
+**Status:** Day 3 – PostgreSQL data model, migrations, and data loader. Live URL planned for Day 5.
 
 ## Who it's for
 
-MBBS intern posted at a Primary Health Centre near Kanchipuram who sees about 80 OPD patients a day.
+An MBBS intern at a Primary Health Centre near Kanchipuram handling approximately 80 outpatient consultations daily.
 
 ## The problem
 
-Doctors working in Primary Health Centres often handle many patients in a limited amount of time. Although ICMR provides Standard Treatment Workflows for different medical conditions, finding the correct guideline and understanding its decision-making steps can take time. Important information such as warning signs, first-line treatment and referral criteria may be difficult to locate quickly during a busy OPD. STW Guide aims to make this information easier to find through a simple question-answering system with references to the original ICMR documents.
+ICMR publishes Standard Treatment Workflows for various medical conditions and specialties. Finding the correct workflow during busy outpatient consultations can be time-consuming. Important red flags and referral criteria must be identified quickly and accurately. Since STWs are presented as flowcharts, extracting their content without losing decision sequences is challenging. Doctors need a reliable way to access structured clinical guidance with accurate references.
 
 ## Data sources
 
-All ICMR Standard Treatment Workflows (every specialty and volume, including pocket versions) from the ICMR STW page.
+ICMR Standard Treatment Workflows across specialties and volumes, including pocket versions.
 
 - [ICMR Standard Treatment Workflows](https://www.icmr.gov.in/standard-treatment-workflows-stws)
 - Terms: Public government clinical guidance. Cite the STW title and page.
 
 ## Hardest problem (my interview story)
 
-STWs are flowcharts: boxes and arrows on one page. Plain PDF text extraction scrambles the order and loses the 'if X then Y' logic. The parser must keep layout (coordinates or a vision model) so decision branches stay intact and each answer cites the box it came from.
+STWs contain flowcharts with boxes, arrows, and clinical decision branches. Plain PDF extraction can scramble their order and lose conditional logic. The parser must preserve layout using coordinates or vision models so that decision branches remain intact and answers cite their original source boxes.
 
 ## Signature feature
 
-Decision path view: the answer shows the STW as a highlighted path (symptom, decision, action, refer).
+**Decision Path View:** Highlights the clinical workflow from symptom identification to decision, action, and referral.
 
 ## Target metric
 
-Referral criteria correct for 90%+ of 40 clinician-style questions, graded against the STW.
+Achieve 90%+ referral criteria accuracy across 40 clinician-style questions, evaluated against the original STWs.
 
+## Technology Stack
+
+Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, asyncpg, and Git.
 
 ## Run it locally
 
 ```bash
 uv sync
-cp .env.example .env
-# Windows: copy .env.example .env
+```
+
+Configure environment variables:
+
+```cmd
+copy .env.example .env
+```
+
+Run migrations and load data:
+
+```bash
+uv run alembic upgrade head
+uv run python scripts/load_db.py
+```
+
+Start the application:
+
+```bash
 uv run uvicorn stw_guide.api.main:create_app --factory --reload
 ```
 
-Then open [http://localhost:8000/docs](http://localhost:8000/docs)
+Open [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ## Checks
 
@@ -50,4 +69,14 @@ uv run pytest
 uv run ruff check .
 ```
 
-**Performance targets:** Initial performance targets are designed for a prototype deployment. They will be improved after collecting real usage and performance measurements.
+## Future Enhancements
+
+- Flowchart-aware PDF extraction.
+- AI-powered clinical workflow retrieval.
+- Source-grounded answers.
+- Clinical decision path visualization.
+- Clinician-based accuracy evaluation.
+
+---
+
+**STW Guide — Making clinical workflow information accessible and reliable.**
