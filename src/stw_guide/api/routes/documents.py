@@ -2,52 +2,65 @@
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 
-from stw_guide.api.deps import get_store
-from stw_guide.store import RecordStore
+from stw_guide.api.deps import RepoDep
+from stw_guide.db.repository import FILTER_KEY
 
-router = APIRouter(prefix="/v1/documents", tags=["documents"])
+router = APIRouter(prefix="/documents", tags=["documents"])
+
+RESERVED = {"q", "limit", "offset"}
 
 
 @router.get("")
 async def list_documents(
-    q: str | None = None,
-    limit: int = Query(default=20, ge=1, le=100),
-    store: Annotated[RecordStore, Depends(get_store)] = None,
-):
-    """List and search STW documents."""
+    request: Request,
+    repo: RepoDep,
+    q: Annotated[str | None, Query(max_length=200)] = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 20,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict:
+    """List documents with optional search and metadata filters."""
+    filters = {
+        key: value for key, value in request.query_params.items() if key not in RESERVED
+    }
 
-    records = store.list_records()
+    bad = [key for key in filters if not FILTER_KEY.match(key)]
 
-    if q:
-        search_text = q.lower()
+    if bad:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid filter name: {bad[0]}",
+        )
 
-        records = [
-            record
-            for record in records
-            if search_text in " ".join(str(value) for value in record.values()).lower()
-        ]
+    total, items = await repo.list(
+        q=q,
+        filters=filters,
+        limit=limit,
+        offset=offset,
+    )
 
     return {
-        "total": len(records),
-        "items": records[:limit],
+        "total": total,
+        "limit": limit,
+        "offset": offset,
+        "filters": filters,
+        "items": items,
     }
 
 
-@router.get("/{document_id}")
+@router.get("/{doc_id}")
 async def get_document(
-    document_id: str,
-    store: Annotated[RecordStore, Depends(get_store)] = None,
-):
-    """Retrieve one STW document by ID."""
+    doc_id: str,
+    repo: RepoDep,
+) -> dict:
+    """Retrieve a document by its external ID."""
+    record = await repo.get(doc_id)
 
-    document = store.get_record(document_id)
-
-    if document is None:
+    if record is None:
         raise HTTPException(
             status_code=404,
-            detail=f"No document with id '{document_id}'.",
+            detail=f"No document with id '{doc_id}'.",
         )
 
-    return document
+    return record

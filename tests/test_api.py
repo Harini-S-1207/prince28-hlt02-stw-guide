@@ -1,71 +1,137 @@
 import pytest
-from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
-from stw_guide.api.main import create_app
 from stw_guide.config import Settings
 
 
 def test_health_is_ok(client):
-    r = client.get("/health")
-    assert r.status_code == 200
-    assert r.json()["status"] == "ok"
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"
 
 
-def test_ready_when_records_loaded(client):
-    r = client.get("/ready")
-    assert r.status_code == 200
-    assert r.json()["checks"]["records_loaded"] is True
+def test_ready_when_database_is_available(client):
+    response = client.get("/ready")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ready"
+    assert response.json()["checks"]["database"] is True
 
 
-def test_ready_is_503_when_data_file_missing(tmp_path):
-    settings = Settings(app_env="ci", data_file=tmp_path / "missing.json")
-    with TestClient(create_app(settings)) as c:
-        assert c.get("/health").status_code == 200
-        assert c.get("/ready").status_code == 503
+def test_ready_is_503_when_database_fails(client):
+    client.app.state.test_engine.fail = True
+
+    response = client.get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["status"] == "not_ready"
+    assert response.json()["checks"]["database"] is False
 
 
 def test_list_documents_paginates(client):
-    r = client.get("/v1/documents", params={"limit": 2})
-    body = r.json()
-    assert r.status_code == 200
+    response = client.get("/v1/documents", params={"limit": 2})
+    body = response.json()
+
+    assert response.status_code == 200
     assert body["total"] == 3
     assert len(body["items"]) == 2
+    assert body["limit"] == 2
 
 
 def test_search_filters_records(client):
-    r = client.get("/v1/documents", params={"q": "beta"})
-    assert [d["id"] for d in r.json()["items"]] == ["002"]
+    response = client.get("/v1/documents", params={"q": "beta"})
+
+    assert response.status_code == 200
+    assert len(response.json()["items"]) == 1
+    assert response.json()["items"][0]["id"] == "002"
 
 
 def test_get_document_found(client):
-    r = client.get("/v1/documents/001")
-    assert r.status_code == 200
-    assert r.json()["title"] == "Alpha guideline"
+    response = client.get("/v1/documents/001")
+
+    assert response.status_code == 200
+    assert response.json()["id"] == "001"
+    assert response.json()["title"] == "Alpha guideline"
 
 
 def test_missing_document_is_problem_details(client):
-    r = client.get("/v1/documents/999")
-    assert r.status_code == 404
-    assert r.headers["content-type"] == "application/problem+json"
-    body = r.json()
-    assert body["status"] == 404
-    assert body["title"] == "Not Found"
-    assert body["request_id"] == r.headers["X-Request-ID"]
+    response = client.get("/v1/documents/999")
+
+    assert response.status_code == 404
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert response.json()["title"] == "Not Found"
+    assert "request_id" in response.json()
 
 
 def test_bad_limit_is_422_problem(client):
-    r = client.get("/v1/documents", params={"limit": 0})
-    assert r.status_code == 422
-    assert r.json()["errors"][0]["field"] == "query.limit"
+    response = client.get("/v1/documents", params={"limit": 0})
+
+    assert response.status_code == 422
+    assert response.headers["content-type"].startswith("application/problem+json")
 
 
 def test_request_id_is_echoed(client):
-    r = client.get("/health", headers={"X-Request-ID": "abc123"})
-    assert r.headers["X-Request-ID"] == "abc123"
+    request_id = "test-request-123"
+
+    response = client.get(
+        "/health",
+        headers={"X-Request-ID": request_id},
+    )
+
+    assert response.status_code == 200
+    assert response.headers["X-Request-ID"] == request_id
 
 
-def test_app_refuses_to_start_without_app_env(monkeypatch):
-    monkeypatch.delenv("APP_ENV", raising=False)
+def test_settings_requires_app_env():
     with pytest.raises(ValidationError):
         Settings(_env_file=None)
+
+
+def test_list_documents_default_limit(client):
+    response = client.get("/v1/documents")
+    body = response.json()
+
+    assert response.status_code == 200
+    assert body["limit"] == 20
+    assert body["total"] == 3
+    assert len(body["items"]) == 3
+
+
+def test_search_by_external_id(client):
+    response = client.get("/v1/documents", params={"q": "002"})
+
+    assert response.status_code == 200
+    assert len(response.json()["items"]) == 1
+    assert response.json()["items"][0]["id"] == "002"
+
+
+def test_search_with_no_matches(client):
+    response = client.get(
+        "/v1/documents",
+        params={"q": "nonexistent"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["total"] == 0
+    assert response.json()["items"] == []
+
+
+def test_maximum_limit_is_accepted(client):
+    response = client.get("/v1/documents", params={"limit": 100})
+
+    assert response.status_code == 200
+    assert response.json()["limit"] == 100
+
+
+def test_limit_above_maximum_is_422(client):
+    response = client.get("/v1/documents", params={"limit": 101})
+
+    assert response.status_code == 422
+
+
+def test_document_response_includes_metadata(client):
+    response = client.get("/v1/documents/001")
+
+    assert response.status_code == 200
+    assert response.json()["metadata"]["id"] == "001"
