@@ -2,56 +2,69 @@
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from stw_guide.api.deps import get_db
-from stw_guide.repositories.documents import DocumentRepository
+from stw_guide.db.repository import FILTER_KEY, DocumentRepository
 
-router = APIRouter(prefix="/v1/documents", tags=["documents"])
+router = APIRouter(prefix="/documents", tags=["documents"])
+
+RESERVED = {"q", "limit", "offset"}
 
 
 @router.get("")
 async def list_documents(
+    request: Request,
     session: Annotated[AsyncSession, Depends(get_db)],
-    q: str | None = None,
-    limit: int = Query(default=20, ge=1, le=100),
-):
-    repository = DocumentRepository(session)
-    documents = await repository.list_documents(q=q, limit=limit)
-
-    return {
-        "total": len(documents),
-        "items": [
-            {
-                "id": d.external_id,
-                "title": d.title,
-                "source_url": d.source_url,
-                "doc_type": d.doc_type,
-            }
-            for d in documents
-        ],
+    q: Annotated[str | None, Query(max_length=200)] = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 20,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict:
+    """List documents with optional search and metadata filters."""
+    filters = {
+        key: value for key, value in request.query_params.items() if key not in RESERVED
     }
 
+    bad = [key for key in filters if not FILTER_KEY.match(key)]
 
-@router.get("/{document_id}")
-async def get_document(
-    document_id: str,
-    session: Annotated[AsyncSession, Depends(get_db)],
-):
-    repository = DocumentRepository(session)
-    document = await repository.get_document(document_id)
-
-    if document is None:
+    if bad:
         raise HTTPException(
-            status_code=404,
-            detail=f"No document with id '{document_id}'.",
+            status_code=400,
+            detail=f"Invalid filter name: {bad[0]}",
         )
 
+    repo = DocumentRepository(session)
+
+    total, items = await repo.list(
+        q=q,
+        filters=filters,
+        limit=limit,
+        offset=offset,
+    )
+
     return {
-        "id": document.external_id,
-        "title": document.title,
-        "source_url": document.source_url,
-        "doc_type": document.doc_type,
-        "metadata": document.metadata_,
+        "total": total,
+        "limit": limit,
+        "offset": offset,
+        "filters": filters,
+        "items": items,
     }
+
+
+@router.get("/{doc_id}")
+async def get_document(
+    doc_id: str,
+    session: Annotated[AsyncSession, Depends(get_db)],
+) -> dict:
+    """Retrieve a document by its external ID."""
+    repo = DocumentRepository(session)
+    record = await repo.get(doc_id)
+
+    if record is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No document with id '{doc_id}'.",
+        )
+
+    return record

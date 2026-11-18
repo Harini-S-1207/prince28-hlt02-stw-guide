@@ -6,6 +6,7 @@ from stw_guide.api.deps import get_db
 from stw_guide.api.main import create_app
 from stw_guide.api.routes import documents as document_routes
 from stw_guide.config import Settings
+from stw_guide.db.repository import to_dict
 
 SAMPLE = [
     {"id": "001", "title": "Alpha guideline"},
@@ -50,7 +51,11 @@ class FakeEngine:
         if self.fail:
             from sqlalchemy.exc import OperationalError
 
-            raise OperationalError("SELECT 1", {}, Exception("Database unavailable"))
+            raise OperationalError(
+                "SELECT 1",
+                {},
+                Exception("Database unavailable"),
+            )
 
     async def dispose(self):
         pass
@@ -61,6 +66,8 @@ class FakeDocument:
         self.external_id = record["id"]
         self.title = record["title"]
         self.source_url = None
+        self.licence = None
+        self.published_on = None
         self.doc_type = "record"
         self.metadata_ = record
 
@@ -69,30 +76,46 @@ class FakeRepository:
     def __init__(self, session):
         self.records = [FakeDocument(record) for record in SAMPLE]
 
-    async def list_documents(self, q=None, limit=20):
+    async def list(self, q=None, filters=None, limit=20, offset=0):
         records = self.records
+
         if q:
+            query = q.lower()
             records = [
                 record
                 for record in records
-                if q.lower() in record.title.lower()
-                or q.lower() in record.external_id.lower()
+                if query in record.title.lower() or query in record.external_id.lower()
             ]
-        return records[:limit]
 
-    async def get_document(self, document_id):
-        return next(
-            (record for record in self.records if record.external_id == document_id),
+        paginated = records[offset : offset + limit]
+        total = len(paginated)
+
+        return total, [to_dict(record) for record in paginated]
+
+    async def get(self, external_id):
+        record = next(
+            (record for record in self.records if record.external_id == external_id),
             None,
         )
+
+        return to_dict(record) if record else None
 
 
 @pytest.fixture
 def client(monkeypatch):
     engine = FakeEngine()
 
-    monkeypatch.setattr(api_main, "make_engine", lambda settings: engine)
-    monkeypatch.setattr(document_routes, "DocumentRepository", FakeRepository)
+    monkeypatch.setattr(
+        api_main,
+        "make_engine",
+        lambda settings: engine,
+    )
+
+    monkeypatch.setattr(
+        document_routes,
+        "DocumentRepository",
+        FakeRepository,
+    )
 
     settings = Settings(app_env="ci")
 
