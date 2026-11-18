@@ -42,7 +42,7 @@ def test_list_documents_from_postgres(integration_client):
 
 
 def test_get_document_from_postgres(integration_client):
-    response = integration_client.get("/v1/documents/icmr-stw-001")
+    response = integration_client.get("/v1/documents/001")
 
     assert response.status_code == 200
-    assert response.json()["id"] == "icmr-stw-001"
+    assert response.json()["id"] == "001"
