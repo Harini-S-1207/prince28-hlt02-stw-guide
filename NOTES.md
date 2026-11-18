@@ -103,17 +103,21 @@ The loader:
 
 ### Loader execution results
 
+### Loader execution results
+
 | Execution | Inserted | Updated | Unchanged |
 |---|---:|---:|---:|
 | First run | 20 | 0 | 0 |
-| Second run | 0 | 0 | 20 |
-| Later verification | 0 | 0 | 20 |
+| After adding source_url to all records | 0 | 20 | 0 |
+| Repeat run | 0 | 0 | 20 |
 
-The first run inserted all 20 records.
+**Verification:**
+- First run inserted all 20 records.
+- Adding `source_url` changed the SHA256 fingerprints, so all 20 existing records were updated.
+- The repeat run detected all 20 records as unchanged.
+- No duplicate records were inserted.
 
-The second run detected that all records were unchanged and avoided duplicate inserts.
-
-The loader was also tested with a modified record. The exact update-test output should be recorded here when available.
+The loader's insert, update and unchanged behaviour was verified successfully.
 
 ## 5. PostgreSQL Query Plan Analysis
 
