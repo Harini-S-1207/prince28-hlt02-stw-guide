@@ -13,8 +13,8 @@ from stw_guide.api.errors import (
 from stw_guide.api.middleware import register_middleware
 from stw_guide.api.routes import documents, health
 from stw_guide.config import Settings, get_settings
+from stw_guide.db.session import make_engine, make_sessionmaker
 from stw_guide.logging_setup import configure_logging
-from stw_guide.store import RecordStore
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -25,14 +25,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        store = RecordStore(settings.data_file)
-        try:
-            store.load()
-        except (OSError, ValueError, TypeError):
-            store.records = []
+        engine = make_engine(settings)
+        app.state.engine = engine
+        app.state.sessionmaker = make_sessionmaker(engine)
 
-        app.state.store = store
-        yield
+        try:
+            yield
+        finally:
+            await engine.dispose()
 
     app = FastAPI(
         title="STW Guide",

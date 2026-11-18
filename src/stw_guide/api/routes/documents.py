@@ -3,46 +3,44 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from stw_guide.api.deps import get_store
-from stw_guide.store import RecordStore
+from stw_guide.api.deps import get_db
+from stw_guide.repositories.documents import DocumentRepository
 
 router = APIRouter(prefix="/v1/documents", tags=["documents"])
 
 
 @router.get("")
 async def list_documents(
+    session: Annotated[AsyncSession, Depends(get_db)],
     q: str | None = None,
     limit: int = Query(default=20, ge=1, le=100),
-    store: Annotated[RecordStore, Depends(get_store)] = None,
 ):
-    """List and search STW documents."""
-
-    records = store.list_records()
-
-    if q:
-        search_text = q.lower()
-
-        records = [
-            record
-            for record in records
-            if search_text in " ".join(str(value) for value in record.values()).lower()
-        ]
+    repository = DocumentRepository(session)
+    documents = await repository.list_documents(q=q, limit=limit)
 
     return {
-        "total": len(records),
-        "items": records[:limit],
+        "total": len(documents),
+        "items": [
+            {
+                "id": d.external_id,
+                "title": d.title,
+                "source_url": d.source_url,
+                "doc_type": d.doc_type,
+            }
+            for d in documents
+        ],
     }
 
 
 @router.get("/{document_id}")
 async def get_document(
     document_id: str,
-    store: Annotated[RecordStore, Depends(get_store)] = None,
+    session: Annotated[AsyncSession, Depends(get_db)],
 ):
-    """Retrieve one STW document by ID."""
-
-    document = store.get_record(document_id)
+    repository = DocumentRepository(session)
+    document = await repository.get_document(document_id)
 
     if document is None:
         raise HTTPException(
@@ -50,4 +48,10 @@ async def get_document(
             detail=f"No document with id '{document_id}'.",
         )
 
-    return document
+    return {
+        "id": document.external_id,
+        "title": document.title,
+        "source_url": document.source_url,
+        "doc_type": document.doc_type,
+        "metadata": document.metadata_,
+    }

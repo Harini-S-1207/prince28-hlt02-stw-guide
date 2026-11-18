@@ -2,6 +2,8 @@
 
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 
 router = APIRouter()
 
@@ -14,20 +16,26 @@ async def health():
 
 @router.get("/ready")
 async def ready(request: Request):
-    """Check whether the application is ready."""
+    """Check whether PostgreSQL is reachable."""
 
-    store = getattr(request.app.state, "store", None)
+    try:
+        async with request.app.state.engine.connect() as connection:
+            await connection.execute(text("SELECT 1"))
 
-    records_loaded = store is not None and len(store.records) > 0
+        return {
+            "status": "ok",
+            "checks": {
+                "database": True,
+            },
+        }
 
-    response = {
-        "status": "ok" if records_loaded else "not_ready",
-        "checks": {
-            "records_loaded": records_loaded,
-        },
-    }
-
-    return JSONResponse(
-        status_code=200 if records_loaded else 503,
-        content=response,
-    )
+    except (SQLAlchemyError, OSError, TimeoutError):
+        return JSONResponse(
+            status_code=503,
+            content={
+                "status": "not_ready",
+                "checks": {
+                    "database": False,
+                },
+            },
+        )
