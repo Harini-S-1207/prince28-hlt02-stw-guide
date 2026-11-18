@@ -101,7 +101,6 @@ The loader:
 - Skips unchanged documents.
 - Uses external_id to identify existing documents.
 
-### Loader execution results
 
 ### Loader execution results
 
@@ -134,24 +133,37 @@ FROM documents
 WHERE metadata @> '{"specialty": "Cardiology"}'::jsonb;
 ```
 
-### Actual execution plan
 
-```text
-Seq Scan on documents  (cost=0.00..11.00 rows=1 width=178)
-(actual time=0.597..3.768 rows=5.00 loops=1)
+### Actual EXPLAIN ANALYZE Results
 
-Filter: (metadata @> '{"specialty": "Cardiology"}'::jsonb)
-
-Rows Removed by Filter: 15
-
-Buffers: shared hit=39 read=9 dirtied=3
-
-Planning:
-  Buffers: shared hit=144 read=7 dirtied=1
-
-Planning Time: 4.059 ms
-Execution Time: 3.795 ms
+Command:
+```bash
+uv run python scripts/explain.py specialty Cardiology
 ```
+
+**Normal planner:**
+```text
+Seq Scan on documents
+(actual time=2.226..3.659 rows=5.00 loops=1)
+Rows Removed by Filter: 15
+Execution Time: 3.687 ms
+```
+
+PostgreSQL selected Sequential Scan because the table contains only 20 records, making a full table scan cheaper than using an index.
+
+**With sequential scans disabled:**
+```text
+Bitmap Heap Scan on documents
+(actual time=3.167..3.196 rows=5.00 loops=1)
+  -> Bitmap Index Scan on ix_documents_metadata_gin
+     (actual time=3.106..3.106 rows=15.00 loops=1)
+Execution Time: 3.237 ms
+```
+
+This confirms that PostgreSQL can use the GIN index for JSONB containment filtering.
+
+**Conclusion:** The GIN index is available and usable. PostgreSQL's normal planner chooses the execution strategy based on estimated cost, table size, and selectivity.
+
 
 ### Query plan observations
 
