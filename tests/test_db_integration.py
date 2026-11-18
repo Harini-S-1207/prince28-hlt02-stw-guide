@@ -1,12 +1,14 @@
-"""Integration tests using a real PostgreSQL database."""
+"""Optional integration tests against a real PostgreSQL database."""
 
+import asyncio
 import os
+from uuid import uuid4
 
 import pytest
-from fastapi.testclient import TestClient
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from stw_guide.api.main import create_app
-from stw_guide.config import Settings
+from stw_guide.db.models import Document
+from stw_guide.db.repository import DocumentRepository
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")
 
@@ -16,33 +18,79 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-@pytest.fixture(scope="module")
-def integration_client():
-    settings = Settings(
-        app_env="ci",
-        database_url=TEST_DATABASE_URL,
-    )
+def run_integration_test(check):
+    async def run():
+        engine = create_async_engine(TEST_DATABASE_URL)
+        session_factory = async_sessionmaker(
+            engine,
+            expire_on_commit=False,
+        )
 
-    with TestClient(create_app(settings)) as client:
-        yield client
+        external_id = f"integration-{uuid4()}"
+        document = Document(
+            external_id=external_id,
+            title="Integration test guideline",
+            sha256=uuid4().hex,
+            metadata_={"condition": "integration-test"},
+        )
+
+        try:
+            async with session_factory() as session:
+                session.add(document)
+                await session.commit()
+
+                repo = DocumentRepository(session)
+                await check(repo, external_id)
+
+        finally:
+            async with session_factory() as session:
+                await session.execute(
+                    Document.__table__.delete().where(
+                        Document.external_id == external_id
+                    )
+                )
+                await session.commit()
+
+            await engine.dispose()
+
+    asyncio.run(run())
 
 
-def test_database_connection(integration_client):
-    response = integration_client.get("/ready")
+def test_postgres_get_document():
+    async def check(repo, external_id):
+        result = await repo.get(external_id)
+        assert result is not None
+        assert result["id"] == external_id
+        assert result["title"] == "Integration test guideline"
 
-    assert response.status_code == 200
-    assert response.json()["checks"]["database"] is True
-
-
-def test_list_documents_from_postgres(integration_client):
-    response = integration_client.get("/v1/documents")
-
-    assert response.status_code == 200
-    assert response.json()["total"] > 0
+    run_integration_test(check)
 
 
-def test_get_document_from_postgres(integration_client):
-    response = integration_client.get("/v1/documents/001")
+def test_postgres_list_documents():
+    async def check(repo, external_id):
+        total, items = await repo.list(
+            q="Integration test guideline",
+            filters={},
+            limit=100,
+            offset=0,
+        )
 
-    assert response.status_code == 200
-    assert response.json()["id"] == "001"
+        assert total >= 1
+        assert any(item["id"] == external_id for item in items)
+
+    run_integration_test(check)
+
+
+def test_postgres_jsonb_metadata_filter():
+    async def check(repo, external_id):
+        total, items = await repo.list(
+            q=None,
+            filters={"condition": "integration-test"},
+            limit=100,
+            offset=0,
+        )
+
+        assert total >= 1
+        assert any(item["id"] == external_id for item in items)
+
+    run_integration_test(check)
