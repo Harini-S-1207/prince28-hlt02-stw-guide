@@ -1,7 +1,6 @@
-
 [
   {
-    "id": "icmr-stw-001",
+    "id": "001",
     "condition": "Hypertension in Adults",
     "specialty": "Cardiology",
     "publication_date": "May 2026",
@@ -37,10 +36,10 @@
       "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1778941063_hypertensioninadults_final.pdf",
       "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
       "publication_date": "May 2026",
-       "page": 1
+      "page": 1
     },
     "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
-    },
+  },
   {
     "id": "002",
     "condition": "Atrial Fibrillation",
@@ -87,7 +86,7 @@
       "page": 1
     },
     "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
-  }  ,
+  },
   {
     "id": "003",
     "condition": "Acute Kidney Injury",
@@ -137,8 +136,7 @@
       "page": 1
     },
     "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
-  }
-    ,
+  },
   {
     "id": "004",
     "condition": "Acute Rhinosinusitis",
@@ -183,8 +181,7 @@
       "page": 1
     },
     "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
-  }
-    ,
+  },
   {
     "id": "005",
     "condition": "Diabetes Mellitus Type 2",
@@ -227,6 +224,662 @@
       "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1726567245_diabetes_mellitus_type_2.pdf",
       "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
       "publication_date": "July 2022",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "006",
+    "condition": "Bradyarrhythmias in Symptomatic Patients",
+    "specialty": "Cardiology",
+    "publication_date": "January 2025",
+    "red_flags": [
+      "Persistent pulse rate below 50 bpm with syncope, presyncope, dizziness, lethargy or fatigue",
+      "Hypotension (systolic BP below 90 mmHg), impaired consciousness or ongoing chest pain",
+      "Recurrent or ongoing syncope/presyncope",
+      "Headache with or without neurological deficit, raising concern for an intracranial event",
+      "ECG evidence of complete heart block, sinus-node disease with pauses longer than 3 seconds, or bradycardia below 50 bpm",
+      "Pre-existing implanted cardiac device in a symptomatic patient"
+    ],
+    "first_line": [
+      "Assess pulse and blood pressure and evaluate symptoms and clinical stability",
+      "Obtain a 12-lead ECG at PHC/CHC level when available",
+      "Review possible reversible causes, including beta-blockers, calcium-channel blockers, digoxin, hypothyroidism, kidney disease and sleep apnoea",
+      "For suspected beta-blocker or calcium-channel-blocker overdose, withhold the suspected drug as directed by the workflow",
+      "Identify and manage associated conditions such as hyperkalemia according to the ICMR workflow",
+      "For unstable patients, arrange urgent treatment and temporary pacemaker insertion; the workflow notes IV dopamine or isoprenaline may be used until temporary pacing can be placed"
+    ],
+    "investigations": [
+      "12-lead ECG",
+      "Blood urea and serum creatinine",
+      "Serum electrolytes",
+      "Blood glucose",
+      "Thyroid-stimulating hormone (TSH)",
+      "Transthoracic echocardiography",
+      "Additional testing when indicated: ambulatory ECG, cardiac MRI, implantable loop recorder or electrophysiological study"
+    ],
+    "referral_criteria": [
+      "Urgent referral for hypotension, impaired consciousness, ongoing chest pain or recurrent/ongoing syncope",
+      "Urgent referral for ECG evidence of complete heart block, sinus-node pauses longer than 3 seconds or heart rate below 50 bpm",
+      "Refer symptomatic patients with AV-conduction disease, including complete heart block, advanced AV block or Mobitz type II block, for specialist assessment and pacing consideration",
+      "Refer symptomatic sinus-node dysfunction with pauses longer than 3 seconds with symptom correlation or awake heart rate below 40/min",
+      "Refer unexplained syncope with bundle-branch block or documented transient high-grade AV block when no reversible cause is identified"
+    ],
+    "level_of_care": "Initial assessment and basic investigations at PHC/CHC; urgent transfer for unstable or high-risk patients; specialist cardiology assessment for conduction disease, additional testing and permanent pacing decisions",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Bradyarrhythmias in Symptomatic Patients",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1771492063_bradyarrthymia13_2_2.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "January 2025",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "007",
+    "condition": "Unstable Angina/NSTEMI",
+    "specialty": "Cardiology",
+    "publication_date": "January 2026",
+    "red_flags": [
+      "Chest pain lasting more than 20 minutes",
+      "Recurrent, ongoing or rest pain",
+      "Chest pain associated with breathlessness, profuse sweating or syncope",
+      "Hemodynamic instability",
+      "Acute left ventricular failure, hypotension, systolic murmur or arrhythmia"
+    ],
+    "first_line": [
+      "Obtain ECG and troponin at PHC/CHC level",
+      "Start the initial treatment listed in the STW: antiplatelet therapy, heparin/LMWH, high-dose statin and metoprolol, as clinically appropriate",
+      "Risk-stratify using GRACE or TIMI score",
+      "Admit and monitor at district hospital when indicated; very-high/high/intermediate-risk patients require PCI-capable-centre assessment"
+    ],
+    "investigations": [
+      "Hemogram",
+      "Creatinine",
+      "Blood sugar and HbA1c",
+      "Fasting lipids",
+      "ECG",
+      "Troponin T/I",
+      "Chest X-ray",
+      "Echocardiography",
+      "Optional: coronary angiography, CT coronary angiography, stress imaging or MRI"
+    ],
+    "referral_criteria": [
+      "High/intermediate-risk patients: refer to a PCI-capable centre",
+      "Low-risk patients: refer to district hospital for further evaluation",
+      "Acute LVF, hypotension, systolic murmur or arrhythmia: refer to a PCI-capable centre",
+      "Very-high-risk patients: immediate transfer; high-risk patients: same-day transfer; intermediate-risk patients: transfer for PCI within 72 hours",
+      "Persistent/recurrent pain, hemodynamic deterioration or new ECG change requires escalation"
+    ],
+    "level_of_care": "Initial assessment at PHC/CHC, monitored care at district hospital, and transfer to a PCI-capable tertiary centre according to risk",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Unstable Angina/NSTEMI",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1768823342_cardiology_1-4.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "January 2026",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "008",
+    "condition": "Stable Angina",
+    "specialty": "Cardiology",
+    "publication_date": "January 2026",
+    "red_flags": [
+      "Angina at rest or lasting more than 20 minutes",
+      "Recent worsening of stable angina",
+      "New-onset effort angina of less than one month",
+      "Associated breathlessness, profuse sweating or syncope; assess for acute coronary syndrome"
+    ],
+    "first_line": [
+      "At PHC/CHC, control angina with metoprolol with or without a dihydropyridine calcium-channel blocker; add nitrates if symptoms remain uncontrolled, as specified in the STW",
+      "Obtain ECG and assess for Q waves, ST-T changes, bundle branch block or chamber enlargement",
+      "Use aspirin and high-intensity statin as specified in the workflow",
+      "Address potentiating factors and cardiovascular risk factors; arrange follow-up according to risk"
+    ],
+    "investigations": [
+      "Hemogram",
+      "Urea, creatinine and electrolytes",
+      "Blood sugar",
+      "Lipids",
+      "ECG",
+      "Other investigations listed: echocardiography, exercise treadmill test, thyroid function test, iron profile, uric acid and HbA1c",
+      "Optional: stress radionuclide/echocardiographic imaging and CT coronary angiography"
+    ],
+    "referral_criteria": [
+      "Refer to STEMI/NSTEMI pathway for rest pain, pain lasting more than 20 minutes, crescendo symptoms or new-onset effort angina",
+      "Refer to tertiary centre if angina is uncontrolled on optimal medical therapy",
+      "Refer if echocardiography is abnormal, the patient is non-ambulatory, ECG is uninterpretable or exercise stress testing indicates high risk",
+      "Refer if symptomatic status changes"
+    ],
+    "level_of_care": "Primary/secondary care for initial management and follow-up; tertiary cardiology assessment for uncontrolled symptoms or high-risk findings",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Stable Angina",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1768823342_cardiology_1-6.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "January 2026",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "009",
+    "condition": "Chronic Rhinosinusitis",
+    "specialty": "ENT",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Orbital symptoms: periorbital oedema/erythema, displaced globe, double or reduced vision, or ophthalmoplegia",
+      "Possible intracranial/meningitis features: fever with headache, neck stiffness, photophobia, altered sensorium or vomiting",
+      "Frontal swelling",
+      "Known diabetes, AIDS or immunosuppressive medication use with concern for invasive fungal sinusitis"
+    ],
+    "first_line": [
+      "For mild/moderate symptoms, address the cause and exacerbating factors",
+      "For co-existing allergic rhinitis, use antihistamines and nasal steroid spray as described in the STW",
+      "Advise saline nasal wash",
+      "The workflow includes steam inhalation and regular physical activity",
+      "Consider intranasal steroid spray for 6-8 weeks after discussing risks, benefits and cost",
+      "Avoid prolonged topical nasal decongestant use; the STW warns about rebound congestion"
+    ],
+    "investigations": [
+      "Examine for nasal polyps and assess for allergic rhinitis",
+      "Consider skin-prick testing when allergy is suspected",
+      "If there is no symptomatic relief, perform nasal endoscopy and consider non-contrast CT of paranasal sinuses",
+      "Consider culture-directed antibiotics when purulent nasal discharge is present"
+    ],
+    "referral_criteria": [
+      "Urgent specialist assessment for orbital or intracranial red flags",
+      "Refer/escalate suspected invasive fungal sinusitis",
+      "If symptoms do not improve with initial treatment, perform further ENT evaluation including nasal endoscopy and consider CT PNS",
+      "Nasal polyps may require endoscopic surgical planning"
+    ],
+    "level_of_care": "Initial assessment and treatment with ENT evaluation/escalation for red flags, persistent symptoms or nasal polyps",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Chronic Rhinosinusitis",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952351_ent_chronic_rhinosinusitis.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "010",
+    "condition": "Epistaxis",
+    "specialty": "ENT",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Recurrent profuse bleeding",
+      "Unilateral bleeding, nasal obstruction, visual/orbital symptoms or an obvious mass lesion",
+      "Persistent bleeding despite nasal packing",
+      "Altered blood counts or coagulation profile",
+      "Possible aneurysmal bleeding, particularly following trauma"
+    ],
+    "first_line": [
+      "Ensure a patent airway and reduce aspiration risk with appropriate positioning",
+      "Restore hemodynamic stability with IV fluids/transfusion as indicated",
+      "Apply bidigital nasal compression for 10 minutes in Trotter's position",
+      "Identify and control the bleeding point; the STW includes cauterization for a Little's area bleeder",
+      "Use anterior nasal packing/epistaxis balloon when required; posterior packing is considered if bleeding is not controlled",
+      "Address the identified cause"
+    ],
+    "investigations": [
+      "Local examination with anterior rhinoscopy/endoscopy to identify the bleeding source",
+      "Hemoglobin level",
+      "Coagulation profile",
+      "Complete blood count",
+      "CT with contrast when there is no obvious cause or a benign/malignant lesion is suspected"
+    ],
+    "referral_criteria": [
+      "Persistent bleeding despite nasal packing",
+      "Recurrent profuse bleeding or suspected neoplasia",
+      "Altered blood counts/coagulation profile",
+      "Suspected aneurysmal bleeding or cases requiring tertiary-level treatment"
+    ],
+    "level_of_care": "Initial assessment and non-invasive control; hospital care after packing and tertiary ENT/interventional management for persistent or complicated bleeding",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Epistaxis",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952351_ent_epistaxis.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "011",
+    "condition": "Chronic Kidney Disease",
+    "specialty": "Nephrology",
+    "publication_date": "July 2026",
+    "red_flags": [],
+    "first_line": [
+      "Confirm CKD and assess stage, progression rate and cause; the STW notes confirmation with repeat tests after 3 months",
+      "Identify and treat reversible factors such as hypertension, volume loss, obstruction and infection",
+      "Monitor and manage complications including anaemia, bone disease, electrolyte disorders and cardiovascular disease",
+      "Advise salt restriction below 5 g/day and protein intake of 0.8 g/kg/day as stated in the workflow",
+      "Control blood pressure and diabetes according to the STW, with careful monitoring of medicines and kidney function",
+      "At district/tertiary level, investigate the cause, manage complications and discuss renal replacement therapy when indicated"
+    ],
+    "investigations": [
+      "Serum creatinine, electrolytes and bicarbonate",
+      "eGFR using CKD-EPI for adults or Modified Schwartz equation for children",
+      "Urinalysis/sediment examination and proteinuria quantification",
+      "Ultrasound of kidneys and urinary tract",
+      "Calcium, phosphate, alkaline phosphatase and albumin",
+      "CBC including peripheral blood film",
+      "Iron profile: serum iron, TIBC and TSAT"
+    ],
+    "referral_criteria": [
+      "Refer to a nephrologist if calcium, phosphate, vitamin D, PTH or alkaline phosphatase abnormalities are identified",
+      "At eGFR below 30, discuss renal replacement therapy options and preserve veins for possible AV fistula as directed by the workflow",
+      "District/tertiary assessment for cause-specific work-up, complications, dialysis access or transplant evaluation"
+    ],
+    "level_of_care": "Community/primary monitoring, district-hospital assessment and complication management, and tertiary nephrology care for advanced work-up, renal replacement therapy or transplantation",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Chronic Kidney Disease (CKD)",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1784807344_chronickidneydisease-updated.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "July 2026",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "012",
+    "condition": "Urinary Tract Infection",
+    "specialty": "Nephrology",
+    "publication_date": "July 2026",
+    "red_flags": [
+      "Fever above 100 F",
+      "Chills and rigors",
+      "Tachycardia",
+      "Tachypnea",
+      "Hypotension",
+      "Costovertebral-angle tenderness",
+      "Obtundation",
+      "Recurrent UTI or UTI after recent instrumentation"
+    ],
+    "first_line": [
+      "Make a clinical diagnosis and distinguish uncomplicated from complicated UTI",
+      "Assess vital signs, renal-angle tenderness, perineal tenderness and high-risk conditions",
+      "Do not routinely send urine culture for uncomplicated UTI; the STW recommends culture when complicated UTI/red flags or other specified indications are present",
+      "Select treatment according to UTI type, pregnancy/age group and culture-sensitivity results",
+      "Provide symptomatic care as described in the workflow"
+    ],
+    "investigations": [
+      "Urine dipstick/urinalysis when needed to support diagnosis",
+      "Urine culture for complicated/high-risk or non-resolving cases as specified in the STW",
+      "Blood culture for selected complicated UTI management",
+      "Imaging when indicated, including further imaging for recurrent UTI or abnormal ultrasound",
+      "Assess renal function when clinically indicated"
+    ],
+    "referral_criteria": [
+      "Refer upper UTI/pyelonephritis, infants with UTI and recurrent UTI",
+      "Refer bowel-bladder dysfunction and known CAKUT or vesicoureteral reflux",
+      "Refer for obstruction/urology services, non-resolving infection or complicated recurrent UTI",
+      "Escalate when red-flag signs are present"
+    ],
+    "level_of_care": "Primary/secondary care for uncomplicated cases; tertiary/urology care for complicated, obstructive, recurrent or non-resolving cases",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Urinary Tract Infections",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1784807340_uti.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "July 2026",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "013",
+    "condition": "Epilepsy",
+    "specialty": "Neurology",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Convulsive seizure lasting more than 5 minutes with loss of consciousness (status epilepticus; medical emergency)",
+      "Fever",
+      "Headache",
+      "Vomiting",
+      "Altered sensorium",
+      "Severe giddiness",
+      "Progressive problems, rapid appearance of new symptoms or recent injury"
+    ],
+    "first_line": [
+      "Obtain detailed history, preferably from an eyewitness, and distinguish provoked seizures from epilepsy",
+      "The STW defines epilepsy treatment consideration as two or more unprovoked seizures; a single seizure may warrant treatment when recurrence risk is high",
+      "Use antiepileptic treatment according to the workflow; it advises a broad-spectrum drug, low dose and gradual titration except in status epilepticus",
+      "Provide emergency medical care for status epilepticus",
+      "Counsel on adherence, side effects, seizure diary, regular sleep and avoiding triggers"
+    ],
+    "investigations": [
+      "CBC/hemogram",
+      "Liver function tests",
+      "Routine biochemistry",
+      "Lipid profile",
+      "Vitamin D and thyroid function tests where feasible",
+      "Antiepileptic drug levels when appropriate",
+      "Brain CT/neuroimaging when necessary"
+    ],
+    "referral_criteria": [
+      "Progressive problems or rapid appearance of new symptoms",
+      "Recent injury or symptoms after alcohol binge",
+      "Status epilepticus after stabilization",
+      "Non-response to adequate dose and duration of medication",
+      "Serious medication side effects or red-flag signs"
+    ],
+    "level_of_care": "Initial diagnosis and treatment at PHC; district hospitals with paediatrician/physician/neurologist for referral cases; specialist follow-up for difficult patients",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Epilepsy",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952345_neurology_epilepsy.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "014",
+    "condition": "Stroke",
+    "specialty": "Neurology",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Sudden weakness or numbness, especially on one side",
+      "Facial deviation or arm drift",
+      "Sudden speech or understanding difficulty",
+      "Sudden blurred/double vision or loss of balance/coordination",
+      "Sudden severe headache or loss of consciousness",
+      "Sudden giddiness, vomiting and imbalance"
+    ],
+    "first_line": [
+      "Assess and manage airway, breathing and circulation",
+      "Start cardiac monitoring, maintain oxygen saturation above 94% and establish IV access",
+      "Check blood glucose and treat accordingly",
+      "Record symptom-onset time/last-known-well time and obtain family contact details",
+      "Triage and rapidly transfer to the nearest district hospital with CT or a stroke centre with thrombolysis capability"
+    ],
+    "investigations": [
+      "Non-contrast brain CT or brain MRI",
+      "Blood glucose and oxygen saturation",
+      "Serum electrolytes and renal function",
+      "CBC including platelet count",
+      "Markers of cardiac ischemia",
+      "Bleeding time/clotting time, PT/INR and aPTT",
+      "ECG",
+      "Selected: CTA, echocardiogram, MRI/MRA and Holter monitoring"
+    ],
+    "referral_criteria": [
+      "All suspected acute stroke requires rapid transfer to a district hospital with CT or a stroke centre with thrombolysis capability",
+      "Notify the receiving hospital before transfer where possible"
+    ],
+    "level_of_care": "Immediate first response and transfer from initial-care facility to district stroke-capable hospital or tertiary stroke centre; stroke-unit management and rehabilitation thereafter",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Stroke",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952342_neurology_stroke.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "015",
+    "condition": "Heavy Menstrual Bleeding",
+    "specialty": "Obstetrics & Gynecology",
+    "publication_date": "December 2025",
+    "red_flags": [
+      "Haemoglobin below 7 g/dL",
+      "Acute ongoing blood loss"
+    ],
+    "first_line": [
+      "Exclude pregnancy in women of reproductive age after appropriate consent",
+      "Take history, examine the patient and use ultrasonography as directed by the workflow",
+      "The STW lists supportive/conservative options including tranexamic acid, NSAIDs, progestogens, oral contraceptive pills, LNG-IUS and ormeloxifene according to the clinical pathway",
+      "Treat an identified underlying cause, such as thyroid or bleeding disorder, where present",
+      "For acute bleeding, follow the STW's urgent management pathway"
+    ],
+    "investigations": [
+      "Hemoglobin",
+      "CBC with peripheral smear",
+      "Bleeding time/clotting time",
+      "ABO and Rh typing",
+      "Thyroid function test/TSH",
+      "Ultrasound of abdomen and pelvis",
+      "Selected cases: SIS/hysteroscopy and MRI",
+      "Exclude pregnancy"
+    ],
+    "referral_criteria": [
+      "Refer to a higher centre if haemoglobin is below 7 g/dL or there is acute ongoing blood loss",
+      "Refer if there is no relief or recurrence after treatment",
+      "Refer for structural abnormality, atypical hyperplasia/malignancy, adnexal mass or other abnormal findings",
+      "Post-menopausal bleeding requires higher-level evaluation in the workflow"
+    ],
+    "level_of_care": "Primary-level assessment and treatment, CHC/secondary-level evaluation, and tertiary gynaecology care for persistent bleeding, abnormal findings or procedures",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Heavy Menstrual Bleeding (HMB)",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1768382529_updatedheavymenstrualbleeding.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "December 2025",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "016",
+    "condition": "Postpartum Haemorrhage",
+    "specialty": "Obstetrics & Gynecology",
+    "publication_date": "December 2025",
+    "red_flags": [
+      "Blood loss above 500 ml or any bleeding causing derangement of vital parameters",
+      "Pulse rate above 120/min",
+      "Systolic blood pressure below 100 mmHg",
+      "Oxygen saturation below 95%",
+      "Shock index above 1",
+      "Deterioration of sensorium"
+    ],
+    "first_line": [
+      "Call for help and rapidly assess pulse, blood pressure, respiratory rate and temperature",
+      "Establish two wide-bore IV lines and send blood for grouping/cross-match",
+      "Start IV crystalloid as directed by the workflow and provide oxygen",
+      "Monitor vital signs, blood loss and input/output frequently",
+      "Give oxytocin as specified in the workflow; perform uterine/fundal massage and assess placental completeness",
+      "For traumatic bleeding, identify and repair genital-tract tears; for atonic bleeding, follow the uterine-compression and pharmacotherapy pathway"
+    ],
+    "investigations": [
+      "Blood grouping and cross-match",
+      "Assess for coagulation defects when bleeding continues or coagulopathy is suspected",
+      "Frequent monitoring of vital signs, blood loss and input/output"
+    ],
+    "referral_criteria": [
+      "Timely referral to a higher centre when blood transfusion, exploration or surgical-intervention facilities are unavailable",
+      "Transport with IV fluids containing oxytocin running and uterine/vaginal tamponade in situ where appropriate and available",
+      "Escalate for persistent bleeding, suspected uterine rupture/scar dehiscence or need for surgical intervention"
+    ],
+    "level_of_care": "Immediate stabilization at the treating facility with urgent transfer to a higher centre when blood products, exploration or surgery are not available",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Postpartum Haemorrhage",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1768382528_updatedpostpartumhaemorrhage.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "December 2025",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "017",
+    "condition": "Dengue Fever",
+    "specialty": "Paediatrics",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Cold extremities or restlessness",
+      "Acute abdominal pain",
+      "Decreased urine output",
+      "Bleeding or hemoconcentration",
+      "Rising PCV with thrombocytopenia",
+      "Persistent vomiting",
+      "Clinical fluid accumulation such as pleural effusion or ascites",
+      "Mucosal bleeding, liver enlargement above 2 cm, shock, severe bleeding or impaired consciousness"
+    ],
+    "first_line": [
+      "Suspect dengue with fever and at least two compatible symptoms in a person living in or travelling to a dengue-endemic area",
+      "For probable dengue without warning signs, use symptomatic ambulatory management and daily clinical/PCV/platelet monitoring as specified",
+      "The STW specifies paracetamol for fever and avoidance of NSAIDs",
+      "Assess airway, breathing and circulation; in shock, begin the emergency pathway and arrange urgent referral with monitoring"
+    ],
+    "investigations": [
+      "Hemoglobin, TLC, DLC, platelet count and PCV",
+      "Tourniquet test",
+      "NS1 antigen (ELISA)",
+      "Chest X-ray",
+      "Liver and renal function tests",
+      "CPK and albumin",
+      "Ultrasound abdomen",
+      "Dengue IgM",
+      "Selected: echocardiography, PCR and CVP monitoring"
+    ],
+    "referral_criteria": [
+      "Refer for warning signs including cold extremities, restlessness, abdominal pain, reduced urine output, bleeding/hemoconcentration or rising PCV with thrombocytopenia",
+      "Shock or severe dengue requires urgent referral to a facility with PICU capability and continuous monitoring"
+    ],
+    "level_of_care": "Ambulatory monitoring for dengue without warning signs; hospital/PICU care for warning signs, shock or severe dengue",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Dengue Fever",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952338_paediatrics_dengue_fever.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "018",
+    "condition": "Acute Diarrhea",
+    "specialty": "Paediatrics",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Severe dehydration",
+      "Severe malnutrition or HIV",
+      "Hypernatremic or hyponatremic dehydration",
+      "Dysentery in a child under 1 year or with recent measles/dehydration/systemic illness",
+      "Dysentery not improving with antibiotics",
+      "Persistent diarrhea with dehydration or serious systemic infection",
+      "Poor drinking, repeated vomiting, marked thirst, fever or blood in stools"
+    ],
+    "first_line": [
+      "Assess general condition, nutritional status and dehydration; classify dehydration using the workflow",
+      "Use the appropriate Plan A, B or C management pathway",
+      "For some dehydration, the STW specifies ORS in a clinic/daycare setting with reassessment after four hours",
+      "Continue age-appropriate feeding and fluids; provide zinc and caregiver education as specified in the workflow",
+      "For dysentery, follow the source's treatment and reassessment pathway"
+    ],
+    "investigations": [
+      "Some dehydration: electrolytes preferred",
+      "Severe dehydration: CBC and electrolytes; renal function tests and VBG preferred",
+      "Suspected cholera: stool hanging-drop test and stool culture preferred",
+      "Dysentery not responding to antibiotics: stool culture and stool routine for amoebic trophozoites",
+      "Persistent diarrhea: stool and urine microscopy, urine culture and sepsis screen"
+    ],
+    "referral_criteria": [
+      "Refer to hospital for severe malnutrition/HIV, severe dehydration, significant sodium abnormality, specified dysentery, persistent diarrhea with dehydration or serious systemic infection",
+      "Urgent referral for severe dehydration/shock; continue rehydration during transport as described in the STW"
+    ],
+    "level_of_care": "Clinic/daycare management for selected dehydration categories; hospital care for severe dehydration, malnutrition, persistent/systemic illness or other referral criteria",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Acute Diarrhea",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952338_paediatrics_diarrhea.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "019",
+    "condition": "Asthma",
+    "specialty": "Pulmonology",
+    "publication_date": "October 2019",
+    "red_flags": [
+      "Life-threatening features: altered sensorium, orthopnea, cyanosis, paradoxical breathing, hypotension or bradycardia",
+      "Severe acute asthma: inability to complete sentences, agitation, accessory-muscle use, respiratory rate above 30/min, heart rate above 110/min, pulsus paradoxus above 25 mmHg, silent chest or room-air SpO2 below 92%"
+    ],
+    "first_line": [
+      "Clinical assessment is the mainstay of diagnosis",
+      "Inhaled drugs are the mainstay of pharmacotherapy; treatment initiation depends on symptom frequency in the STW",
+      "Educate about adherence, warning signs, triggers, inhaler technique and peak expiratory flow monitoring",
+      "Reassess after 3-4 weeks; the workflow notes that a good response supports the diagnosis",
+      "Manage acute exacerbations according to severity; severe acute asthma requires admission and oxygen/bronchodilator/steroid treatment as detailed in the source"
+    ],
+    "investigations": [
+      "Spirometry, if available, to assess airway obstruction and bronchodilator reversibility",
+      "Peak expiratory flow monitoring as described in the workflow",
+      "Clinical assessment and exclusion of alternative diagnoses"
+    ],
+    "referral_criteria": [
+      "Immediately refer life-threatening exacerbation to a higher centre with ICU facility",
+      "Admit severe acute asthma; refer if there is no improvement",
+      "Refer for further diagnostic work-up if the diagnosis is uncertain"
+    ],
+    "level_of_care": "Outpatient management for non-severe asthma; hospital admission and higher-centre/ICU referral for severe or life-threatening exacerbations",
+    "source": {
+      "title": "Standard Treatment Workflow (STW) for the Management of Asthma",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1725952329_pulmonology_asthma.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "October 2019",
+      "page": 1
+    },
+    "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
+  },
+  {
+    "id": "020",
+    "condition": "Acute Urinary Retention in Men",
+    "specialty": "Urology",
+    "publication_date": "November 2025",
+    "red_flags": [
+      "Sudden, painful inability to pass urine despite a full bladder (acute emergency)",
+      "Fever",
+      "Enlarged, tender, palpable bladder",
+      "Phimosis, meatal stenosis, urethral induration, stone or urethral discharge",
+      "Complications such as urinary tract infection or acute kidney injury"
+    ],
+    "first_line": [
+      "Treat acute urinary retention as an emergency",
+      "The STW states that no investigation is required before catheterization to relieve symptoms",
+      "Attempt gentle urethral catheterization at PHC/CHC using aseptic, atraumatic technique and adequate lubrication",
+      "Document the volume of urine drained",
+      "If catheterization fails, refer to a urologist; suprapubic cystostomy is an option only where appropriately trained staff are available",
+      "The workflow describes keeping the catheter for 1-3 days and subsequent trial without catheter according to the pathway"
+    ],
+    "investigations": [
+      "After initial relief, desirable tests include CBC, serum glucose, serum creatinine and electrolytes",
+      "Ultrasound KUB",
+      "Urine analysis and urine culture of drained urine",
+      "Cystoscopy, CT/MRI, RGU/MCU and urodynamic studies are optional specialist investigations and are not routine"
+    ],
+    "referral_criteria": [
+      "Refer to a urologist if urethral catheterization fails",
+      "Hospitalize patients with significant comorbidities or complications",
+      "Refer for specialist assessment when suprapubic catheterization is not safely available or the underlying cause requires specialist management"
+    ],
+    "level_of_care": "Initial emergency catheterization at PHC/CHC when trained staff and facilities are available; urology/district/tertiary care for failed catheterization, complications or significant comorbidities",
+    "source": {
+      "title": "Standard Treatment Workflow (STW): Acute Urinary Retention in Men (AUR)",
+      "publisher": "Indian Council of Medical Research",
+      "url": "https://www.icmr.gov.in/icmrobject/uploads/STWs/1768800257_acuteurinaryretentioninmen3.pdf",
+      "portal": "https://www.icmr.gov.in/standard-treatment-workflows-stws",
+      "publication_date": "November 2025",
       "page": 1
     },
     "disclaimer": "Structured summary of the cited ICMR workflow. Not a substitute for the complete document or clinical judgement."
