@@ -67,3 +67,38 @@ def test_app_refuses_to_start_without_app_env(monkeypatch):
     monkeypatch.delenv("APP_ENV", raising=False)
     with pytest.raises(ValidationError):
         Settings(_env_file=None)
+
+
+def test_list_documents_default_limit(client):
+    response = client.get("/v1/documents")
+    assert response.status_code == 200
+    assert response.json()["total"] == 3
+
+
+def test_search_by_external_id(client):
+    response = client.get("/v1/documents", params={"q": "002"})
+    assert response.status_code == 200
+    assert [item["id"] for item in response.json()["items"]] == ["002"]
+
+
+def test_search_with_no_matches(client):
+    response = client.get("/v1/documents", params={"q": "unknown"})
+    assert response.status_code == 200
+    assert response.json()["items"] == []
+    assert response.json()["total"] == 0
+
+
+def test_maximum_limit_is_accepted(client):
+    response = client.get("/v1/documents", params={"limit": 100})
+    assert response.status_code == 200
+
+
+def test_limit_above_maximum_is_422(client):
+    response = client.get("/v1/documents", params={"limit": 101})
+    assert response.status_code == 422
+
+
+def test_document_response_includes_metadata(client):
+    response = client.get("/v1/documents/001")
+    assert response.status_code == 200
+    assert response.json()["metadata"]["id"] == "001"
