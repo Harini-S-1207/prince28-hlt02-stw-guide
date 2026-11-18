@@ -84,7 +84,7 @@ class Page(Base):
 
     document: Mapped[Document] = relationship(back_populates="pages")
 
-    ____table_args__ = (
+    __table_args__ = (
         UniqueConstraint(
             "document_id",
             "page_no",
