@@ -15,7 +15,7 @@ def test_ready_when_database_is_available(client):
     response = client.get("/ready")
 
     assert response.status_code == 200
-    assert response.json()["status"] == "ready"
+    assert response.json()["status"] == "ok"
     assert response.json()["checks"]["database"] is True
 
 

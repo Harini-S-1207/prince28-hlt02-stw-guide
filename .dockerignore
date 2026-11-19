@@ -1,0 +1,31 @@
+# Git and virtual environments
+.git/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Tests and caches
+tests/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Unnecessary project files
+.vscode/
+.idea/
+*.log
+*.md
+!README.md
+
+# Unnecessary data and build files
+data/raw/
+data/*backup*.json
+data/stw_records_007_to_020.json
+docker/
+merge_stw_records.py
