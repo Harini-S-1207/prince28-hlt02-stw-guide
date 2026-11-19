@@ -3,7 +3,7 @@ from types import SimpleNamespace
 import pytest
 from fastapi.testclient import TestClient
 
-from stw_guide.api.deps import check_db, get_repo
+from stw_guide.api.deps import get_repo
 from stw_guide.api.main import create_app
 from stw_guide.config import Settings
 
@@ -39,6 +39,36 @@ class FakeRepo:
         return {**row, "metadata": row}
 
 
+class FakeConnection:
+    """Simulate a database connection for readiness tests."""
+
+    def __init__(self, state):
+        self.state = state
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        return False
+
+    async def execute(self, statement):
+        if self.state.fail:
+            raise OSError("Simulated database failure")
+
+
+class FakeEngine:
+    """Simulate the database engine used by the readiness endpoint."""
+
+    def __init__(self, state):
+        self.state = state
+
+    def connect(self):
+        return FakeConnection(self.state)
+
+    async def dispose(self):
+        pass
+
+
 @pytest.fixture
 def settings():
     return Settings(
@@ -56,10 +86,10 @@ def db_state():
 @pytest.fixture
 def client(settings, db_state):
     app = create_app(settings)
+    app.state.engine = FakeEngine(db_state)
     app.state.test_engine = db_state
 
     app.dependency_overrides[get_repo] = lambda: FakeRepo(SAMPLE)
-    app.dependency_overrides[check_db] = lambda: not db_state.fail
 
     with TestClient(app) as test_client:
         yield test_client

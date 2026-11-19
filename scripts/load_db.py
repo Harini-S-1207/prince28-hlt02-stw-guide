@@ -1,7 +1,6 @@
 import asyncio
 import hashlib
 import json
-from pathlib import Path
 
 from sqlalchemy import select
 
@@ -9,13 +8,14 @@ from stw_guide.config import get_settings
 from stw_guide.db.models import Document
 from stw_guide.db.session import make_engine, make_sessionmaker
 
-DATA_FILE = Path("data/sample_records.json")
+# DATA_FILE = Path("data/sample_records.json")
 
 
 async def load_records():
-    records = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    settings = get_settings()
+    records = json.loads(settings.data_file.read_text(encoding="utf-8"))
 
-    engine = make_engine(get_settings())
+    engine = make_engine(settings)
     SessionLocal = make_sessionmaker(engine)
 
     inserted = 0
