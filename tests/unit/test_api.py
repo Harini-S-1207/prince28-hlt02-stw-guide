@@ -12,6 +12,13 @@ def test_health_is_ok(client):
     assert response.json()["version"] == "dev"
 
 
+def test_health_supports_head(client):
+    response = client.head("/health")
+
+    assert response.status_code == 200
+    assert response.content == b""
+
+
 def test_git_sha_comes_from_the_environment(monkeypatch):
     monkeypatch.setenv("GIT_SHA", "3f2c1ab")
 
