@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     data_file: Path = Path("data/sample_records.json")
     database_url: str
+    git_sha: str = "dev"
 
     @field_validator("database_url", mode="before")
     @classmethod

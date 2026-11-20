@@ -33,6 +33,11 @@ COPY --chown=app:app data/sample_records.json ./data/sample_records.json
 
 ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
 
+# CI passes the commit SHA so /health identifies the running version.
+# A new SHA rebuilds only this small final layer.
+ARG GIT_SHA=dev
+ENV GIT_SHA=${GIT_SHA}
+
 USER app
 
 EXPOSE 8000

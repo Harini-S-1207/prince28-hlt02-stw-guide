@@ -1,41 +1,35 @@
-"""Health and readiness endpoints."""
+from fastapi import APIRouter, Response
 
-from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse
-from sqlalchemy import text
-from sqlalchemy.exc import SQLAlchemyError
+from stw_guide.api.deps import DbCheckDep, SettingsDep
 
-router = APIRouter()
+router = APIRouter(tags=["health"])
 
 
 @router.get("/health")
-async def health():
-    """Check whether the application is alive."""
-    return {"status": "ok"}
+def health(settings: SettingsDep) -> dict[str, str]:
+    """Liveness: is the process alive? Instant. Never touches the DB or the LLM."""
+    return {
+        "status": "ok",
+        "app": settings.app_name,
+        "env": settings.app_env,
+        "version": settings.git_sha,
+    }
 
 
 @router.get("/ready")
-async def ready(request: Request):
-    """Check whether PostgreSQL is reachable."""
+async def ready(
+    db_ok: DbCheckDep,
+    response: Response,
+) -> dict:
+    """Readiness: can this instance serve traffic right now?"""
 
-    try:
-        async with request.app.state.engine.connect() as connection:
-            await connection.execute(text("SELECT 1"))
+    checks = {"database": db_ok}
+    ok = all(checks.values())
 
-        return {
-            "status": "ok",
-            "checks": {
-                "database": True,
-            },
-        }
+    if not ok:
+        response.status_code = 503
 
-    except (SQLAlchemyError, OSError, TimeoutError):
-        return JSONResponse(
-            status_code=503,
-            content={
-                "status": "not_ready",
-                "checks": {
-                    "database": False,
-                },
-            },
-        )
+    return {
+        "status": "ready" if ok else "not_ready",
+        "checks": checks,
+    }
