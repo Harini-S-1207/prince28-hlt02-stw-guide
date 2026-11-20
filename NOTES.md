@@ -428,6 +428,15 @@ Status: Implementation and verification completed; 100% statement and branch cov
 - **Roll-forward workflow:** CD #6
 - **Roll-forward result:** Successful.
 
+### Rollback and Roll-forward Timing
+
+| Operation | GitHub Actions Run | Total Duration | Deploy Job Duration | Result |
+|---|---|---:|---:|---|
+| Rollback | CD #5 | 51 seconds | 47 seconds | Successful |
+| Roll-forward | CD #6 | 47 seconds | 43 seconds | Successful |
+
+Both operations were manually triggered using the GitHub Actions CD workflow. Exact start and completion clock times were not captured in the screenshots.
+
 **Why is keeping the newer database schema safe during rollback?**
 
 The rollback restores an older application image without reversing database migrations. This is safe when the newer schema remains backward-compatible with the older application version and no destructive schema changes have been introduced.
