@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from stw_guide.config import Settings
+from stw_guide.config import Settings, get_settings
 
 
 def test_health_is_ok(client):
@@ -148,3 +148,19 @@ def test_document_response_includes_metadata(client):
 
     assert response.status_code == 200
     assert response.json()["metadata"]["id"] == "001"
+
+
+def test_get_settings_is_cached(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("APP_ENV", "ci")
+    monkeypatch.setenv("DATABASE_URL", "postgresql://localhost/db")
+
+    get_settings.cache_clear()
+
+    first = get_settings()
+    second = get_settings()
+
+    assert first is second
+    assert first.app_env == "ci"
+
+    get_settings.cache_clear()
