@@ -1,0 +1,43 @@
+
+name: CD - Deploy to Render
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy and verify
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render deployment
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK"
+
+      - name: Verify live deployment
+        env:
+          LIVE_URL: ${{ vars.LIVE_URL }}
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          for i in {1..30}; do
+            if curl -fsS "$LIVE_URL/health" -o health.json; then
+              if grep -q "$EXPECTED_SHA" health.json; then
+                echo "Deployment verified successfully!"
+                cat health.json
+                exit 0
+              fi
+            fi
+            echo "Waiting for the new version... ($i/30)"
+            sleep 10
+          done
+
+          echo "Deployment verification failed."
+          exit 1
