@@ -392,3 +392,69 @@ The clean-clone verification passed.
 Project: STW Guide
 Task: D04 – Docker, Compose and Tests
 Status: Implementation and verification completed; 100% statement and branch coverage achieved.
+
+## D05 · CI/CD and Going Live
+
+### Deployment Details
+
+- **Live URL:** https://stw-guide.onrender.com
+- **API documentation:** https://stw-guide.onrender.com/docs
+- **Health endpoint:** https://stw-guide.onrender.com/health
+- **Readiness endpoint:** https://stw-guide.onrender.com/ready
+- **CI/CD platform:** GitHub Actions
+- **Hosting platform:** Render
+- **Database:** Neon PostgreSQL
+- **Container registry:** GitHub Container Registry (GHCR)
+
+### CI/CD Verification
+
+- **CI workflow:** Passed on pull requests.
+- **CD workflow:** Automatically triggered after successful CI on main.
+- **Deployment strategy:** Deploy the exact SHA-tagged Docker image tested by CI.
+- **Database migrations:** Executed before normal deployments.
+- **Smoke tests:** Verified `/health`, `/ready`, and `/v1/documents?limit=1`.
+- **Latest deployed commit:** `094fcd91b7ad19c961e562a4354dd74939f679d3`
+- **Latest successful roll-forward:** CD #6.
+
+### Rollback Drill
+
+- **Rolled back to SHA:** `a025da842684420020aef00657d8e64fbda4dd0e`
+- **Rollback workflow:** CD #5
+- **Rollback result:** Successful.
+- **Neon migrations:** Skipped during rollback.
+- **Render deployment:** Successful.
+- **Smoke test:** Passed.
+- **Rolled forward to SHA:** `094fcd91b7ad19c961e562a4354dd74939f679d3`
+- **Roll-forward workflow:** CD #6
+- **Roll-forward result:** Successful.
+
+**Why is keeping the newer database schema safe during rollback?**
+
+The rollback restores an older application image without reversing database migrations. This is safe when the newer schema remains backward-compatible with the older application version and no destructive schema changes have been introduced.
+
+### Where My Secrets Live
+
+- Neon connection string: GitHub Actions secret `DATABASE_URL` and Render environment variable.
+- Render deploy hook: GitHub Actions secret `RENDER_DEPLOY_HOOK`.
+- Secrets are not committed to Git or included in the Docker image.
+
+### Monitoring
+
+- **Monitoring service:** UptimeRobot.
+- **Monitored endpoint:** https://stw-guide.onrender.com/health
+- **Monitoring interval:** 5 minutes.
+- **Alert method:** Email.
+- **Latest monitor status:** UP.
+
+### Deployment Improvement
+
+One improvement for faster first requests is configuring an appropriate always-on hosting plan or a lightweight warm-up strategy to reduce cold-start delays.
+
+### Week 1 Status
+
+- CI pipeline: Completed.
+- CD pipeline: Completed.
+- Live deployment: Verified.
+- Uptime monitoring: Configured.
+- Rollback and roll-forward: Successfully tested.
+- README badges and live links: Added.
