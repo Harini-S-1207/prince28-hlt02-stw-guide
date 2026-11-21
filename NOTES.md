@@ -27,7 +27,7 @@ Development quality checks and repository safeguards were configured.
 The initial project documentation and automated test foundation were established. The project README was prepared, and tests were added to verify core API behavior and configuration.
 5. Day 1 Outcome
 The initial STW Guide foundation was established with a structured Python package, FastAPI skeleton, core API components, development quality gates and initial documentation. This provided the base for the PostgreSQL implementation and Docker work completed in later days.
-D03 – PostgreSQL Implementation Notes
+## D03 – PostgreSQL Implementation Notes
 1. Database Setup
 - Database: Neon PostgreSQL
 - PostgreSQL version: 18.7
