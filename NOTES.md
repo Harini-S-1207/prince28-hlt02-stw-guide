@@ -517,8 +517,7 @@ Six additional individual ICMR documents from other specialties were also retain
 - The additional manifest record comes from the deleted-file recovery test.
 - The manifest was preserved as an append-only download history.
 
-**Conclusion:** The original target of 40 STWs across five specialties was exceeded, with 44 collected across the selected specialties and 50 PDFs overall.
-
+**Conclusion:** Collected 44 PDFs across the five selected specialties and 50 PDFs overall. The exact number of distinct STWs represented by these documents is still being validated, so achievement of the original target of 40 STWs is not yet confirmed.
 
 ## D06 · Collecting the corpus
 
