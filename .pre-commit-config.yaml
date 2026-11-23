@@ -10,16 +10,19 @@ repos:
       - id: check-toml
       - id: check-added-large-files
         args: ["--maxkb=500"]
+        exclude: ^data/manifest\.jsonl$  # The manifest is an append-only log and can grow.
       - id: detect-private-key
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.17.4
     hooks:
       - id: ruff-check
         args: ["--fix"]
       - id: ruff-format
+
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
       - id: detect-secrets
-        # uv.lock hashes and Alembic revision ids look random but are not secrets
-        exclude: ^(uv\.lock|migrations/versions/.*)$
+        # uv.lock hashes, Alembic revision IDs and manifest SHA-256 fingerprints are not secrets.
+        exclude: ^(uv\.lock|migrations/versions/.*|data/manifest\.jsonl)$

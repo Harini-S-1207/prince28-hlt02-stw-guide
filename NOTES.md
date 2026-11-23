@@ -467,3 +467,93 @@ One improvement for faster first requests is configuring an appropriate always-o
 - Uptime monitoring: Configured.
 - Rollback and roll-forward: Successfully tested.
 - README badges and live links: Added.
+
+### Day 06 – Section 3: Kill it and Resume
+
+**Resume and recovery test results**
+
+| Test | Downloaded | Skipped | Result |
+|---|---:|---:|---|
+| Interrupted run | 1 | — | Passed – stopped safely |
+| Resume run | 9 | 1 | Passed |
+| Third run | 0 | 10 | Passed – no duplicate downloads |
+| Deleted-file recovery | 1 | 9 | Passed – missing file restored |
+
+**Additional verification:**
+- No `.part` files remained after the interrupted download.
+- Completed files were preserved.
+- The manifest recorded completed downloads.
+- Missing files were downloaded again automatically.
+
+**Conclusion:** The downloader supports safe interruption, resuming, duplicate prevention, and recovery of missing files.
+
+### Day 06 – Section 4: Reach Your Start Target
+
+**Corpus collection completed**
+
+- Total PDF files downloaded: 50
+- Unique source URLs: 50
+- Manifest records: 51
+- Duplicate download-history records: 1
+- Download failures: 0
+- Blocked sources: 0
+
+**Five selected specialties**
+
+| Specialty | Individual PDFs |
+|---|---:|
+| Cardiology | 6 |
+| ENT | 7 |
+| Dermatology | 13 |
+| Neonatology | 10 |
+| Psychiatry | 8 |
+| **Total** | **44** |
+
+Six additional individual ICMR documents from other specialties were also retained.
+
+**Verification**
+- All 50 PDF files exist in `data/raw/icmr/`.
+- 50 unique URLs are recorded in the manifest.
+- The additional manifest record comes from the deleted-file recovery test.
+- The manifest was preserved as an append-only download history.
+
+**Conclusion:** The original target of 40 STWs across five specialties was exceeded, with 44 collected across the selected specialties and 50 PDFs overall.
+
+
+## D06 · Collecting the corpus
+
+- Start target: 40 STWs from 5 specialties.
+- Collected today: **50 files, 51 pages, 39.1 MB**.
+- Doors used: URL list.
+
+### Licence check
+
+| Source | Licence or terms, in my words | May I show full text in answers? |
+|---|---|---|
+| ICMR | ICMR website copyright policy: reproduce accurately with prominent acknowledgement; exclude third-party copyrighted material. | Only within the stated policy; acknowledge ICMR and exclude third-party copyrighted material. |
+
+### robots.txt
+
+- Site: https://www.icmr.gov.in/robots.txt
+- Its robots.txt says:
+  - `User-agent: *` and `Allow: /`
+  - It also provides the sitemap: `https://www.icmr.gov.in/sitemap.xml`
+- Was anything blocked for my bot? **No. 0 URLs were blocked.** The downloader respected robots.txt.
+
+### Kill and resume
+
+- Run 1: I pressed Ctrl+C after 1 file.
+- Run 2: downloaded=9 skipped=1.
+- Run 3: downloaded=0 skipped=10.
+
+### Capacity
+
+- Tokens per page, measured: **1,503**.
+- Full corpus: **0.19 M tokens, 551 chunks, embedding about ₹3, vectors 2 MB**.
+- The number that surprised me most, and why: The estimated one-time embedding cost is only about ₹3 for 125 PDFs. This makes the initial embedding cost very small.
+
+### One thing that went wrong today, and how I fixed it
+
+- 16 encrypted PDFs initially failed measurement because the AES decryption dependency `cryptography` was missing.
+- I added `cryptography` to the project dependencies and updated the report script to decrypt PDFs using an empty password before measuring.
+- I cleared the old measurement cache and reran the report. All 50 PDFs were measured successfully, with 0 unreadable files.
