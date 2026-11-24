@@ -643,3 +643,17 @@ uv run --no-sync python scripts/parse_corpus.py --retry-failed --ocr eng
 ### Conclusion
 
 Successfully implemented and tested the corpus parsing pipeline. Parsed 20 downloaded ICMR PDFs, stored 20 pages in Neon PostgreSQL, verified the original PDF page counts and inspected the extracted medical content. The run completed with zero parsing failures in 35.29 seconds.
+
+### Milestone 4 — Full Corpus Parsing and Validation
+
+- Ran the parser across the full corpus of 50 downloaded files.
+- First full run: 10 newly parsed, 40 already parsed, 0 failures, and 11 pages stored.
+- Second full run: 0 newly parsed, 50 already parsed, 0 failures, and 0 new pages.
+- Confirmed idempotency: rerunning the parser did not create duplicate documents or pages.
+- Queried `parse_failures`: 0 failures out of 50 files.
+- Compared 10 documents against their original PDFs:
+  - Expected pages: 11
+  - Stored pages: 11
+  - Page-count mismatches: 0
+- Manually checked the psychosis, depression, and childhood emotional disorders PDFs against their extracted content. All three matched.
+- No failed files required correction or retry because the failure table was empty.
