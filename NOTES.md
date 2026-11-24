@@ -625,6 +625,15 @@ uv run --no-sync python scripts/parse_corpus.py --retry-failed --ocr eng
 
 ### Observations and Limitations
 
+### Text extraction observations
+
+- Inspected extracted page text from 20 parsed documents in Neon.
+- Document titles and English medical content were readable.
+- Some table and layout formatting imperfections were observed.
+- Checked all 40 extracted pages for Tamil Unicode characters: 0 pages contained Tamil Unicode.
+- No Tamil legacy-font corruption was confirmed during this inspection.
+- Legacy-font issues remain unverified because the inspected corpus may contain English-only documents.
+
 - The first 20 processed PDFs were single-page documents.
 - Text extraction was readable in the five inspected records.
 - OCR fallback was implemented but was not needed in this run.

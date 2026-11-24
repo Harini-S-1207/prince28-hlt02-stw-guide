@@ -73,17 +73,14 @@ async def run(args) -> int:
 
             done = set(existing_ids)
             todo = []
-
             for record in records:
                 doc_id = document_id(record["sha256"])
-
                 if doc_id in done:
+                    counts["already_parsed"] += 1
                     continue
-
                 if record["path"] in previous_failures and not args.retry_failed:
+                    counts["failed_before"] += 1
                     continue
-
-                # Avoid parsing duplicate file contents.
                 done.add(doc_id)
                 todo.append(record)
 
@@ -125,8 +122,10 @@ async def run(args) -> int:
 
     print("\n========== PARSE SUMMARY ==========")
     print(f"files={len(records)}")
-    print(f"failed={sum(reasons.values())}")
     print(f"parsed={counts['parsed']}")
+    print(f"already_parsed={counts['already_parsed']}")
+    print(f"failed_before={counts['failed_before']}")
+    print(f"failed={sum(reasons.values())}")
     print(f"pages={pages}")
     print(f"seconds={elapsed:.2f}")
 
