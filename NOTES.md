@@ -657,3 +657,39 @@ Successfully implemented and tested the corpus parsing pipeline. Parsed 20 downl
   - Page-count mismatches: 0
 - Manually checked the psychosis, depression, and childhood emotional disorders PDFs against their extracted content. All three matched.
 - No failed files required correction or retry because the failure table was empty.
+
+## Milestone 5 — Parser comparison
+
+
+<!-- parsers:start -->
+| File | Parsers (A / B) | Pages | A found | B found | Time (A / B) | Better, why |
+|---|---|---|---|---|---|---|
+| 1771492063-bradyarrthymia13-2-2-24935cb6.pdf | PyMuPDF / pypdf | 1 | 6,174 chars, 15 headings, 2 tables | 4,882 chars, 0 headings, 0 tables | 2.63 s / 0.63 s | PyMuPDF — preserves headings and detects tables, but multi-column table structure is partially distorted. |
+| 1784807344-chronickidneydisease-updated-4c04a1f3 | PyMuPDF / pypdf | 1 | 12,291 chars, 25 headings, 1 table | 8,070 chars, 0 headings, 0 tables | 1.53 s / 0.69 s | PyMuPDF — extracts more text and detects 25 headings. |
+| 1784807239-acutekidneyinjury-updated-0aa43119.pdf | PyMuPDF / pypdf | 1 | 6,347 chars, 17 headings, 2 tables | 6,026 chars, 0 headings, 0 tables | 1.24 s / 0.73 s | PyMuPDF — detects 17 headings and 2 tables. |
+| 1725952330-psychiatry-somatoform-disorder-2dbbac | PyMuPDF / pypdf | 1 | 7,001 chars, 28 headings, 1 table | 6,971 chars, 0 headings, 0 tables | 2.94 s / 1.70 s | PyMuPDF — detects 28 headings and preserves more structure. |
+| 1725952333-psychiatry-developmental-problems-ff4 | PyMuPDF / pypdf | 1 | 12,396 chars, 13 headings, 3 tables | 7,960 chars, 0 headings, 0 tables | 3.72 s / 1.56 s | PyMuPDF — detects 13 headings and 3 tables; some columns are duplicated. |
+| 1725952331-psychiatry-psychosis-c4672b3a.pdf | PyMuPDF / pypdf | 1 | 11,651 chars, 10 headings, 5 tables | 7,236 chars, 0 headings, 0 tables | 3.69 s / 0.66 s | PyMuPDF — detects 10 headings and 5 tables; flowchart relationships are lost. |
+| 1725952335-psychiatry-alcohol-use-disorders-f345 | PyMuPDF / pypdf | 1 | 8,278 chars, 36 headings, 7 tables | 6,446 chars, 0 headings, 0 tables | 3.63 s / 1.79 s | PyMuPDF — detects 36 headings and 7 tables. |
+| 1725952351-ent-chronic-rhinosinusitis-dd1efa5a.pdf | PyMuPDF / pypdf | 1 | 8,402 chars, 15 headings, 3 tables | 4,972 chars, 0 headings, 0 tables | 1.81 s / 0.87 s | PyMuPDF — detects 15 headings and 3 tables. |
+| 1725952333-psychiatry-anxiety-disorder-02e44e08 | PyMuPDF / pypdf | 1 | 5,318 chars, 6 headings, 2 tables | 6,002 chars, 0 headings, 0 tables | 3.10 s / 0.86 s | Inconclusive — pypdf extracts more characters, but character count alone cannot establish accuracy. |
+| 1725952351-ent-epistaxis-38326ddc.pdf | PyMuPDF / pypdf | 1 | 4,282 chars, 39 headings, 0 tables | 4,089 chars, 0 headings, 0 tables | 1.55 s / 0.66 s | PyMuPDF — detects 39 headings and extracts more text. |
+<!-- parsers:end -->
+
+### Manual PDF Inspection
+
+Three original ICMR PDFs were compared against their extracted PostgreSQL page text.
+
+| Document | Observations |
+|---|---|
+| Bradyarrhythmias | Main content preserved; multi-column tables partially distorted; ECG diagrams not represented in text. |
+| Children with Developmental Problems | Main clinical sections preserved; duplicated columns and layout fragments observed. |
+| Psychosis | Main sections preserved; referral tables and treatment algorithm lose structural relationships. |
+
+### Parser Comparison Conclusion
+
+- PyMuPDF provides better structural information for this PDF corpus through heading and table detection.
+- pypdf was faster in all 10 recorded comparisons.
+- Complex tables, multi-column layouts and flowcharts remain extraction limitations.
+- Higher character count does not necessarily indicate better extraction accuracy.
+- PyMuPDF is retained as the primary parser for the current corpus.
