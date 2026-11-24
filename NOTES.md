@@ -556,3 +556,81 @@ Six additional individual ICMR documents from other specialties were also retain
 - 16 encrypted PDFs initially failed measurement because the AES decryption dependency `cryptography` was missing.
 - I added `cryptography` to the project dependencies and updated the report script to decrypt PDFs using an empty password before measuring.
 - I cleared the old measurement cache and reran the report. All 50 PDFs were measured successfully, with 0 unreadable files.
+
+## Day 06 – Milestone 3: Parse 20 Files and Read Them
+
+### Objective
+Parse downloaded ICMR PDF documents into structured pages and store the extracted content in PostgreSQL.
+
+### Implementation
+- Created `scripts/parse_corpus.py`.
+- Read downloaded records from `data/manifest.jsonl`.
+- Selected the latest manifest record for each URL.
+- Processed only downloaded files that exist locally.
+- Used the existing PyMuPDF parser.
+- Implemented content-based document identification to avoid duplicate processing.
+- Added support for retrying previously failed files.
+- Added optional OCR fallback for PDFs without a text layer.
+- Stored document metadata and extracted pages in Neon PostgreSQL.
+- Recorded parsing failures separately in `parse_failures`.
+
+### Execution
+
+Command:
+
+```cmd
+uv run --no-sync python scripts/parse_corpus.py --limit 20
+```
+
+### Results
+
+| Metric | Result |
+|---|---:|
+| Available downloaded files | 50 |
+| Files processed | 20 |
+| Successfully parsed | 20 |
+| Parsing failures | 0 |
+| Pages stored | 20 |
+| Execution time | 35.29 seconds |
+
+All 20 processed documents were successfully stored in Neon PostgreSQL.
+
+### Validation and Quality Checks
+
+- Verified the 20 original PDF files using PyMuPDF.
+- Confirmed that all 20 original PDFs contain exactly one page.
+- Compared original PDF page counts with the stored page records.
+- Inspected five extracted pages using SQL queries.
+- Confirmed that medical workflow titles, ICD-10 codes and section content were extracted.
+- Observed table extraction across the documents.
+- First-page `headings` arrays were empty because no earlier section path existed; heading text was still present in the extracted content.
+- No parsing failures occurred during this run.
+
+### Database Verification
+
+Verified the saved documents and pages using Neon SQL Editor.
+
+Tables inspected:
+- `documents`
+- `pages`
+
+### Reproducible Commands
+
+```cmd
+uv run --no-sync python scripts/parse_corpus.py
+uv run --no-sync python scripts/parse_corpus.py --limit 20
+uv run --no-sync python scripts/parse_corpus.py --retry-failed
+uv run --no-sync python scripts/parse_corpus.py --retry-failed --ocr eng
+```
+
+### Observations and Limitations
+
+- The first 20 processed PDFs were single-page documents.
+- Text extraction was readable in the five inspected records.
+- OCR fallback was implemented but was not needed in this run.
+- The remaining downloaded files have not yet been processed.
+- Further inspection is required to validate extraction quality across the complete corpus.
+
+### Conclusion
+
+Successfully implemented and tested the corpus parsing pipeline. Parsed 20 downloaded ICMR PDFs, stored 20 pages in Neon PostgreSQL, verified the original PDF page counts and inspected the extracted medical content. The run completed with zero parsing failures in 35.29 seconds.
