@@ -556,3 +556,236 @@ Six additional individual ICMR documents from other specialties were also retain
 - 16 encrypted PDFs initially failed measurement because the AES decryption dependency `cryptography` was missing.
 - I added `cryptography` to the project dependencies and updated the report script to decrypt PDFs using an empty password before measuring.
 - I cleared the old measurement cache and reran the report. All 50 PDFs were measured successfully, with 0 unreadable files.
+
+## Day 06 – Milestone 3: Parse 20 Files and Read Them
+
+### Objective
+Parse downloaded ICMR PDF documents into structured pages and store the extracted content in PostgreSQL.
+
+### Implementation
+- Created `scripts/parse_corpus.py`.
+- Read downloaded records from `data/manifest.jsonl`.
+- Selected the latest manifest record for each URL.
+- Processed only downloaded files that exist locally.
+- Used the existing PyMuPDF parser.
+- Implemented content-based document identification to avoid duplicate processing.
+- Added support for retrying previously failed files.
+- Added optional OCR fallback for PDFs without a text layer.
+- Stored document metadata and extracted pages in Neon PostgreSQL.
+- Recorded parsing failures separately in `parse_failures`.
+
+### Execution
+
+Command:
+
+```cmd
+uv run --no-sync python scripts/parse_corpus.py --limit 20
+```
+
+### Results
+
+| Metric | Result |
+|---|---:|
+| Available downloaded files | 50 |
+| Files processed | 20 |
+| Successfully parsed | 20 |
+| Parsing failures | 0 |
+| Pages stored | 20 |
+| Execution time | 35.29 seconds |
+
+All 20 processed documents were successfully stored in Neon PostgreSQL.
+
+### Validation and Quality Checks
+
+- Verified the 20 original PDF files using PyMuPDF.
+- Confirmed that all 20 original PDFs contain exactly one page.
+- Compared original PDF page counts with the stored page records.
+- Inspected five extracted pages using SQL queries.
+- Confirmed that medical workflow titles, ICD-10 codes and section content were extracted.
+- Observed table extraction across the documents.
+- First-page `headings` arrays were empty because no earlier section path existed; heading text was still present in the extracted content.
+- No parsing failures occurred during this run.
+
+### Database Verification
+
+Verified the saved documents and pages using Neon SQL Editor.
+
+Tables inspected:
+- `documents`
+- `pages`
+
+### Reproducible Commands
+
+```cmd
+uv run --no-sync python scripts/parse_corpus.py
+uv run --no-sync python scripts/parse_corpus.py --limit 20
+uv run --no-sync python scripts/parse_corpus.py --retry-failed
+uv run --no-sync python scripts/parse_corpus.py --retry-failed --ocr eng
+```
+
+### Observations and Limitations
+
+### Text extraction observations
+
+- Inspected extracted page text from 20 parsed documents in Neon.
+- Document titles and English medical content were readable.
+- Some table and layout formatting imperfections were observed.
+- Checked all 40 extracted pages for Tamil Unicode characters: 0 pages contained Tamil Unicode.
+- No Tamil legacy-font corruption was confirmed during this inspection.
+- Legacy-font issues remain unverified because the inspected corpus may contain English-only documents.
+
+- The first 20 processed PDFs were single-page documents.
+- Text extraction was readable in the five inspected records.
+- OCR fallback was implemented but was not needed in this run.
+- The remaining downloaded files have not yet been processed.
+- Further inspection is required to validate extraction quality across the complete corpus.
+
+### Conclusion
+
+Successfully implemented and tested the corpus parsing pipeline. Parsed 20 downloaded ICMR PDFs, stored 20 pages in Neon PostgreSQL, verified the original PDF page counts and inspected the extracted medical content. The run completed with zero parsing failures in 35.29 seconds.
+
+### Milestone 4 — Full Corpus Parsing and Validation
+
+- Ran the parser across the full corpus of 50 downloaded files.
+- First full run: 10 newly parsed, 40 already parsed, 0 failures, and 11 pages stored.
+- Second full run: 0 newly parsed, 50 already parsed, 0 failures, and 0 new pages.
+- Confirmed idempotency: rerunning the parser did not create duplicate documents or pages.
+- Queried `parse_failures`: 0 failures out of 50 files.
+- Compared 10 documents against their original PDFs:
+  - Expected pages: 11
+  - Stored pages: 11
+  - Page-count mismatches: 0
+- Manually checked the psychosis, depression, and childhood emotional disorders PDFs against their extracted content. All three matched.
+- No failed files required correction or retry because the failure table was empty.
+
+## Milestone 5 — Parser comparison
+
+
+<!-- parsers:start -->
+| File | Parsers (A / B) | Pages | A found | B found | Time (A / B) | Better, why |
+|---|---|---|---|---|---|---|
+| 1771492063-bradyarrthymia13-2-2-24935cb6.pdf | PyMuPDF / pypdf | 1 | 6,174 chars, 15 headings, 2 tables | 4,882 chars, 0 headings, 0 tables | 2.63 s / 0.63 s | PyMuPDF — preserves headings and detects tables, but multi-column table structure is partially distorted. |
+| 1784807344-chronickidneydisease-updated-4c04a1f3 | PyMuPDF / pypdf | 1 | 12,291 chars, 25 headings, 1 table | 8,070 chars, 0 headings, 0 tables | 1.53 s / 0.69 s | PyMuPDF — extracts more text and detects 25 headings. |
+| 1784807239-acutekidneyinjury-updated-0aa43119.pdf | PyMuPDF / pypdf | 1 | 6,347 chars, 17 headings, 2 tables | 6,026 chars, 0 headings, 0 tables | 1.24 s / 0.73 s | PyMuPDF — detects 17 headings and 2 tables. |
+| 1725952330-psychiatry-somatoform-disorder-2dbbac | PyMuPDF / pypdf | 1 | 7,001 chars, 28 headings, 1 table | 6,971 chars, 0 headings, 0 tables | 2.94 s / 1.70 s | PyMuPDF — detects 28 headings and preserves more structure. |
+| 1725952333-psychiatry-developmental-problems-ff4 | PyMuPDF / pypdf | 1 | 12,396 chars, 13 headings, 3 tables | 7,960 chars, 0 headings, 0 tables | 3.72 s / 1.56 s | PyMuPDF — detects 13 headings and 3 tables; some columns are duplicated. |
+| 1725952331-psychiatry-psychosis-c4672b3a.pdf | PyMuPDF / pypdf | 1 | 11,651 chars, 10 headings, 5 tables | 7,236 chars, 0 headings, 0 tables | 3.69 s / 0.66 s | PyMuPDF — detects 10 headings and 5 tables; flowchart relationships are lost. |
+| 1725952335-psychiatry-alcohol-use-disorders-f345 | PyMuPDF / pypdf | 1 | 8,278 chars, 36 headings, 7 tables | 6,446 chars, 0 headings, 0 tables | 3.63 s / 1.79 s | PyMuPDF — detects 36 headings and 7 tables. |
+| 1725952351-ent-chronic-rhinosinusitis-dd1efa5a.pdf | PyMuPDF / pypdf | 1 | 8,402 chars, 15 headings, 3 tables | 4,972 chars, 0 headings, 0 tables | 1.81 s / 0.87 s | PyMuPDF — detects 15 headings and 3 tables. |
+| 1725952333-psychiatry-anxiety-disorder-02e44e08 | PyMuPDF / pypdf | 1 | 5,318 chars, 6 headings, 2 tables | 6,002 chars, 0 headings, 0 tables | 3.10 s / 0.86 s | Inconclusive — pypdf extracts more characters, but character count alone cannot establish accuracy. |
+| 1725952351-ent-epistaxis-38326ddc.pdf | PyMuPDF / pypdf | 1 | 4,282 chars, 39 headings, 0 tables | 4,089 chars, 0 headings, 0 tables | 1.55 s / 0.66 s | PyMuPDF — detects 39 headings and extracts more text. |
+<!-- parsers:end -->
+
+### Manual PDF Inspection
+
+Three original ICMR PDFs were compared against their extracted PostgreSQL page text.
+
+| Document | Observations |
+|---|---|
+| Bradyarrhythmias | Main content preserved; multi-column tables partially distorted; ECG diagrams not represented in text. |
+| Children with Developmental Problems | Main clinical sections preserved; duplicated columns and layout fragments observed. |
+| Psychosis | Main sections preserved; referral tables and treatment algorithm lose structural relationships. |
+
+### Parser Comparison Conclusion
+
+- PyMuPDF provides better structural information for this PDF corpus through heading and table detection.
+- pypdf was faster in all 10 recorded comparisons.
+- Complex tables, multi-column layouts and flowcharts remain extraction limitations.
+- Higher character count does not necessarily indicate better extraction accuracy.
+- PyMuPDF is retained as the primary parser for the current corpus.
+
+
+### D07 · Parsing my corpus
+
+- Files in the manifest: 51 records (50 unique downloaded files)
+- Parsed: 50
+- Failed: 0
+- Pages in Postgres: 51
+- Parsing coverage: 100% of unique downloaded files
+
+### Failures by reason
+
+| Reason | Files | What I did |
+|---|---:|---|
+| No parsing failures recorded | 0 | All 50 unique downloaded files parsed successfully |
+
+- The one I fixed: N/A — no parsing failures were recorded.
+
+### What I saw when I read my parsed pages
+
+- A page where the heading path is right (document, page, path):
+  Childhood Emotional Disorders, page 2 — stored headings: CHILDHOOD EMOTIONAL DISORDERS → KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES → October/2019.
+- Something that came out wrong (document, page, what):
+  Chronic Rhinosinusitis, page 1 — some multi-column content was duplicated or misplaced during extraction.
+- A table: Markdown grid or loose text? (document, page):
+  Atrial Fibrillation, page 1 — Markdown pipe-separated table, but column alignment and repeated content were distorted.
+
+### My parser choice
+
+- For PDFs I use PyMuPDF because it detected headings and tables in the comparison, while pypdf reported zero headings and tables. For example, Bradyarrhythmias: PyMuPDF detected 15 headings and 2 tables, compared with pypdf's 0 headings and 0 tables.
+- A kind of document in my corpus that neither parser handles well: Complex multi-column clinical PDFs containing tables and flowcharts.
+
+### One thing that went wrong today, and how I fixed it
+
+My SQL query initially referenced p.metadata, but the metadata column belongs to the documents table. I corrected the query to use d.metadata.
+
+
+### Corpus Quality Evaluation
+
+**Objective:** Evaluate the quality of extracted pages after parsing, rather than relying only on successful parsing status.
+
+#### Implementation
+
+- Created `src/stw_guide/ingest/quality.py` with a reusable document quality evaluator.
+- Added checks for empty pages, short pages and explicit headings.
+- Distinguished explicit headings found in page text from inherited heading context.
+- Integrated quality reports into the existing `documents.metadata` JSONB field in `store.py`.
+- Created `scripts/audit_corpus_quality.py` to audit documents already stored in PostgreSQL without downloading or re-parsing PDFs.
+- Preserved existing document metadata and table counts during the audit.
+
+| Metric | Result |
+|---|---:|
+| Documents audited | 50 |
+| Passed | 50 |
+| Needs review | 0 |
+| Total pages | 51 |
+| Empty pages | 0 |
+| Short pages | 0 |
+| Verified boilerplate pages | 1 |
+| Total extracted characters | 384,786 |
+| Explicit headings detected | 1,290 |
+| Heading coverage | 100.00% |
+
+#### Verified Boilerplate Page
+
+| Document | Page | Characters | Observation |
+|---|---:|---:|---|
+| CLINICAL | 2 | 17 | Contains only `stw.icmr.org.in`, a verified website marker |
+
+- The original PDF page was inspected and confirmed to contain the same website marker.
+- The extracted text was preserved; it was not deleted or modified.
+- This known marker is classified as boilerplate rather than a short-content warning.
+- The 50-character threshold remains unchanged.
+- Other unrecognized short pages continue to trigger review warnings.
+
+#### Quality Evaluation Decisions
+
+- A successfully parsed document is not automatically considered high quality.
+- Empty and short pages are flagged for review.
+- Heading coverage measures the percentage of stored pages containing at least one explicitly detected heading. It does not establish semantic heading accuracy.
+- Complex multi-column tables and flowcharts still require visual inspection against their source PDFs.
+- Quality warnings are kept separate from the parser failure records.
+
+#### Validation
+
+- Quality evaluator unit tests: 10 passed.
+- Combined quality and parser unit tests: 39 passed.
+- Storage integration tests: 4 passed.
+- Full project test suite: 126 passed, 0 failed.
+- Ruff lint check: passed.
+- Ruff formatting check: 59 files already formatted.
+- Git whitespace check (`git diff --check`): passed.
+- Corpus audit: 50 documents evaluated successfully.
+
+**Outcome:** Added measurable extraction-quality evaluation to the STW Guide ingestion pipeline without introducing a database migration or re-parsing the existing corpus.
+**Quality result:** All 50 documents passed the defined automated checks. One verified boilerplate page was identified and preserved. This result does not establish semantic accuracy of all extracted tables, diagrams, or clinical content.

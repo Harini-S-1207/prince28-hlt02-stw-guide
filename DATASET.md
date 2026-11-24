@@ -87,9 +87,11 @@ The complete list, with a sha256 fingerprint of every file, is `data/manifest.js
 | 50 | Chronic Kidney Disease | icmr | 1 | 2026-11-23 | https://www.icmr.gov.in/icmrobject/uploads/STWs/1784807344_chronickidneydisease-updated.pdf |
 <!-- generated:end -->
 
+
 ## Known gaps
 
-- The start target was 40 STWs across 5 specialties. I collected 44 PDFs from the five selected specialties. The exact number of distinct STWs represented by these PDFs still needs document-level validation.
-- The full target is 125+ PDFs. The current corpus has 50 files, so at least 75 more files are needed to reach 125.
-- The catalogue may contain additional workflows that have not yet been collected or verified.
-- Some PDFs may contain more than one workflow, so document-to-STW mapping still needs validation.
+- The initial collection target was 40 distinct Standard Treatment Workflows (STWs) across five specialties. The current corpus contains 50 PDF files; however, the number of distinct STWs represented has not yet been validated at the workflow level.
+- The broader collection target is 125+ PDF files. With 50 PDFs currently collected, at least 75 additional PDFs are required to reach the target.
+- The catalogue may contain additional treatment workflows that have not yet been collected, reviewed, or verified.
+- A single PDF may contain multiple treatment workflows. Therefore, document-to-STW mapping and workflow-level deduplication remain necessary.
+- The corpus requires continued validation for document completeness, source reliability, specialty coverage, and accurate workflow identification before it can be considered comprehensive.
