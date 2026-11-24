@@ -693,3 +693,38 @@ Three original ICMR PDFs were compared against their extracted PostgreSQL page t
 - Complex tables, multi-column layouts and flowcharts remain extraction limitations.
 - Higher character count does not necessarily indicate better extraction accuracy.
 - PyMuPDF is retained as the primary parser for the current corpus.
+
+
+### D07 · Parsing my corpus
+
+- Files in the manifest: 51 records (50 unique downloaded files)
+- Parsed: 50
+- Failed: 0
+- Pages in Postgres: 51
+- Parsing coverage: 100% of unique downloaded files
+
+### Failures by reason
+
+| Reason | Files | What I did |
+|---|---:|---|
+| No parsing failures recorded | 0 | All 50 unique downloaded files parsed successfully |
+
+- The one I fixed: N/A — no parsing failures were recorded.
+
+### What I saw when I read my parsed pages
+
+- A page where the heading path is right (document, page, path):
+  Childhood Emotional Disorders, page 2 — stored headings: CHILDHOOD EMOTIONAL DISORDERS → KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES → October/2019.
+- Something that came out wrong (document, page, what):
+  Chronic Rhinosinusitis, page 1 — some multi-column content was duplicated or misplaced during extraction.
+- A table: Markdown grid or loose text? (document, page):
+  Atrial Fibrillation, page 1 — Markdown pipe-separated table, but column alignment and repeated content were distorted.
+
+### My parser choice
+
+- For PDFs I use PyMuPDF because it detected headings and tables in the comparison, while pypdf reported zero headings and tables. For example, Bradyarrhythmias: PyMuPDF detected 15 headings and 2 tables, compared with pypdf's 0 headings and 0 tables.
+- A kind of document in my corpus that neither parser handles well: Complex multi-column clinical PDFs containing tables and flowcharts.
+
+### One thing that went wrong today, and how I fixed it
+
+My SQL query initially referenced p.metadata, but the metadata column belongs to the documents table. I corrected the query to use d.metadata.
