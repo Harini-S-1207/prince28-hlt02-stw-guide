@@ -34,10 +34,10 @@ Assumptions: 4 characters per token, 400-token chunks, 768-dimension embeddings 
 
 ## What I conclude
 
-1. **Embedding cost:** Embedding is not a problem for this project. The estimated one-time cost for 125 PDFs is approximately $0.03 (₹3).
+1. **Embedding cost:** Embedding is not a major concern for this project. The estimated one-time embedding cost for 125 PDFs is approximately $0.03 (₹3), which is very affordable.
 
-2. **Storage:** Vectors and extracted text require approximately 3 MB together. This is comfortably within the 1 GB Neon free-plan limit, excluding indexes and database overhead. I will verify the storage limit using my Neon dashboard.
+2. **Storage:** Vectors and extracted text together require approximately 3 MB of storage. This is comfortably within the 1 GB Neon free-plan limit, excluding indexes and database overhead. I will verify actual storage usage through the Neon dashboard.
 
-3. **Least certain estimate:** The token estimate is based on 4 characters per token. This is approximate. I will measure it more accurately using the embedding model's tokenizer.
+3. **Least certain estimate:** The token estimate is based on an approximation of 4 characters per token. This may not be accurate for all documents. I will measure token counts more precisely using the embedding model's tokenizer.
 
-4. **10× corpus growth:** If the corpus grows from 125 to approximately 1,250 PDFs, the estimated token count increases from 0.19 million to 1.9 million, with approximately 5,510 chunks. Embedding costs and storage will also increase roughly 10 times.
+4. **10× corpus growth:** If the corpus grows from 125 to approximately 1,250 PDFs, the estimated token count increases from 0.19 million to 1.9 million, with approximately 5,510 chunks. Embedding costs and storage requirements are also expected to increase roughly 10 times.
