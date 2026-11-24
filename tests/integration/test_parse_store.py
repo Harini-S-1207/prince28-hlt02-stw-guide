@@ -30,7 +30,8 @@ PARSED = ParsedDoc(
     pages=[
         ParsedPage(
             1,
-            "# Fever Guidelines\n\n## Dengue\n\nRest and fluids.",
+            "# Fever Guidelines\n\n## Dengue\n\n"
+            + "Rest and fluids. Follow the treatment guidance carefully. " * 3,
             [],
         ),
         ParsedPage(
@@ -74,7 +75,21 @@ async def test_a_parsed_document_is_saved_with_pages_and_heading_paths(session):
     pages = (await session.scalars(select(Page).order_by(Page.page_no))).all()
 
     assert [p.page_no for p in pages] == [1, 2]
+    assert pages[0].text == PARSED.pages[0].text
+    assert pages[1].text == PARSED.pages[1].text
     assert pages[1].headings == ["Fever Guidelines", "Dengue"]
+
+    quality = doc.metadata_["quality"]
+
+    assert quality["total_pages"] == 2
+    assert quality["empty_pages"] == []
+    assert quality["short_pages"] == [2]
+    assert quality["boilerplate_pages"] == []
+    assert quality["heading_count"] == 2
+    assert quality["pages_with_headings"] == 1
+    assert quality["pages_with_heading_context"] == 1
+    assert quality["status"] == "review"
+
     assert await parsed_ids(session) == {doc.external_id}
 
 
@@ -108,3 +123,34 @@ async def test_a_later_success_clears_the_failure(session):
     assert await session.scalar(select(func.count()).select_from(ParseFailure)) == 0
 
     assert await session.scalar(select(func.count()).select_from(Page)) == 2
+
+
+async def test_verified_boilerplate_page_is_recorded_in_quality_metadata(session):
+    parsed = ParsedDoc(
+        parser="pymupdf",
+        kind="pdf",
+        title="Clinical Guidelines",
+        pages=[
+            ParsedPage(
+                1,
+                "# Fever Guidelines\n\n## Dengue\n\n"
+                + "Rest and fluids. Follow the treatment guidance carefully. " * 3,
+                [],
+            ),
+            ParsedPage(
+                2,
+                "# stw.icmr.org.in",
+                [],
+            ),
+        ],
+    )
+
+    await save_document(session, RECORD, parsed)
+
+    doc = await session.scalar(select(Document))
+    quality = doc.metadata_["quality"]
+
+    assert quality["boilerplate_pages"] == [2]
+    assert quality["short_pages"] == []
+    assert quality["empty_pages"] == []
+    assert quality["status"] == "passed"

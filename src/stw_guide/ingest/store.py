@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from stw_guide.db.models import Document, Page, ParseFailure
 from stw_guide.ingest.parse import ParsedDoc, ParseError
+from stw_guide.ingest.quality import evaluate_quality
 
 
 def document_id(sha256: str) -> str:
@@ -29,6 +30,7 @@ async def failed_paths(session: AsyncSession) -> set[str]:
 async def save_document(session: AsyncSession, record: dict, parsed: ParsedDoc) -> None:
     """One manifest record + its parsed pages -> documents and pages. Clears an old failure."""
     title = parsed.title or record.get("title") or Path(record["path"]).stem
+    quality = evaluate_quality(parsed)
 
     document = Document(
         external_id=document_id(record["sha256"]),
@@ -44,6 +46,20 @@ async def save_document(session: AsyncSession, record: dict, parsed: ParsedDoc) 
             "pages": len(parsed.pages),
             "tables": sum(p.tables for p in parsed.pages),
             "chars": sum(len(p.text) for p in parsed.pages),
+            "quality": {
+                "total_pages": quality.total_pages,
+                "empty_pages": quality.empty_pages,
+                "short_pages": quality.short_pages,
+                "boilerplate_pages": quality.boilerplate_pages,
+                "total_characters": quality.total_characters,
+                "heading_count": quality.heading_count,
+                "pages_with_headings": quality.pages_with_headings,
+                "pages_with_heading_context": quality.pages_with_heading_context,
+                "heading_coverage": quality.heading_coverage,
+                "table_count": quality.table_count,
+                "warnings": quality.warnings,
+                "status": quality.status,
+            },
         },
         pages=[
             Page(page_no=p.page_no, text=p.text, headings=p.headings)

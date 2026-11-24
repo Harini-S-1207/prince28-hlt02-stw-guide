@@ -728,3 +728,64 @@ Three original ICMR PDFs were compared against their extracted PostgreSQL page t
 ### One thing that went wrong today, and how I fixed it
 
 My SQL query initially referenced p.metadata, but the metadata column belongs to the documents table. I corrected the query to use d.metadata.
+
+
+### Corpus Quality Evaluation
+
+**Objective:** Evaluate the quality of extracted pages after parsing, rather than relying only on successful parsing status.
+
+#### Implementation
+
+- Created `src/stw_guide/ingest/quality.py` with a reusable document quality evaluator.
+- Added checks for empty pages, short pages and explicit headings.
+- Distinguished explicit headings found in page text from inherited heading context.
+- Integrated quality reports into the existing `documents.metadata` JSONB field in `store.py`.
+- Created `scripts/audit_corpus_quality.py` to audit documents already stored in PostgreSQL without downloading or re-parsing PDFs.
+- Preserved existing document metadata and table counts during the audit.
+
+| Metric | Result |
+|---|---:|
+| Documents audited | 50 |
+| Passed | 50 |
+| Needs review | 0 |
+| Total pages | 51 |
+| Empty pages | 0 |
+| Short pages | 0 |
+| Verified boilerplate pages | 1 |
+| Total extracted characters | 384,786 |
+| Explicit headings detected | 1,290 |
+| Heading coverage | 100.00% |
+
+#### Verified Boilerplate Page
+
+| Document | Page | Characters | Observation |
+|---|---:|---:|---|
+| CLINICAL | 2 | 17 | Contains only `stw.icmr.org.in`, a verified website marker |
+
+- The original PDF page was inspected and confirmed to contain the same website marker.
+- The extracted text was preserved; it was not deleted or modified.
+- This known marker is classified as boilerplate rather than a short-content warning.
+- The 50-character threshold remains unchanged.
+- Other unrecognized short pages continue to trigger review warnings.
+
+#### Quality Evaluation Decisions
+
+- A successfully parsed document is not automatically considered high quality.
+- Empty and short pages are flagged for review.
+- Heading coverage measures the percentage of stored pages containing at least one explicitly detected heading. It does not establish semantic heading accuracy.
+- Complex multi-column tables and flowcharts still require visual inspection against their source PDFs.
+- Quality warnings are kept separate from the parser failure records.
+
+#### Validation
+
+- Quality evaluator unit tests: 10 passed.
+- Combined quality and parser unit tests: 39 passed.
+- Storage integration tests: 4 passed.
+- Full project test suite: 126 passed, 0 failed.
+- Ruff lint check: passed.
+- Ruff formatting check: 59 files already formatted.
+- Git whitespace check (`git diff --check`): passed.
+- Corpus audit: 50 documents evaluated successfully.
+
+**Outcome:** Added measurable extraction-quality evaluation to the STW Guide ingestion pipeline without introducing a database migration or re-parsing the existing corpus.
+**Quality result:** All 50 documents passed the defined automated checks. One verified boilerplate page was identified and preserved. This result does not establish semantic accuracy of all extracted tables, diagrams, or clinical content.

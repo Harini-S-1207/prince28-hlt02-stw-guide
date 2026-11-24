@@ -1,0 +1,102 @@
+TOTAL PDFs: 50
+1. 1725952292-ent-acute-rhinosinusitis-032361e3.pdf | Standard Treatment Workﬂow (STW) for the Management of ACUTE RHINOSINUSITIS ICD 10 J01.90 CLINICAL EXAMINATION INDICATIONS OF PARENTERAL ANTIBIOTIC THERAPY ∙ Orbital/ intracranial complications ∙ Non-resolution of sympto
+2. 1725952330-psychiatry-somatoform-disorder-2dbbac47.pdf | Standard Treatment Workﬂow (STW) for the Management of SOMATOFORM DISORDER (SD) ICD10-F45 KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES REFERENCES ∙ Desai G & Chaturvedi SK. Medically Unexplained Somatic Symptoms & Chron
+3. 1725952331-psychiatry-psychosis-c4672b3a.pdf | Standard Treatment Workﬂow (STW) for the Management of PSYCHOSIS ICD10-F20-29 #Encourage follow up in primary care after addressing referral issues * Watch for adverse effects as SSRIs may increase serum levels of antips
+4. 1725952332-psychiatry-child-behavioral-disorder-eb9776a1.pdf | KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES CLINICAL PRESENTATION CAUTION ASSESSMENT (History From Multiple Sources) PARENT INTERVIEW • Symptoms- onset, duration, type(ODD, Conduct, ADHD-as above) and severity • Develo
+5. 1725952332-psychiatry-childhood-emotional-disorders-b97da36e.pdf | CLINICAL PRESENTATION - Recent Onset Behavioral Changes Standard Treatment Workﬂow (STW) for the Management of CHILDHOOD EMOTIONAL DISORDERS This STW has been prepared by national experts of India with feasibility consid
+6. 1725952332-psychiatry-depression-d5c35cfc.pdf | 1 1 Standard Treatment Workﬂow (STW) for the Management of DEPRESSION ICD10-F45 CLINICAL DIAGNOSIS OF DEPRESSION CORE SYMPTOMS ADDITIONAL SYMPTOMS • Reduced concentration and attention • Reduced self-esteem and self-conﬁ
+7. 1725952333-psychiatry-anxiety-disorder-02e44e08.pdf | Standard Treatment Workﬂow (STW) for the Management of ANXIETY DISORDERS ICD-10-F40-F42 KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES Tension, anxiety, apprehension, fear, worrying Episodes of palpitations, diﬃculty in b
+8. 1725952333-psychiatry-developmental-problems-ff4f028a.pdf | Standard Treatment Workﬂow (STW) for the Management of CHILDREN WITH DEVELOPMENTAL PROBLEMS ICD10-F70-89 SECONDARY CARE (DISTRICT HOSPITAL) TERTIARY CARE (MEDICAL COLLEGE / REGIONAL REFERRAL CENTRE) ASSESSMENT DETAILED D
+9. 1725952335-psychiatry-alcohol-use-disorders-f3459170.pdf | Standard Treatment Workﬂow (STW) for the Management of ALCOHOL USE DISORDERS ICD10-F10 • Age at initiation, quantity, frequency and progression (daily use and/or morning drinking) • Time of last alcohol use and amount •
+10. 1725952345-neurology-dementia-b6d2d6dd.pdf | Cognitive decline in more than one domain No No dementia Suspected dementia Delirium or Depression? Functional decline Yes No YesTreat Yes No Follow up and Re-evaluation Yes Dementia Typical clinical proﬁle (age, progres
+11. 1725952346-neurology-acute-paralysis-2b5cb3aa.pdf | Standard Treatment Workﬂow (STW) for the APPROACH TO ACUTE PARALYSIS ICD 10 G82, G83 PRESENTATION WITH ACUTE ONSET (WITHIN HOURS TO DAYS) PARAPLEGIA OR QUADRIPLEGIA Are There Any Signs Of Upper Motor Neuron (UMN) Involve
+12. 1725952349-ent-pharyngitis-and-sore-throat-629fd84e.pdf | Standard Treatment Workﬂow (STW) for the Management of PHARYNGITIS AND SORE THROAT ICD-10-J02 KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES REFERENCES 1. Shaikh N, Swaminathan N, Hooper EG (2012) Accuracy and precision o
+13. 1725952350-ent-hearing-impairment-9eaa1332.pdf | Standard Treatment Workﬂow (STW) for the Management of HEARING IMPAIRMENT IN PEDIATRIC AGE GROUP /parenleft.case0 /hyphen.case 12 YEARS/parenright.case ICD 10 H90.5 KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES REFERENCE
+14. 1725952350-ent-neck-space-infection-55fd8eb1.pdf | Standard Treatment Workﬂow (STW) for the Management of NECK SPACE INFECTION ICD-10-J36, J39.0, K 12.2, J39.1 REFERENCES 1. Smith II JL, Hsu JM, Chang J (2006) Predicting deep neck space abscess using computed tomography.
+15. 1725952350-ent-otorrhoea-48838395.pdf | Standard Treatment Workﬂow (STW) for the Management of OTORRHOEA ICD-10-H92.10 KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES REFERENCES • Otitis media (acute): antimicrobial prescribing. NICE guideline. Published: 28 Mar
+16. 1725952351-ent-chronic-rhinosinusitis-dd1efa5a.pdf | Always rule out DNS/ nasal polypi in CRS, as surgical treatment may be necessary for complete resolution of symptoms. Standard Treatment Workﬂow (STW) for the Management of CHRONIC RHINOSINUSITIS ICD 10 - J32.9 WHEN TO S
+17. 1725952351-ent-epistaxis-38326ddc.pdf | Standard Treatment Workﬂow (STW) for the Management of EPISTAXIS ICD-10-R04.0 KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES ESSENTIAL 1. Hemoglobin level 2. Coagulation proﬁle 3. Complete blood count DESIRABLE CT scan wi
+18. 1725967364-varicella-herpes-zoster-c1232f05.pdf | This STW has been prepared by national experts of India with feasibility considerations for various levels of healthcare system in the country. These broad guidelines are advisory, and are based on expert opinions and av
+19. 1725967365-rational-use-of-topical-medications-7a7ba746.pdf | Most commonly prescribed topical medication in dermatology Because of quick results, it has high abuse potential Unmonitored use can cause both local and systemic adverse effects TOPICAL CORTICOSTEROIDS (TCS) This STW ha
+20. 1725967365-scabies-1ad2f621.pdf | TREAT THE ENTIRE SKIN, NOT LESIONS ALONE; TREAT THE FAMILY/CONTACTS, NOT THE PATIENT ALONE Standard Treatment Workﬂow (STW) SCABIES ICD/hyphen.case10/hyphen.caseB86 July/ 2022 Department of Health Research Ministry of He
+21. 1725967365-urticaria-and-angioedema-4326a434.pdf | July/ 2022 Department of Health Research Ministry of Health and Family Welfare, Government of India Standard Treatment Workﬂow (STW) URTICARIA AND ANGIOEDEMA ICD-10-L5/zero.slashcap.9 This STW has been prepared by nation
+22. 1725967366-immunobullous-2f24276e.pdf | WHEN TO SUSPECT? • Pemphigus vulgaris/ variants • Pemphigus foliaceus/ variants • Bullous pemphigoid • Pemphigoid gestationis • Mucous membrane pemphigoid • Linear IgA bullous diseases/ chronic bullous disease of childho
+23. 1725967366-psoriasis-cb11f07a.pdf | July/ 2022 Department of Health Research Ministry of Health and Family Welfare, Government of India Standard Treatment Workﬂow (STW) PSORIASIS ICD-10-L4/zero.slashcap *GENERAL PRINCIPLES OF MANAGEMENT • Establish the dia
+24. 1725967367-cutaneous-part-a-d4156641.pdf | COMMON TYPES OF cADR *Refer to separate STW on Urticaria/ Angioedema, and cADR Part-B for DRESS/ Stevens Johnson syndrome/ Toxic epidermal necrolysis GENERAL PRINCIPLES TIMELINES FOR DRUG REACTIONS AND SOME TYPICAL EXAMP
+25. 1725967367-cutaneous-part-b-47568a69.pdf | Cutaneous adverse drug reactions (cADR) are undesirable clinical manifestations to a drug, which include predictable or unanticipated side effects, with or without systemic involvement. COMMON TYPES OF cADR Angioedema/ A
+26. 1725967367-dermatophytoses-8d58908b.pdf | Standard Treatment Workﬂow (STW) DERMATOPHYTOSES ICD/hyphen.case10/hyphen.caseB35.9 ENSURE TREATMENT FOR ADEQUATE DURATION TO PREVENT RELAPSE TOPICAL ANTIFUNGAL • For limited involvement in cases of Tinea corporis and cr
+27. 1725967367-eczema-9633594f.pdf | This STW has been prepared by national experts of India with feasibility considerations for various levels of healthcare system in the country. These broad guidelines are advisory, and are based on expert opinions and av
+28. 1725967368-acne-roseacea-cb62357e.pdf | July/ 2022 Department of Health Research Ministry of Health and Family Welfare, Government of India Standard Treatment Workﬂow (STW) ACNE AND ROSACEA ICD-10-L70-71 This STW has been prepared by national experts of India
+29. 1725967368-alopecia-999f7a3c.pdf | • Adult males with fronto-temporal hairline thinning or recession, it may progressively involve vertex & parietal areas with usual sparing of occipital area • Treat with 1mL of topical 5% Minoxidil solution BD • If effec
+30. 1725967368-bacterial-skin-infections-91fdbe08.pdf | This STW has been prepared by national experts of India with feasibility considerations for various levels of healthcare system in the country. These broad guidelines are advisory, and are based on expert opinions and av
+31. 1726568617-thermal-care-newborn-ee6b5a80.pdf | Standard Treatment Workﬂow (STW) THERMAL CARE OF NEWBORN ICD/hyphen.case10/hyphen.caseP81.8 HYPOTHERMIA IN NEWBORNS INCREASES MORTALITY. PREVENT HYPOTHERMIA - MAINTAIN WARM CHAIN NO YES YES MILD HYPOTHERMIA: 36 °C- 36.4
+32. 1726568618-sepsis-neonates-93e912be.pdf | Standard Treatment Workﬂow (STW) SEPSIS IN NEONATES ICD-10-P36 HR>160 persisting for one hour despite normal temperature Respiratory distress Lethargy Refusal to feed New or increased apneic episodes • Stop antibiotics •
+33. 1726568619-neonatal-transport-af27f419.pdf | Standard Treatment Workﬂow (STW) NEONATAL TRANSPORT INDICATIONS FOR TRANSPORT IN NEONATES NBCC/NBSU TO SNCU • Birth weight <1800 grams and/or gestational age <34 weeks • Neonates with: - Apnea or gasping - Respiratory di
+34. 1726568619-post-asphyxial-68efc2e3.pdf | Standard Treatment Workﬂow (STW) POST/hyphen.caseASPHYXIAL MANAGEMENT OF NEONATES ICD-10-P21.0 FULFILLS ALL OF THE FOLLOWING CRITERIA? • ≥ 36 weeks gestational age • ≥ 1800g birth weight • < 6 hrs old • Admission tempera
+35. 1726568619-respiratory-distress-24898cb5.pdf | Standard Treatment Workﬂow (STW) RESPIRATORY DISTRESS IN NEONATES ICD/hyphen.case10/hyphen.caseP22.0 RESPIRATORY DISTRESS OR LOW SPO2 (<91%) Start oxygen by nasal cannula @ 0.5-1 LPM* SpO2 <91% ASSESS AND TREAT THE UNDER
+36. 1726568620-neonatal-emergency-triage-cd1cb46b.pdf | KEEP A HIGH THRESHOLD FOR INVASIVE IDENTIFICATION AND PROMPT TREATMENT OF EMERGENCY AND PRIORITY SIGNS IS THE KEY TO PREVENT MORTALITY • Place under radiant warmer • Attach temperature probe and pulse oximeter • Assess f
+37. 1726568620-neonatal-hypoglycemia-2031eb0c.pdf | Stop IV ﬂuids when euglycemic on GIR 4 mg/kg/min Euglycemic for 24 hours on IV ﬂuids • Wean @ 2 mg/kg/min every 6 hourly • Increase oral feeds • Monitor BG every 6 hourly Increase GIR @ 2 mg/kg/min till max GIR 12 mg/kg/
+38. 1726568620-neonatal-jaundice-4ae5b846.pdf | Standard Treatment Workﬂow (STW) NEONATAL JAUNDICE IN INFANTS ≥ 35 WEEKS ICD/hyphen.case10/hyphen.caseP59.9 Examine the baby in bright natural/ white ﬂuorescent light Make sure the baby is naked and no yellow/ off white
+39. 1726568620-neonatal-seizures-a3c9375e.pdf | Sudden alteration in motor, behavior or autonomic activity, with or without alteration of consciousness NEONATES WITH SEIZURES REQUIRE LONG TERM NEURODEVELOPMENTAL FOLLOW-UP AND HEARING ASSESSMENT This STW has been prepa
+40. 1726568622-feeds-fluids-in-neonates-52a7b212.pdf | Standard Treatment Workﬂow (STW) FEEDS & FLUIDS IN NEONATES ICD/hyphen.case10/hyphen.caseR63.3 EARLY AND AGGRESSIVE ENTERAL FEEDING BY BREASTMILK DECREASES MORTALITY AND MORBIDITY PART A Nutritional plan for infants not
+41. 1768382529-updateddc-c4465789.pdf | Standard Treatment Workﬂow (STW) for DILATATION AND CURETTAGE (D&C) • Mostly done for gynaecological indications, but may also be considered in early pregnancy complications • traditional D&C in gynaecological cases, it
+42. 1768823342-cardiology-1-4-cbbedf71.pdf | Standard Treatment Workﬂow (STW) UNSTABLE ANGINA/slash.caseNSTEMI ICD-11-BA40.0 ACUTE CORONARY SYNDROME: 1.Angina at rest or lasting more than 20 minutes 2.Recent worsening of stable angina (crescendo) to CCS class III 3
+43. 1768823342-cardiology-1-5-a3022e08.pdf | GENERAL MEASURES 1. Admit in ICU equipped with continuous ECG monitoring & deﬁbrillation 2. Routin e bio-chemistry and serial cardiac enzymes (troponin) 3. Pain relief by opioid 4. O2 if saturation less than 90% 5. Aspir
+44. 1768823342-cardiology-1-6-c981cb26.pdf | Standard Treatment Workﬂow (STW) STABLE ANGINA ICD-11-BA40.1 CONSIDER ANGINA IF • Diffuse retrosternal pain, heaviness or constriction, radiating to arms or neck or back • Associated with sweating • Easily reproduced wit
+45. 1768823343-cardiology-1-1-0cc4122f.pdf | Standard Treatment Workﬂow (STW) ATRIAL FIBRILLATION ICD-11-BC81.31 CATEGORIZE AF • Paroxysmal AF: Episodes of AF for less than 7 da ys • Persistent AF: AF lasing from 7 days to 1 year • Long standing perssistent AF: AF
+46. 1768823345-cardiology-1-3-c8e184e3.pdf | SPIRONOLACTONE • Dose 25-50 mg once daily PO • Keep watch on serum potassium and creatinine every 2-4 weekly ARNI • Dose 50 to 200 mg twice daily PO • Start with low dose with BP >100 mmHg, normal electrolyte and creatin
+47. 1771492063-bradyarrthymia13-2-2-24935cb6.pdf | Standard Treatment Workﬂow (STW) BRADYARRTHYMIAS IN SYMPTOMATIC PATIENTS ICD-11-MC81.1 WHEN TO SUSPECT Patient with any of the following symptoms, AND a pulse rate < 50bpm: (persis- tent) Syncope/ presyncope/ dizziness L
+48. 1771568619-ante-natalmanagementofnormalpregnancy-7-3bd7c9f2.pdf | Standard Treatment Workﬂow (STW) for ANTE-NATAL MANAGEMENT OF NORMAL PREGNANCY FIRST VISIT (PREFERABLY IN FIRST TRIMESTER) • Age • LMP • Calculate EDD • Parity & obstetric history • Any complaints especially excessive na
+49. 1784807239-acutekidneyinjury-updated-0aa43119.pdf | Standard Treatment Workﬂow (STW) ACUTE KIDNEY INJURY ICD-11-GB60 WHAT IS AKI? Increase in serum creati- nine ≥0.3 mg/dL in 48 hours OR ≥1.5× baseline within 7 days AND/OR urine output <0.5 mL/k- g/h for 6 hours. *Criteri
+50. 1784807344-chronickidneydisease-updated-4c04a1f3.pdf | Standard Treatment Workflow (STW) CHRONIC KIDNEY DISEASE (CKD) ICD-11-GB61 NUTRITION • Salt restriction <5 g/day and protein intake 0.8 g/kg/day. • Do not restrict protein intake unless there is documented high protein c
+
+
+
+## PDF EXTRACTION AUDIT SUMMARY
+
+### 1. Corpus Overview
+
+| Metric | Result |
+|---|---:|
+| Total PDF files | 50 |
+| Unique documents | 50 |
+| Successfully parsed documents | 50 |
+| Failed documents | 0 |
+| Total extracted pages | 51 |
+| Total extracted characters | 384,786 |
+
+### 2. Automated Quality Evaluation
+
+| Quality metric | Result |
+|---|---:|
+| Documents audited | 50 |
+| Documents passed | 50 |
+| Documents requiring review | 0 |
+| Empty pages | 0 |
+| Unrecognized short pages | 0 |
+| Verified boilerplate pages | 1 |
+| Explicit headings detected | 1,290 |
+| Heading coverage | 100.00% |
+
+### 3. Observations
+
+- All 50 unique PDF documents were parsed successfully.
+- The extracted corpus contains 51 pages.
+- No empty pages were detected.
+- One page contained the verified website marker `stw.icmr.org.in`.
+- The marker was classified as boilerplate rather than missing content.
+- Some extracted text contains encoded-symbol representations, such as `/hyphen.case` and `/slash.case`.
+- Complex tables, diagrams, and multi-column layouts may require additional visual verification.
+
+### 4. Audit Limitations
+
+- The text previews in this file are truncated.
+- Automated heading detection does not establish semantic heading accuracy.
+- A successful parsing result does not guarantee perfect preservation of tables, diagrams, or clinical information.
+- The automated audit does not constitute visual verification of all 50 source PDFs.
+
+### 5. Final Result
+
+All 50 documents passed the defined automated quality checks. One verified boilerplate page was identified and preserved. No parser failures, empty pages, or unrecognized short pages were detected.
+
+**Conclusion:** The PDF corpus is successfully parsed and passes the implemented automated quality checks. Further visual inspection is recommended for complex document layouts and suspicious symbol extraction.
