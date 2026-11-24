@@ -789,3 +789,28 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 
 **Outcome:** Added measurable extraction-quality evaluation to the STW Guide ingestion pipeline without introducing a database migration or re-parsing the existing corpus.
 **Quality result:** All 50 documents passed the defined automated checks. One verified boilerplate page was identified and preserved. This result does not establish semantic accuracy of all extracted tables, diagrams, or clinical content.
+
+### Day 07 – Production Deployment Verification
+
+**Deployment status:** Successful
+
+- Pull request for `feat/day-07-parse` was merged into `main`.
+- GitHub Actions deployment workflow completed successfully.
+- Neon database migration step passed.
+- Exact Docker image deployment to Render succeeded.
+- Production smoke test passed.
+
+**Live verification**
+
+| Check | Result |
+|---|---|
+| `/health` | `status: ok` |
+| Application | `stw_guide` |
+| Environment | `production` |
+| `/ready` | `status: ready` |
+| Database readiness | `true` |
+
+**Deployed version:**
+`ede88ec6243e98ada3dbeb7d53f037742e51b195`
+
+**Outcome:** The Day 07 corpus parsing and quality evaluation changes are merged into `main`, deployed to production, and verified using the live health and readiness endpoints.
