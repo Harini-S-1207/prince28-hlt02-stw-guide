@@ -977,3 +977,47 @@ Conclusion: Usage tracking and provider-attempt logging were verified. ₹0.1969
 Two or more of these four signs classify severe dehydration.
 
 **Finding:** The model generated incorrect clinical details because it did not retrieve the relevant ICMR document. This demonstrates the need for retrieval-grounded answers.
+
+### D08 · LLM gateway
+
+- Primary: `gemini-3.8-flash` (Gemini)
+- Fallback: `openai/gpt-oss-20b` (Groq)
+- First question on my laptop: first words after **not measured** s, total **not measured** s, tokens in **337** / out **not reliably measured**, cost Rs **not measured**.
+- Same question on my live URL (second, awake request): **pending live deployment test**.
+- Day 1 target: under 1.5 s.
+
+### Tokens: English against Tamil
+
+| Message | tokens in |
+|---|---:|
+| "Hi" (baseline: mostly my system prompt) | 337 |
+| The English sentence | 345 |
+| The same sentence in Tamil | 359 |
+
+- English incremental tokens: 8.
+- Tamil incremental tokens: 22.
+- The Tamil message needs about **2.75 times** the tokens of the English one.
+
+### What the model does without my documents
+
+- Question 6 ("Is the district hospital ICU bed free tonight?"): It did not invent availability. Exact response: "I’m sorry, but I can’t help with that."
+- A detail it got wrong: Severe dehydration classification → the model claimed three signs were required and included incorrect signs. The ICMR reference requires two or more of four signs: lethargy/unconsciousness, sunken eyes, unable to drink or drinking poorly, and skin pinch returning very slowly (more than 2 seconds).
+- The off-topic question ("Who won the 2011 cricket world cup?"): It declined with "I am not sure."
+
+### Fallback and circuit breaker
+
+- With the primary broken: provider **Groq**, fallback **true**. First words timing: not measured.
+- The question at which "llm call gemini … error" stopped appearing in the log: **not observed**. Gemini was still called on the fourth request and after the 30-second wait.
+- Half-open retry was attempted, but Gemini returned HTTP 404.
+- After restoring the original model, Gemini returned HTTP 503 and Groq fallback succeeded.
+
+### The bill
+
+- `/v1/usage` today: calls **29**, errors **14**, fallbacks **15**, estimated cost **Rs 0.1969**.
+- Average per successful answered call: approximately **Rs 0.0131** (estimated list-price cost).
+- Day 1 target: under Rs 0.50.
+- Note: This is estimated cost, not the actual provider invoice.
+
+### One thing that went wrong today, and how I fixed it
+
+The Docker image initially did not include the `prompts` directory. I added `COPY --chown=app:app prompts ./prompts` to the runtime stage of the Dockerfile. The image built successfully, and the container started after I supplied the required environment variables. The local `/health` endpoint returned HTTP 200.
