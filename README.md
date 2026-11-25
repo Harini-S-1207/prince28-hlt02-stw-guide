@@ -27,6 +27,16 @@ The project provides a centralized API for accessing treatment workflow document
 - Docker-based local development environment.
 - Automated CI/CD using GitHub Actions.
 - Production deployment on Render.
+- LLM Gateway with Gemini as the primary provider and Groq as the fallback.
+- OpenAI-compatible provider integration.
+- Automatic retries with backoff for retryable provider errors.
+- Circuit breaker for handling provider failures.
+- Streaming AI chat responses.
+- Safe fallback handling without switching providers mid-stream.
+- PostgreSQL-based LLM request and usage tracking.
+- Token estimation, latency measurement and INR cost estimation.
+- Daily LLM usage aggregation.
+- Configurable primary and fallback models.
 
 ## Technology Stack
 
@@ -46,6 +56,10 @@ The project provides a centralized API for accessing treatment workflow document
 | CI/CD | GitHub Actions |
 | Production hosting | Render |
 | Database hosting | Neon |
+| AI Integration | Gemini, Groq, OpenAI-compatible API |
+| AI Gateway | Custom LLM Gateway |
+| Usage Tracking | PostgreSQL |
+| AI Testing | FakeLLM, Pytest |
 
 ## Project Structure
 
@@ -150,6 +164,66 @@ For complete API details, visit:
 https://stw-guide.onrender.com/docs
 
 ---
+## AI Gateway Architecture
+
+STW Guide uses a centralized LLM Gateway to communicate with language model providers.
+
+### Provider Configuration
+
+- Primary provider: Gemini.
+- Fallback provider: Groq.
+- Integration: OpenAI-compatible API.
+
+### Reliability Features
+
+- Automatic retries with backoff for retryable errors.
+- Circuit breaker to handle provider failures.
+- Automatic fallback when the primary provider fails.
+- Configurable request timeout.
+- Streaming fallback is allowed only before the first response piece.
+- Provider switching is not allowed in the middle of an answer.
+
+### Usage Tracking
+
+Every model call is recorded in PostgreSQL.
+
+Tracked information includes:
+
+- Request ID.
+- Provider and model.
+- Request status.
+- Input and output tokens.
+- Latency in milliseconds.
+- Estimated cost in INR.
+- Fallback usage.
+- Request timestamp.
+
+Daily usage information is available through the usage API.
+
+## AI API Endpoints
+
+### AI Chat
+
+POST /v1/chat
+
+Accepts a user question and generates an AI response through the LLM Gateway.
+
+Features:
+- Provider selection and fallback.
+- Retry handling.
+- Streaming response support.
+- Usage tracking.
+
+### AI Usage
+
+GET /v1/usage
+
+Provides LLM usage information, including:
+- Daily request information.
+- Token consumption.
+- Latency.
+- Estimated cost.
+- Provider usage.
 
 ## Run Locally in One Command
 
@@ -234,6 +308,34 @@ uv run poe lint
 
 ---
 
+### Day 08 – LLM Gateway Verification
+
+The Day 08 implementation was verified using unit and integration tests.
+
+Tested components:
+- LLM Gateway and provider integration.
+- Retry and fallback behaviour.
+- Circuit breaker behaviour.
+- Streaming response behaviour.
+- PostgreSQL usage recording.
+- Chat and usage API routes.
+- Database integration.
+
+Final full-project coverage:
+
+| Metric | Result |
+|---|---:|
+| Total statements | 1,196 |
+| Missed statements | 0 |
+| Total branches | 258 |
+| Partial branches | 0 |
+| Statement coverage | 100% |
+| Branch coverage | 100% |
+
+All tests passed in the final verified run.
+
+Two non-fatal dependency warnings were reported.
+
 ## CI/CD Pipeline
 
 GitHub Actions automates code validation and production deployment.
@@ -284,8 +386,15 @@ Production secrets are managed securely through GitHub Actions Secrets and Rende
 - RENDER_DEPLOY_HOOK: GitHub Actions Secret.
 - APP_ENV: Application environment.
 - GIT_SHA: Deployed commit identifier.
+- GEMINI_API_KEY: API key for the Gemini provider.
+- GROQ_API_KEY: API key for the Groq fallback provider.
+- LLM_PRIMARY_MODEL: Configured primary model.
+- LLM_FALLBACK_MODEL: Configured fallback model.
 
+API keys must be stored in environment variables or deployment secrets.
+Never commit actual API keys to Git.
 Never commit credentials or deployment hooks to Git.
+
 ---
 
 ## Future Improvements

@@ -5,15 +5,21 @@ from stw_guide.api.deps import DbCheckDep, SettingsDep
 router = APIRouter(tags=["health"])
 
 
-@router.api_route("/health", methods=["GET", "HEAD"])
+@router.get("/health")
 def health(settings: SettingsDep) -> dict[str, str]:
-    """Liveness: is the process alive? Instant. Never touches the DB or the LLM."""
+    """Liveness: is the process alive? Instant. Never touches the DB or LLM."""
     return {
         "status": "ok",
         "app": settings.app_name,
         "env": settings.app_env,
         "version": settings.git_sha,
     }
+
+
+@router.head("/health", include_in_schema=False)
+def health_head() -> Response:
+    """HEAD version of the liveness check."""
+    return Response(status_code=200)
 
 
 @router.get("/ready")

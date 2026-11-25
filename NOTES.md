@@ -814,3 +814,210 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 `ede88ec6243e98ada3dbeb7d53f037742e51b195`
 
 **Outcome:** The Day 07 corpus parsing and quality evaluation changes are merged into `main`, deployed to production, and verified using the live health and readiness endpoints.
+
+
+### D08 – Provider connectivity
+
+- Gemini: HTTP 503 (UNAVAILABLE).
+  Reason: Model experiencing high demand.
+- Groq: Successful connection.
+  Model: openai/gpt-oss-20b
+  Response: pong
+  Latency: 522 ms
+  Input tokens: 77
+  Output tokens: 45
+
+- No API keys exposed.
+- Gemini issue appears provider-side; retry later.
+
+### D08 – LLM Gateway, Fallback and Usage Tracking
+
+**Objective:** Give STW Guide an AI response capability with provider fallback, streaming support, and usage tracking.
+
+**Implementation completed:**
+- Added `LLMGateway` with Gemini as the primary provider and Groq as the fallback.
+- Added OpenAI-compatible provider integration.
+- Implemented retry handling with backoff for retryable errors.
+- Added circuit breaker support.
+- Implemented streaming with no provider switching after the first response piece.
+- Added token estimation, latency measurement, and INR cost estimation.
+- Added PostgreSQL `llm_calls` table and migration.
+- Added usage recording and daily usage aggregation.
+- Added chat and usage API routes.
+- Added a system prompt with safeguards against fabricated ICMR references and medical guidance.
+
+**Testing results:**
+- Full project test suite passed.
+- Total statements: 1,196.
+- Missed statements: 0.
+- Total branches: 258.
+- Partial branches: 0.
+- Statement coverage: 100%.
+- Branch coverage: 100%.
+- 28 files skipped from the coverage table because they have complete coverage.
+- Two non-fatal dependency warnings were reported.
+
+**Provider connectivity check (historical):**
+- Gemini returned HTTP 503 (UNAVAILABLE) during the recorded check.
+- Groq successfully returned `pong`.
+- Groq model: `openai/gpt-oss-20b`.
+- Recorded latency: 522 ms.
+- Gemini connectivity requires another verification.
+
+**Outcome:** Day 08 implementation and automated coverage checks completed successfully. Live provider verification was performed during Milestone 5. Gemini returned HTTP 503, while Groq fallback succeeded. Documentation review and Git submission checks are recorded below.
+
+## Milestone 5 — Break it on purpose
+
+### 1. English vs Tamil token experiment
+
+| Test | Input tokens |
+|---|---:|
+| Hi | 337 |
+| English refund question | 345 |
+| Tamil refund question | 359 |
+
+- English message tokens: 345 − 337 = 8
+- Tamil message tokens: 359 − 337 = 22
+- Tamil/English ratio: 22 ÷ 8 = 2.75×
+
+Observations:
+- English response: "I am not sure."
+- Tamil response was empty despite reaching 2,048 output tokens.
+- Both requests used Groq fallback.
+
+### 2. Questions the system cannot answer
+
+**Question:** Is the district hospital ICU bed free tonight?
+
+Response: "I'm sorry, but I can't help with that."
+
+Observation: The system did not invent real-time hospital bed availability.
+
+**Off-topic question:** Who won the 2011 cricket world cup?
+
+Response: "I am not sure."
+
+Observation: The system did not answer, but did not explicitly identify the question as outside the STW Guide subject.
+
+**Additional observation:** The acute diarrhoea red-flags response contained unverified clinical details and exceeded the prompt's 120-word limit. Documents were not connected, so the answer must not be treated as verified ICMR guidance.
+
+### 3. Primary failure, fallback and circuit breaker
+
+Temporarily configured:
+
+`LLM_PRIMARY_MODEL=gemini-no-such-model`
+
+Results:
+- Four consecutive requests received responses from Groq.
+- All four Gemini attempts returned HTTP 404.
+- Groq successfully handled all four requests.
+- Gemini was still called on the fourth request.
+- After waiting more than 30 seconds, Gemini was called again and returned HTTP 404.
+
+Conclusion:
+- Primary-provider failure: verified.
+- Groq fallback: verified.
+- Circuit opening after three failures: not observed.
+- Half-open retry: attempted, but Gemini still failed.
+
+Restored the original model configuration: `gemini-3.8-flash`.
+
+Restoration test:
+- Gemini returned HTTP 503.
+- Groq fallback succeeded.
+- `fallback_used=true`.
+
+### 4. Usage and cost verification
+
+`GET /v1/usage` returned:
+
+| Metric | Value |
+|---|---:|
+| Calls | 29 |
+| Errors | 14 |
+| Fallbacks | 15 |
+| Input tokens | 5,250 |
+| Output tokens | 5,597 |
+| Estimated cost | ₹0.1969 |
+
+Neon SQL verification:
+- Failed Gemini requests were recorded with status `error`.
+- Failed calls had zero input tokens, zero output tokens and zero cost.
+- Groq fallback requests were recorded successfully.
+- Successful Groq fallback rows had `fallback_used=true`.
+
+Conclusion: Usage tracking and provider-attempt logging were verified. ₹0.1969 is the estimated list-price cost, not the actual provider invoice.
+
+### Question 1 — Acute and persistent diarrhea
+
+**Question:** According to the ICMR STW, how many days define acute diarrhea and persistent diarrhea?
+
+**Correct ICMR reference answer:**
+- Acute diarrhea: Less than 14 days.
+- Persistent diarrhea: More than 14 days.
+
+**Actual AI response:**
+- Acute diarrhea: Less than 14 days.
+- Persistent diarrhea: More than 14 days.
+
+**Finding:** The AI answer matched the ICMR reference. No incorrect detail was identified in this test.
+
+### Milestone 5 — Document-based testing: Question 2
+
+**Question:** According to the ICMR STW, what four signs are used to classify severe dehydration in a child?
+
+**Actual AI response:** Incorrect. It claimed three signs were required and provided signs that did not match the ICMR classification.
+
+**Correct ICMR reference answer:**
+1. Lethargy or unconsciousness.
+2. Sunken eyes.
+3. Unable to drink or drinking poorly.
+4. Skin pinch goes back very slowly (more than 2 seconds).
+
+Two or more of these four signs classify severe dehydration.
+
+**Finding:** The model generated incorrect clinical details because it did not retrieve the relevant ICMR document. This demonstrates the need for retrieval-grounded answers.
+
+### D08 · LLM gateway
+
+- Primary: `gemini-3.8-flash` (Gemini)
+- Fallback: `openai/gpt-oss-20b` (Groq)
+- First question on my laptop: first words after **not measured** s, total **not measured** s, tokens in **337** / out **not reliably measured**, cost Rs **not measured**.
+- Same question on my live URL (second, awake request): **pending live deployment test**.
+- Day 1 target: under 1.5 s.
+
+### Tokens: English against Tamil
+
+| Message | tokens in |
+|---|---:|
+| "Hi" (baseline: mostly my system prompt) | 337 |
+| The English sentence | 345 |
+| The same sentence in Tamil | 359 |
+
+- English incremental tokens: 8.
+- Tamil incremental tokens: 22.
+- The Tamil message needs about **2.75 times** the tokens of the English one.
+
+### What the model does without my documents
+
+- Question 6 ("Is the district hospital ICU bed free tonight?"): It did not invent availability. Exact response: "I’m sorry, but I can’t help with that."
+- A detail it got wrong: Severe dehydration classification → the model claimed three signs were required and included incorrect signs. The ICMR reference requires two or more of four signs: lethargy/unconsciousness, sunken eyes, unable to drink or drinking poorly, and skin pinch returning very slowly (more than 2 seconds).
+- The off-topic question ("Who won the 2011 cricket world cup?"): It declined with "I am not sure."
+
+### Fallback and circuit breaker
+
+- With the primary broken: provider **Groq**, fallback **true**. First words timing: not measured.
+- The question at which "llm call gemini … error" stopped appearing in the log: **not observed**. Gemini was still called on the fourth request and after the 30-second wait.
+- Half-open retry was attempted, but Gemini returned HTTP 404.
+- After restoring the original model, Gemini returned HTTP 503 and Groq fallback succeeded.
+
+### The bill
+
+- `/v1/usage` today: calls **29**, errors **14**, fallbacks **15**, estimated cost **Rs 0.1969**.
+- Average per successful answered call: approximately **Rs 0.0131** (estimated list-price cost).
+- Day 1 target: under Rs 0.50.
+- Note: This is estimated cost, not the actual provider invoice.
+
+### One thing that went wrong today, and how I fixed it
+
+The Docker image initially did not include the `prompts` directory. I added `COPY --chown=app:app prompts ./prompts` to the runtime stage of the Dockerfile. The image built successfully, and the container started after I supplied the required environment variables. The local `/health` endpoint returned HTTP 200.
