@@ -308,3 +308,138 @@ def test_a_source_without_a_licence_is_refused(tmp_path):
 
     with pytest.raises(ValueError, match="licence"):
         fetch.read_sources(path)
+
+
+def test_retry_after_accepts_timezone_naive_http_date():
+    assert fetch.retry_after_seconds("Wed, 21 Oct 2015 07:28:00") == 0.0
+
+
+def test_read_sources_rejects_invalid_url(tmp_path):
+    path = tmp_path / "sources.csv"
+    path.write_text(
+        "url,source,licence,title\nftp://example.org/a.pdf,example,CC BY 4.0,Report\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="http"):
+        fetch.read_sources(path)
+
+
+def test_manifest_ignores_corrupt_lines_and_repairs_missing_newline(tmp_path):
+    path = tmp_path / "manifest.jsonl"
+    valid = json.dumps(
+        {
+            "url": "https://example.org/a.pdf",
+            "status": "downloaded",
+        }
+    )
+    path.write_text(valid + "\n{invalid json}", encoding="utf-8")
+
+    result = fetch.Manifest(path)
+
+    assert "https://example.org/a.pdf" in result.records
+    assert path.read_text(encoding="utf-8").endswith("\n")
+
+
+async def test_robots_network_error_blocks_download():
+    def handler(request):
+        raise httpx.ConnectError("offline", request=request)
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        robots = fetch.Robots(client)
+        allowed, delay = await robots.check("https://example.org/guide.pdf")
+
+    assert allowed is False
+    assert delay == 0.0
+
+
+async def test_download_rejects_file_over_size_limit(tmp_path, monkeypatch):
+    monkeypatch.setattr(fetch, "MAX_BYTES", 3)
+
+    counts = await FakeSite().run(make_sources(1), tmp_path)
+
+    assert counts["failed"] == 1
+    assert raw_files(tmp_path) == []
+
+
+async def test_excessive_retry_after_stops_without_waiting(tmp_path):
+    site = FakeSite(plan={"/guide/page-0.html": [429]})
+    site.error_headers = {"Retry-After": "9999"}
+
+    counts = await site.run(make_sources(1), tmp_path)
+
+    assert counts["failed"] == 1
+    assert len(site.hits) == 1
+    assert site.slept == []
+    assert "run again later" in manifest(tmp_path)[0]["error"]
+
+
+async def test_non_transport_http_error_is_not_retried(tmp_path):
+    def handler(request):
+        if request.url.path == "/robots.txt":
+            return httpx.Response(404)
+        raise httpx.DecodingError("invalid response", request=request)
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        counts = await fetch_all(
+            make_sources(1),
+            root=tmp_path,
+            client=client,
+            sleep=asyncio.sleep,
+            per_host_delay=0,
+        )
+
+    assert counts["failed"] == 1
+    assert manifest(tmp_path)[0]["attempts"] == 1
+
+
+async def test_repeated_identical_failure_does_not_duplicate_manifest(tmp_path):
+    site = FakeSite(plan={"/guide/page-0.html": [404, 404]})
+
+    await site.run(make_sources(1), tmp_path)
+    first_count = len(manifest(tmp_path))
+
+    await site.run(make_sources(1), tmp_path)
+    second_count = len(manifest(tmp_path))
+
+    assert first_count == 1
+    assert second_count == first_count
+
+
+async def test_on_result_callback_receives_download_result(tmp_path):
+    received = []
+
+    counts = await FakeSite().run(
+        make_sources(1),
+        tmp_path,
+        on_result=received.append,
+    )
+
+    assert counts["downloaded"] == 1
+    assert len(received) == 1
+    assert received[0]["status"] == "downloaded"
+
+
+def test_make_client_creates_configured_async_client():
+    client = fetch.make_client(max_concurrency=2)
+
+    try:
+        assert isinstance(client, httpx.AsyncClient)
+        assert client.headers["User-Agent"] == fetch.USER_AGENT
+        assert client.follow_redirects is True
+    finally:
+        # Close the client to avoid leaking connections.
+        import asyncio
+
+        asyncio.run(client.aclose())
+
+
+async def test_fetch_all_closes_client_it_creates(tmp_path, monkeypatch):
+    client = httpx.AsyncClient(
+        transport=httpx.MockTransport(lambda request: httpx.Response(404))
+    )
+    monkeypatch.setattr(fetch, "make_client", lambda max_concurrency: client)
+
+    await fetch.fetch_all([], root=tmp_path)
+
+    assert client.is_closed
