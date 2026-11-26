@@ -1,4 +1,4 @@
-D01 – Project Foundation and FastAPI Skeleton
+﻿D01 â€“ Project Foundation and FastAPI Skeleton
 1. Project Environment
 The STW Guide project foundation was established using a structured Python project layout.
 - Python project managed with uv
@@ -27,7 +27,7 @@ Development quality checks and repository safeguards were configured.
 The initial project documentation and automated test foundation were established. The project README was prepared, and tests were added to verify core API behavior and configuration.
 5. Day 1 Outcome
 The initial STW Guide foundation was established with a structured Python package, FastAPI skeleton, core API components, development quality gates and initial documentation. This provided the base for the PostgreSQL implementation and Docker work completed in later days.
-## D03 – PostgreSQL Implementation Notes
+## D03 â€“ PostgreSQL Implementation Notes
 1. Database Setup
 - Database: Neon PostgreSQL
 - PostgreSQL version: 18.7
@@ -234,10 +234,10 @@ The checks passed after formatting corrections.
 - Database sessions are managed through SQLAlchemy.
 - Database connections are disposed during application shutdown.
 Project: STW Guide
-Task: D03 – PostgreSQL Implementation
+Task: D03 â€“ PostgreSQL Implementation
 Database: Neon PostgreSQL
 Status: Implementation and verification evidence documented.
-D04 · Docker, Compose and Tests
+D04 Â· Docker, Compose and Tests
 1. Production Docker Image
 The project uses a multi-stage Dockerfile.
 
@@ -390,10 +390,10 @@ GET /ready
 {"status":"ok","checks":{"database":true}}
 The clean-clone verification passed.
 Project: STW Guide
-Task: D04 – Docker, Compose and Tests
+Task: D04 â€“ Docker, Compose and Tests
 Status: Implementation and verification completed; 100% statement and branch coverage achieved.
 
-## D05 · CI/CD and Going Live
+## D05 Â· CI/CD and Going Live
 
 ### Deployment Details
 
@@ -468,16 +468,16 @@ One improvement for faster first requests is configuring an appropriate always-o
 - Rollback and roll-forward: Successfully tested.
 - README badges and live links: Added.
 
-### Day 06 – Section 3: Kill it and Resume
+### Day 06 â€“ Section 3: Kill it and Resume
 
 **Resume and recovery test results**
 
 | Test | Downloaded | Skipped | Result |
 |---|---:|---:|---|
-| Interrupted run | 1 | — | Passed – stopped safely |
+| Interrupted run | 1 | â€” | Passed â€“ stopped safely |
 | Resume run | 9 | 1 | Passed |
-| Third run | 0 | 10 | Passed – no duplicate downloads |
-| Deleted-file recovery | 1 | 9 | Passed – missing file restored |
+| Third run | 0 | 10 | Passed â€“ no duplicate downloads |
+| Deleted-file recovery | 1 | 9 | Passed â€“ missing file restored |
 
 **Additional verification:**
 - No `.part` files remained after the interrupted download.
@@ -487,7 +487,7 @@ One improvement for faster first requests is configuring an appropriate always-o
 
 **Conclusion:** The downloader supports safe interruption, resuming, duplicate prevention, and recovery of missing files.
 
-### Day 06 – Section 4: Reach Your Start Target
+### Day 06 â€“ Section 4: Reach Your Start Target
 
 **Corpus collection completed**
 
@@ -519,7 +519,7 @@ Six additional individual ICMR documents from other specialties were also retain
 
 **Conclusion:** Collected 44 PDFs across the five selected specialties and 50 PDFs overall. The exact number of distinct STWs represented by these documents is still being validated, so achievement of the original target of 40 STWs is not yet confirmed.
 
-## D06 · Collecting the corpus
+## D06 Â· Collecting the corpus
 
 - Start target: 40 STWs from 5 specialties.
 - Collected today: **50 files, 51 pages, 39.1 MB**.
@@ -548,8 +548,8 @@ Six additional individual ICMR documents from other specialties were also retain
 ### Capacity
 
 - Tokens per page, measured: **1,503**.
-- Full corpus: **0.19 M tokens, 551 chunks, embedding about ₹3, vectors 2 MB**.
-- The number that surprised me most, and why: The estimated one-time embedding cost is only about ₹3 for 125 PDFs. This makes the initial embedding cost very small.
+- Full corpus: **0.19 M tokens, 551 chunks, embedding about â‚¹3, vectors 2 MB**.
+- The number that surprised me most, and why: The estimated one-time embedding cost is only about â‚¹3 for 125 PDFs. This makes the initial embedding cost very small.
 
 ### One thing that went wrong today, and how I fixed it
 
@@ -557,7 +557,7 @@ Six additional individual ICMR documents from other specialties were also retain
 - I added `cryptography` to the project dependencies and updated the report script to decrypt PDFs using an empty password before measuring.
 - I cleared the old measurement cache and reran the report. All 50 PDFs were measured successfully, with 0 unreadable files.
 
-## Day 06 – Milestone 3: Parse 20 Files and Read Them
+## Day 06 â€“ Milestone 3: Parse 20 Files and Read Them
 
 ### Objective
 Parse downloaded ICMR PDF documents into structured pages and store the extracted content in PostgreSQL.
@@ -644,7 +644,7 @@ uv run --no-sync python scripts/parse_corpus.py --retry-failed --ocr eng
 
 Successfully implemented and tested the corpus parsing pipeline. Parsed 20 downloaded ICMR PDFs, stored 20 pages in Neon PostgreSQL, verified the original PDF page counts and inspected the extracted medical content. The run completed with zero parsing failures in 35.29 seconds.
 
-### Milestone 4 — Full Corpus Parsing and Validation
+### Milestone 4 â€” Full Corpus Parsing and Validation
 
 - Ran the parser across the full corpus of 50 downloaded files.
 - First full run: 10 newly parsed, 40 already parsed, 0 failures, and 11 pages stored.
@@ -658,22 +658,22 @@ Successfully implemented and tested the corpus parsing pipeline. Parsed 20 downl
 - Manually checked the psychosis, depression, and childhood emotional disorders PDFs against their extracted content. All three matched.
 - No failed files required correction or retry because the failure table was empty.
 
-## Milestone 5 — Parser comparison
+## Milestone 5 â€” Parser comparison
 
 
 <!-- parsers:start -->
 | File | Parsers (A / B) | Pages | A found | B found | Time (A / B) | Better, why |
 |---|---|---|---|---|---|---|
-| 1771492063-bradyarrthymia13-2-2-24935cb6.pdf | PyMuPDF / pypdf | 1 | 6,174 chars, 15 headings, 2 tables | 4,882 chars, 0 headings, 0 tables | 2.63 s / 0.63 s | PyMuPDF — preserves headings and detects tables, but multi-column table structure is partially distorted. |
-| 1784807344-chronickidneydisease-updated-4c04a1f3 | PyMuPDF / pypdf | 1 | 12,291 chars, 25 headings, 1 table | 8,070 chars, 0 headings, 0 tables | 1.53 s / 0.69 s | PyMuPDF — extracts more text and detects 25 headings. |
-| 1784807239-acutekidneyinjury-updated-0aa43119.pdf | PyMuPDF / pypdf | 1 | 6,347 chars, 17 headings, 2 tables | 6,026 chars, 0 headings, 0 tables | 1.24 s / 0.73 s | PyMuPDF — detects 17 headings and 2 tables. |
-| 1725952330-psychiatry-somatoform-disorder-2dbbac | PyMuPDF / pypdf | 1 | 7,001 chars, 28 headings, 1 table | 6,971 chars, 0 headings, 0 tables | 2.94 s / 1.70 s | PyMuPDF — detects 28 headings and preserves more structure. |
-| 1725952333-psychiatry-developmental-problems-ff4 | PyMuPDF / pypdf | 1 | 12,396 chars, 13 headings, 3 tables | 7,960 chars, 0 headings, 0 tables | 3.72 s / 1.56 s | PyMuPDF — detects 13 headings and 3 tables; some columns are duplicated. |
-| 1725952331-psychiatry-psychosis-c4672b3a.pdf | PyMuPDF / pypdf | 1 | 11,651 chars, 10 headings, 5 tables | 7,236 chars, 0 headings, 0 tables | 3.69 s / 0.66 s | PyMuPDF — detects 10 headings and 5 tables; flowchart relationships are lost. |
-| 1725952335-psychiatry-alcohol-use-disorders-f345 | PyMuPDF / pypdf | 1 | 8,278 chars, 36 headings, 7 tables | 6,446 chars, 0 headings, 0 tables | 3.63 s / 1.79 s | PyMuPDF — detects 36 headings and 7 tables. |
-| 1725952351-ent-chronic-rhinosinusitis-dd1efa5a.pdf | PyMuPDF / pypdf | 1 | 8,402 chars, 15 headings, 3 tables | 4,972 chars, 0 headings, 0 tables | 1.81 s / 0.87 s | PyMuPDF — detects 15 headings and 3 tables. |
-| 1725952333-psychiatry-anxiety-disorder-02e44e08 | PyMuPDF / pypdf | 1 | 5,318 chars, 6 headings, 2 tables | 6,002 chars, 0 headings, 0 tables | 3.10 s / 0.86 s | Inconclusive — pypdf extracts more characters, but character count alone cannot establish accuracy. |
-| 1725952351-ent-epistaxis-38326ddc.pdf | PyMuPDF / pypdf | 1 | 4,282 chars, 39 headings, 0 tables | 4,089 chars, 0 headings, 0 tables | 1.55 s / 0.66 s | PyMuPDF — detects 39 headings and extracts more text. |
+| 1771492063-bradyarrthymia13-2-2-24935cb6.pdf | PyMuPDF / pypdf | 1 | 6,174 chars, 15 headings, 2 tables | 4,882 chars, 0 headings, 0 tables | 2.63 s / 0.63 s | PyMuPDF â€” preserves headings and detects tables, but multi-column table structure is partially distorted. |
+| 1784807344-chronickidneydisease-updated-4c04a1f3 | PyMuPDF / pypdf | 1 | 12,291 chars, 25 headings, 1 table | 8,070 chars, 0 headings, 0 tables | 1.53 s / 0.69 s | PyMuPDF â€” extracts more text and detects 25 headings. |
+| 1784807239-acutekidneyinjury-updated-0aa43119.pdf | PyMuPDF / pypdf | 1 | 6,347 chars, 17 headings, 2 tables | 6,026 chars, 0 headings, 0 tables | 1.24 s / 0.73 s | PyMuPDF â€” detects 17 headings and 2 tables. |
+| 1725952330-psychiatry-somatoform-disorder-2dbbac | PyMuPDF / pypdf | 1 | 7,001 chars, 28 headings, 1 table | 6,971 chars, 0 headings, 0 tables | 2.94 s / 1.70 s | PyMuPDF â€” detects 28 headings and preserves more structure. |
+| 1725952333-psychiatry-developmental-problems-ff4 | PyMuPDF / pypdf | 1 | 12,396 chars, 13 headings, 3 tables | 7,960 chars, 0 headings, 0 tables | 3.72 s / 1.56 s | PyMuPDF â€” detects 13 headings and 3 tables; some columns are duplicated. |
+| 1725952331-psychiatry-psychosis-c4672b3a.pdf | PyMuPDF / pypdf | 1 | 11,651 chars, 10 headings, 5 tables | 7,236 chars, 0 headings, 0 tables | 3.69 s / 0.66 s | PyMuPDF â€” detects 10 headings and 5 tables; flowchart relationships are lost. |
+| 1725952335-psychiatry-alcohol-use-disorders-f345 | PyMuPDF / pypdf | 1 | 8,278 chars, 36 headings, 7 tables | 6,446 chars, 0 headings, 0 tables | 3.63 s / 1.79 s | PyMuPDF â€” detects 36 headings and 7 tables. |
+| 1725952351-ent-chronic-rhinosinusitis-dd1efa5a.pdf | PyMuPDF / pypdf | 1 | 8,402 chars, 15 headings, 3 tables | 4,972 chars, 0 headings, 0 tables | 1.81 s / 0.87 s | PyMuPDF â€” detects 15 headings and 3 tables. |
+| 1725952333-psychiatry-anxiety-disorder-02e44e08 | PyMuPDF / pypdf | 1 | 5,318 chars, 6 headings, 2 tables | 6,002 chars, 0 headings, 0 tables | 3.10 s / 0.86 s | Inconclusive â€” pypdf extracts more characters, but character count alone cannot establish accuracy. |
+| 1725952351-ent-epistaxis-38326ddc.pdf | PyMuPDF / pypdf | 1 | 4,282 chars, 39 headings, 0 tables | 4,089 chars, 0 headings, 0 tables | 1.55 s / 0.66 s | PyMuPDF â€” detects 39 headings and extracts more text. |
 <!-- parsers:end -->
 
 ### Manual PDF Inspection
@@ -695,7 +695,7 @@ Three original ICMR PDFs were compared against their extracted PostgreSQL page t
 - PyMuPDF is retained as the primary parser for the current corpus.
 
 
-### D07 · Parsing my corpus
+### D07 Â· Parsing my corpus
 
 - Files in the manifest: 51 records (50 unique downloaded files)
 - Parsed: 50
@@ -709,16 +709,16 @@ Three original ICMR PDFs were compared against their extracted PostgreSQL page t
 |---|---:|---|
 | No parsing failures recorded | 0 | All 50 unique downloaded files parsed successfully |
 
-- The one I fixed: N/A — no parsing failures were recorded.
+- The one I fixed: N/A â€” no parsing failures were recorded.
 
 ### What I saw when I read my parsed pages
 
 - A page where the heading path is right (document, page, path):
-  Childhood Emotional Disorders, page 2 — stored headings: CHILDHOOD EMOTIONAL DISORDERS → KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES → October/2019.
+  Childhood Emotional Disorders, page 2 â€” stored headings: CHILDHOOD EMOTIONAL DISORDERS â†’ KEEP A HIGH THRESHOLD FOR INVASIVE PROCEDURES â†’ October/2019.
 - Something that came out wrong (document, page, what):
-  Chronic Rhinosinusitis, page 1 — some multi-column content was duplicated or misplaced during extraction.
+  Chronic Rhinosinusitis, page 1 â€” some multi-column content was duplicated or misplaced during extraction.
 - A table: Markdown grid or loose text? (document, page):
-  Atrial Fibrillation, page 1 — Markdown pipe-separated table, but column alignment and repeated content were distorted.
+  Atrial Fibrillation, page 1 â€” Markdown pipe-separated table, but column alignment and repeated content were distorted.
 
 ### My parser choice
 
@@ -790,7 +790,7 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 **Outcome:** Added measurable extraction-quality evaluation to the STW Guide ingestion pipeline without introducing a database migration or re-parsing the existing corpus.
 **Quality result:** All 50 documents passed the defined automated checks. One verified boilerplate page was identified and preserved. This result does not establish semantic accuracy of all extracted tables, diagrams, or clinical content.
 
-### Day 07 – Production Deployment Verification
+### Day 07 â€“ Production Deployment Verification
 
 **Deployment status:** Successful
 
@@ -816,7 +816,7 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 **Outcome:** The Day 07 corpus parsing and quality evaluation changes are merged into `main`, deployed to production, and verified using the live health and readiness endpoints.
 
 
-### D08 – Provider connectivity
+### D08 â€“ Provider connectivity
 
 - Gemini: HTTP 503 (UNAVAILABLE).
   Reason: Model experiencing high demand.
@@ -830,7 +830,7 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 - No API keys exposed.
 - Gemini issue appears provider-side; retry later.
 
-### D08 – LLM Gateway, Fallback and Usage Tracking
+### D08 â€“ LLM Gateway, Fallback and Usage Tracking
 
 **Objective:** Give STW Guide an AI response capability with provider fallback, streaming support, and usage tracking.
 
@@ -866,7 +866,7 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 
 **Outcome:** Day 08 implementation and automated coverage checks completed successfully. Live provider verification was performed during Milestone 5. Gemini returned HTTP 503, while Groq fallback succeeded. Documentation review and Git submission checks are recorded below.
 
-## Milestone 5 — Break it on purpose
+## Milestone 5 â€” Break it on purpose
 
 ### 1. English vs Tamil token experiment
 
@@ -876,9 +876,9 @@ My SQL query initially referenced p.metadata, but the metadata column belongs to
 | English refund question | 345 |
 | Tamil refund question | 359 |
 
-- English message tokens: 345 − 337 = 8
-- Tamil message tokens: 359 − 337 = 22
-- Tamil/English ratio: 22 ÷ 8 = 2.75×
+- English message tokens: 345 âˆ’ 337 = 8
+- Tamil message tokens: 359 âˆ’ 337 = 22
+- Tamil/English ratio: 22 Ã· 8 = 2.75Ã—
 
 Observations:
 - English response: "I am not sure."
@@ -938,7 +938,7 @@ Restoration test:
 | Fallbacks | 15 |
 | Input tokens | 5,250 |
 | Output tokens | 5,597 |
-| Estimated cost | ₹0.1969 |
+| Estimated cost | â‚¹0.1969 |
 
 Neon SQL verification:
 - Failed Gemini requests were recorded with status `error`.
@@ -946,9 +946,9 @@ Neon SQL verification:
 - Groq fallback requests were recorded successfully.
 - Successful Groq fallback rows had `fallback_used=true`.
 
-Conclusion: Usage tracking and provider-attempt logging were verified. ₹0.1969 is the estimated list-price cost, not the actual provider invoice.
+Conclusion: Usage tracking and provider-attempt logging were verified. â‚¹0.1969 is the estimated list-price cost, not the actual provider invoice.
 
-### Question 1 — Acute and persistent diarrhea
+### Question 1 â€” Acute and persistent diarrhea
 
 **Question:** According to the ICMR STW, how many days define acute diarrhea and persistent diarrhea?
 
@@ -962,7 +962,7 @@ Conclusion: Usage tracking and provider-attempt logging were verified. ₹0.1969
 
 **Finding:** The AI answer matched the ICMR reference. No incorrect detail was identified in this test.
 
-### Milestone 5 — Document-based testing: Question 2
+### Milestone 5 â€” Document-based testing: Question 2
 
 **Question:** According to the ICMR STW, what four signs are used to classify severe dehydration in a child?
 
@@ -978,7 +978,7 @@ Two or more of these four signs classify severe dehydration.
 
 **Finding:** The model generated incorrect clinical details because it did not retrieve the relevant ICMR document. This demonstrates the need for retrieval-grounded answers.
 
-### D08 · LLM gateway
+### D08 Â· LLM gateway
 
 - Primary: `gemini-3.8-flash` (Gemini)
 - Fallback: `openai/gpt-oss-20b` (Groq)
@@ -1000,14 +1000,14 @@ Two or more of these four signs classify severe dehydration.
 
 ### What the model does without my documents
 
-- Question 6 ("Is the district hospital ICU bed free tonight?"): It did not invent availability. Exact response: "I’m sorry, but I can’t help with that."
-- A detail it got wrong: Severe dehydration classification → the model claimed three signs were required and included incorrect signs. The ICMR reference requires two or more of four signs: lethargy/unconsciousness, sunken eyes, unable to drink or drinking poorly, and skin pinch returning very slowly (more than 2 seconds).
+- Question 6 ("Is the district hospital ICU bed free tonight?"): It did not invent availability. Exact response: "Iâ€™m sorry, but I canâ€™t help with that."
+- A detail it got wrong: Severe dehydration classification â†’ the model claimed three signs were required and included incorrect signs. The ICMR reference requires two or more of four signs: lethargy/unconsciousness, sunken eyes, unable to drink or drinking poorly, and skin pinch returning very slowly (more than 2 seconds).
 - The off-topic question ("Who won the 2011 cricket world cup?"): It declined with "I am not sure."
 
 ### Fallback and circuit breaker
 
 - With the primary broken: provider **Groq**, fallback **true**. First words timing: not measured.
-- The question at which "llm call gemini … error" stopped appearing in the log: **not observed**. Gemini was still called on the fourth request and after the 30-second wait.
+- The question at which "llm call gemini â€¦ error" stopped appearing in the log: **not observed**. Gemini was still called on the fourth request and after the 30-second wait.
 - Half-open retry was attempted, but Gemini returned HTTP 404.
 - After restoring the original model, Gemini returned HTTP 503 and Groq fallback succeeded.
 
@@ -1021,3 +1021,157 @@ Two or more of these four signs classify severe dehydration.
 ### One thing that went wrong today, and how I fixed it
 
 The Docker image initially did not include the `prompts` directory. I added `COPY --chown=app:app prompts ./prompts` to the runtime stage of the Dockerfile. The image built successfully, and the container started after I supplied the required environment variables. The local `/health` endpoint returned HTTP 200.
+
+## D09 - Prompt versions compared
+
+<!-- prompts:start -->
+
+| Prompt version | Correct | Accuracy | Invalid replies | Avg tokens in |
+|---|---:|---:|---:|---:|
+| classify_v1 | 20/20 | 100% | 0 | 268 |
+| classify_v2 | 20/20 | 100% | 0 | 266 |
+| classify_v3 | 20/20 | 100% | 0 | 396 |
+| classify_v4 | 20/20 | 100% | 0 | 316 |
+
+<!-- prompts:end -->
+
+
+### Prompt iteration history
+
+- Original classify_v1 baseline: 11/20 (55%), with 3 invalid replies.
+- Improved classify_v1: 20/20 (100%).
+- classify_v2: 20/20 (100%).
+- classify_v3: 20/20 (100%).
+- classify_v4: 20/20 (100%).
+- Original v1 preserved at eval/archive/classify_v1_original.md.
+- Final evaluation: 80/80 correct classifications with zero invalid replies.
+- No prompt leaks reported during the final comparison.
+
+## D09 - Metadata extraction source verification
+
+### Five-document trial
+
+- Prompt: `extract_v1`
+- Documents successfully extracted: 5
+- Repaired responses: 3
+- Failed documents: 0
+- Input tokens: 21,452
+- Output tokens: 8,235
+- Reported cost: Rs 0.3875
+- Duration: 220 seconds
+- Model: `openai/gpt-oss-20b`
+
+### Manual source verification
+
+The initial two original ICMR PDFs are documented in detail below; three additional PDFs were verified and are summarized in the table.
+
+1. Acute paralysis:
+   - Source: `data/raw/icmr/1725952346-neurology-acute-paralysis-2b5cb3aa.pdf`
+   - Source title: Approach to Acute Paralysis.
+   - Publication date: October 2019.
+   - Extracted condition and clinical warning signs were supported by the source.
+   - Specialty was empty; the inspected pages did not explicitly identify a department.
+
+2. Acute kidney injury:
+   - Source: `data/raw/icmr/1784807239-acutekidneyinjury-updated-0aa43119.pdf`
+   - Source title: Acute Kidney Injury.
+   - Publication date: July 2026.
+   - Extracted condition, preliminary actions and referral warning signs were supported by the source.
+   - Red flags and referral criteria overlapped because the source groups them under urgent referral.
+
+### Observed limitations
+
+- Some source PDF titles are generic or truncated in document metadata.
+- Some model responses required repair because list values exceeded the schema's length or item limits.
+- A valid structured response still requires manual source verification for factual accuracy.
+
+### Manual verification of five original ICMR PDFs
+
+Five extracted metadata records were checked against their original PDF documents.
+
+| Document | Verification result | Observation |
+|---|---|---|
+| Acute Paralysis | Supported | Condition and clinical warning signs matched the source. Specialty was not explicitly identified. |
+| Acute Kidney Injury | Supported | Condition, preliminary actions and referral warning signs matched the source. Red flags and referral criteria overlapped in the source. |
+| Alcohol Use Disorders | Mostly supported | Condition, topics, summary, warning signs and admission criteria matched. Extracted year was null, although the source states October 2019. |
+| Neonatal Sepsis | Supported | Condition, red flags and first-line recommendations matched. Extracted year was null, although the source states July 2020. |
+| Neonatal Respiratory Distress | Supported | Condition, topics, oxygen therapy, CPAP, surfactant and referral criteria matched. Extracted year 2020 matched the source. |
+
+#### Findings
+
+- Five original ICMR PDFs were manually inspected.
+- Two documents had missing publication years despite dates being present in the source PDFs.
+- Specialty classification should be interpreted cautiously when it is not explicitly stated in the document.
+- Automated schema validation confirms structure, not complete clinical accuracy.
+- Manual verification remains important for checking extracted clinical information against source documents.
+
+## D09 - Live API verification
+
+Production deployment was verified using the Render URL.
+
+| Endpoint / filter | Result | Status |
+|---|---|---|
+| `/health` | HTTP 200; application status `ok`; environment `production` | Passed |
+| `/v1/usage` | HTTP 200; usage records returned for the last 7 days | Passed |
+| `/v1/documents?doc_kind=guideline&limit=3` | Returned 3 matching documents | Passed |
+| `/v1/documents?language=en&limit=3` | Returned 3 matching documents | Passed |
+| `/v1/documents?condition=sepsis%20in%20neonates&limit=3` | Returned 1 matching Neonatal Sepsis document | Passed |
+
+The initial condition query used `neonatal sepsis` and returned zero matches. The exact extracted value, `sepsis in neonates`, returned the expected document. This confirmed that list-value filtering works when the supplied value matches the stored metadata.
+
+The usage endpoint initially experienced a connection reset, but a retry returned HTTP 200.
+
+The production health endpoint reported application status `ok` and environment `production`.
+
+### D09 - Prompts and structured output
+
+- Best router prompt: `classify_v2` — 20/20 correct (100%). It achieved the same accuracy as the other final versions with the lowest average input-token count (266).
+- Original `classify_v1` scored 11/20 (55%) with 3 invalid replies. After revision, it scored 20/20 (100%) with no invalid replies.
+- `classify_v4` scored 20/20 (100%); average input tokens were 316.
+- Average input tokens per question: v1 268; best version (`classify_v2`) 266.
+- No incorrect answers remained in the final 20-question evaluation set. This does not guarantee correctness on unseen questions.
+- Changes to evaluation labels: not established by the recorded comparison results; no label changes are claimed.
+### My contract (DocMeta)
+
+- The implemented fields are `doc_kind`, `year`, `language`, `summary`, `topics`, `condition`, `specialty`, `red_flags`, `first_line`, and `referral_criteria`.
+- The contract uses constrained values and length limits to keep extracted metadata consistent.
+- Unknown publication years can be null; unavailable list values can be empty.
+- The exact fields removed from the original project card are not recorded in the available notes, so no field removals are claimed.
+
+### Extraction run
+
+- Prompt version: `extract_v1`.
+- Latest confirmed corpus status: 41 documents successfully extracted, 0 failed, 9 pending, out of 50 target documents.
+- Latest one-document run: 1 successful, 0 repaired, 0 failed; 2,490 input tokens, 1,296 output tokens; estimated cost ₹0.0547.
+- Full-corpus extraction did not finish because the Gemini provider returned HTTP 429 quota errors. The pipeline stopped safely and can resume.
+- Five original ICMR PDFs were manually checked against their source documents. Two extracted records had missing publication years even though dates were present in the PDFs.
+- Extraction cost for the complete corpus is not yet final. The five-document trial cost ₹0.3875.
+- Five-document trial cost per document: approximately ₹0.0775. This is a trial average, not the final corpus cost.
+
+### One thing that went wrong today, and how I fixed it
+
+The extraction provider quota was exhausted during the full-corpus run. I verified that the pipeline remained resumable, waited before retrying, and successfully extracted one additional document. A later run stopped safely when Gemini returned HTTP 429. No previously successful records were lost.
+
+#### Prompt evolution: v3 to v4
+
+- v3 used six examples to demonstrate the three classification labels.
+- v4 removed the examples and replaced them with an explicit decision boundary.
+- The key improvement was clarifying that questions about ICMR STW recommendations remain `docs`, even when phrased as patient scenarios.
+- v4 also clarified that questions about an individual patient's current measurements, treatment progress or facility availability belong to `personal`.
+- Both versions retained the instruction that text inside the question tags is data, not an instruction.
+- Both versions achieved 20/20 on the final 20-question evaluation set.
+- v4 therefore achieved the same measured accuracy with a more explicit classification boundary, although the test set is too small to establish general performance.
+
+### D09 - Automated test verification
+
+| Test category | Result |
+|---|---:|
+| Unit tests | 209 passed |
+| Integration tests | 16 passed |
+| Total | 225 passed |
+| Ruff lint | Passed |
+| Ruff formatting | Passed (88 files) |
+
+Integration tests were executed against the local PostgreSQL test database using `TEST_DATABASE_URL`. All 16 integration tests passed, including database, metadata extraction storage, LLM call recording and parsing storage tests.
+
+Two dependency warnings were reported during testing; neither caused test failures.

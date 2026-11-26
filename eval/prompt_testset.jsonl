@@ -1,0 +1,20 @@
+{"question":"According to the ICMR Acute Rhinosinusitis STW, what assessment and management steps are recommended?","label":"docs"}
+{"question":"What does the ICMR STW for Somatoform Disorders recommend for assessment and management?","label":"docs"}
+{"question":"What are the recommended assessment and referral considerations in the Psychotic Disorders STW?","label":"docs"}
+{"question":"What does the Child and Adolescent Behavioral Disorders STW cover for primary care management?","label":"docs"}
+{"question":"What assessment and management steps are described in the Child and Adolescent Emotional Disorders STW?","label":"docs"}
+{"question":"What does the ICMR Depression STW recommend for management and follow-up?","label":"docs"}
+{"question":"What assessment and management guidance is provided in the Anxiety and OCD STW?","label":"docs"}
+{"question":"According to the Acute Paralysis STW, what should a PHC doctor assess and when should referral be considered?","label":"docs"}
+{"question":"What does the Hearing Impairment STW recommend for evaluation and referral?","label":"docs"}
+{"question":"What assessment and management steps are described in the Otorrhoea STW?","label":"docs"}
+{"question":"Is the district hospital ICU bed available for a patient right now?","label":"personal"}
+{"question":"Does the nearest PHC currently have the medication prescribed to this patient in stock?","label":"personal"}
+{"question":"What was this patient's latest blood pressure reading in their medical record?","label":"personal"}
+{"question":"Is an ambulance available at the PHC at this moment?","label":"personal"}
+{"question":"Suggest five names for a pet cat.","label":"off_topic"}
+{"question":"How do I prepare a chocolate cake at home?","label":"off_topic"}
+{"question":"Who directed the movie Baahubali?","label":"off_topic"}
+{"question":"Explain how to solve a quadratic equation.","label":"off_topic"}
+{"question":"Tell me a funny joke about college students.","label":"off_topic"}
+{"question":"What is the current oxygen saturation recorded for this patient?","label":"personal"}

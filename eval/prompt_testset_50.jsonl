@@ -1,0 +1,50 @@
+{"question": "According to the ICMR Acute Rhinosinusitis STW, what assessment and management steps are recommended?", "label": "docs"}
+{"question": "What does the ICMR STW for Somatoform Disorders recommend for assessment and management?", "label": "docs"}
+{"question": "What are the recommended assessment and referral considerations in the Psychotic Disorders STW?", "label": "docs"}
+{"question": "What does the Child and Adolescent Behavioral Disorders STW cover for primary care management?", "label": "docs"}
+{"question": "What assessment and management steps are described in the Child and Adolescent Emotional Disorders STW?", "label": "docs"}
+{"question": "What does the ICMR Depression STW recommend for management and follow-up?", "label": "docs"}
+{"question": "What assessment and management guidance is provided in the Anxiety and OCD STW?", "label": "docs"}
+{"question": "What are the key recommendations in the Child and Adolescent Developmental Disorders STW?", "label": "docs"}
+{"question": "What does the Alcohol Use Disorder STW recommend for assessment and referral?", "label": "docs"}
+{"question": "What management and referral guidance is given in the Dementia STW?", "label": "docs"}
+{"question": "According to the Acute Paralysis STW, what should a PHC doctor assess and when should referral be considered?", "label": "docs"}
+{"question": "What assessment and treatment recommendations are included in the Pharyngitis and Sore Throat STW?", "label": "docs"}
+{"question": "What does the Hearing Impairment STW recommend for evaluation and referral?", "label": "docs"}
+{"question": "What are the management and referral recommendations in the Neck Space Infection STW?", "label": "docs"}
+{"question": "What assessment and management steps are described in the Otorrhoea STW?", "label": "docs"}
+{"question": "What does the Chronic Rhinosinusitis STW recommend for treatment and follow-up?", "label": "docs"}
+{"question": "What assessment and referral criteria are described in the Epistaxis STW?", "label": "docs"}
+{"question": "What are the key recommendations in the Varicella and Herpes Zoster STW?", "label": "docs"}
+{"question": "What does the Rational Use of Topical Steroids STW say about appropriate use and precautions?", "label": "docs"}
+{"question": "What treatment and counselling guidance is provided in the Scabies STW?", "label": "docs"}
+{"question": "What assessment and management recommendations are included in the Urticaria and Angioedema STW?", "label": "docs"}
+{"question": "What does the Psoriasis STW recommend for primary care management and referral?", "label": "docs"}
+{"question": "What are the management recommendations in the Dermatophytosis STW?", "label": "docs"}
+{"question": "What assessment and treatment guidance is provided in the Neonatal Hypoglycemia STW?", "label": "docs"}
+{"question": "What does the Acute Kidney Injury STW recommend for assessment, initial management and referral?", "label": "docs"}
+{"question": "Is the district hospital ICU bed available for a patient right now?", "label": "personal"}
+{"question": "Does the nearest PHC currently have the medication prescribed to this patient in stock?", "label": "personal"}
+{"question": "What was this patient's latest blood pressure reading in their medical record?", "label": "personal"}
+{"question": "Is an ambulance available at the PHC at this moment?", "label": "personal"}
+{"question": "What is the current bed availability in the nearest neonatal intensive care unit?", "label": "personal"}
+{"question": "Has this patient attended their scheduled follow-up appointment?", "label": "personal"}
+{"question": "What is the latest laboratory result recorded for this patient's kidney function?", "label": "personal"}
+{"question": "Which doctor is currently on duty at my local PHC?", "label": "personal"}
+{"question": "Is the referral hospital accepting emergency patients right now?", "label": "personal"}
+{"question": "What is this patient's current list of prescribed medicines?", "label": "personal"}
+{"question": "Has the patient received the latest prescribed dose today?", "label": "personal"}
+{"question": "What is the current waiting time at the nearest emergency department?", "label": "personal"}
+{"question": "Does this patient have a documented allergy in their medical record?", "label": "personal"}
+{"question": "Can you retrieve the latest ECG report for this patient?", "label": "personal"}
+{"question": "Suggest five names for a pet cat.", "label": "off_topic"}
+{"question": "How do I prepare a chocolate cake at home?", "label": "off_topic"}
+{"question": "Who directed the movie Baahubali?", "label": "off_topic"}
+{"question": "Explain how to solve a quadratic equation.", "label": "off_topic"}
+{"question": "Write a birthday greeting for my best friend.", "label": "off_topic"}
+{"question": "Which laptop is best for gaming under 50000 rupees?", "label": "off_topic"}
+{"question": "Tell me a funny joke about college students.", "label": "off_topic"}
+{"question": "How can I grow tomatoes in a home garden?", "label": "off_topic"}
+{"question": "Explain the difference between Python and Java.", "label": "off_topic"}
+{"question": "What are the tourist attractions in Paris?", "label": "off_topic"}
+{"question":"What is the current oxygen saturation recorded for this patient?","label":"personal"}
