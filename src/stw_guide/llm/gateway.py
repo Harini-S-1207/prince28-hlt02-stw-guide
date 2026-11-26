@@ -108,12 +108,15 @@ class OpenAICompatProvider:
         messages: list[Message],
         temperature: float,
         stream: bool,
+        response_format: dict | None = None,
     ) -> dict:
         body = {
             "model": self.model,
             "messages": messages,
             "temperature": temperature,
         }
+        if response_format is not None:
+            body["response_format"] = response_format
         if stream:
             body |= {
                 "stream": True,
@@ -144,8 +147,14 @@ class OpenAICompatProvider:
         messages: list[Message],
         *,
         temperature: float = 0.2,
+        response_format: dict | None = None,
     ) -> Reply:
-        body = self._body(messages, temperature, stream=False)
+        body = self._body(
+            messages,
+            temperature,
+            stream=False,
+            response_format=response_format,
+        )
         try:
             response = await self._client.post(
                 self._url,
@@ -161,7 +170,6 @@ class OpenAICompatProvider:
         data = response.json()
         usage = data.get("usage") or {}
         text = data["choices"][0]["message"].get("content") or ""
-
         return Reply(
             text,
             usage.get("prompt_tokens", 0),
@@ -235,6 +243,7 @@ class FakeLLM:
         self.name, self.model = name, model
         self.script = list(script or [])
         self.calls = 0
+        self.seen: list[dict] = []
 
     def _next(self) -> object:
         self.calls += 1
@@ -245,7 +254,15 @@ class FakeLLM:
         messages: list[Message],
         *,
         temperature: float = 0.2,
+        response_format: dict | None = None,
     ) -> Reply:
+        self.seen.append(
+            {
+                "messages": messages,
+                "temperature": temperature,
+                "response_format": response_format,
+            }
+        )
         item = self._next()
         if isinstance(item, Exception):
             raise item
@@ -263,19 +280,14 @@ class FakeLLM:
         temperature: float = 0.2,
     ) -> AsyncIterator[str]:
         item = self._next()
-
         if isinstance(item, Exception):
             raise item
-
         error = item[1] if isinstance(item, tuple) else None
         words = ("Half an answer" if error else str(item)).split()
-
         for word in words:
             yield word + " "
-
         if error:
             raise error
-
         usage.tokens_in = 12
         usage.tokens_out = len(words)
 
