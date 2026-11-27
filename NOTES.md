@@ -1175,3 +1175,52 @@ The extraction provider quota was exhausted during the full-corpus run. I verifi
 Integration tests were executed against the local PostgreSQL test database using `TEST_DATABASE_URL`. All 16 integration tests passed, including database, metadata extraction storage, LLM call recording and parsing storage tests.
 
 Two dependency warnings were reported during testing; neither caused test failures.
+
+### D09 - Final Metadata Extraction Results (2026-11-27)
+
+#### Corpus completion
+
+| Metric | Result |
+|---|---:|
+| Target documents | 50 |
+| Successfully extracted | 50 |
+| Pending | 0 |
+| Failed | 0 |
+
+The final database status query reported 50 extracted documents and zero pending documents.
+
+#### Resumed extraction evidence
+
+Five recorded extraction batches completed the remaining work:
+
+| Metric | Result |
+|---|---:|
+| Successful extractions | 8 |
+| Repaired responses | 1 |
+| Failed extractions | 0 |
+| Input tokens | 24,267 |
+| Output tokens | 9,278 |
+| Estimated batch cost | Rs. 0.4374 |
+| Total duration | 253 seconds |
+
+These cost and token figures cover only the five recorded batches, not the entire 50-document corpus.
+
+#### Final testing
+
+| Verification | Result |
+|---|---|
+| Unit tests | 209 passed |
+| Integration tests | 16 passed |
+| Combined passing tests | 225 |
+| Ruff lint | Passed |
+| Ruff formatting | Passed (88 files) |
+| PostgreSQL container | Healthy |
+| Redis container | Healthy |
+
+The full test command skipped 16 integration tests; those tests were separately executed and passed using `uv run poe test-integration`.
+
+Two non-blocking dependency warnings appeared during testing.
+
+#### Final outcome
+
+The 50-document extraction target was completed with zero pending and zero failed records reported by the database status query. Unit tests, integration tests, lint and formatting checks passed. The earlier provider quota interruptions and successful resumable extraction process remain documented in the development history.
