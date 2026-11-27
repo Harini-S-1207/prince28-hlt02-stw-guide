@@ -1224,3 +1224,91 @@ Two non-blocking dependency warnings appeared during testing.
 #### Final outcome
 
 The 50-document extraction target was completed with zero pending and zero failed records reported by the database status query. Unit tests, integration tests, lint and formatting checks passed. The earlier provider quota interruptions and successful resumable extraction process remain documented in the development history.
+
+
+---
+
+# Day 10 — Asynchronous Document Ingestion
+
+Date: 2026-11-27
+Branch: `feat/day-10-queue`
+
+## 1. Objective
+
+Implement asynchronous document ingestion using Redis and ARQ so that long-running document processing happens in background workers instead of blocking API requests.
+
+## 2. Implementation Completed
+
+### Database
+- Added `IngestJob` and `IngestItem` models.
+- Created Alembic migration `77017a8519c0`.
+- Added job and item status tracking, retry attempts, error details and page counts.
+- Applied migration successfully.
+
+### Redis Queue
+- Added ARQ dependency.
+- Implemented `src/stw_guide/workers/queue.py`.
+- Added Redis connection settings and queue submission.
+- Used deterministic job IDs to prevent duplicate queue submissions.
+
+### Ingestion Worker
+- Implemented `src/stw_guide/workers/ingest.py`.
+- Added document planning and SHA256-based duplicate detection.
+- Added file retrieval, parsing and metadata extraction.
+- Implemented retry handling and permanent failure handling.
+- Added request pacing to control processing rate.
+
+### Worker Lifecycle
+- Implemented `src/stw_guide/workers/main.py`.
+- Added worker startup and shutdown handling.
+- Added recovery of unfinished jobs from PostgreSQL into Redis.
+- Added the `worker` Poe task.
+
+## 3. Testing Results
+
+| Test category | Result |
+|---|---:|
+| Existing and new unit tests | 229 passed |
+| Integration tests | 20 passed |
+| Combined test run | 249 passed |
+| Failed tests | 0 |
+
+### Ingestion-specific tests
+- 20 ingestion unit tests passed.
+- 4 PostgreSQL ingestion integration tests passed.
+
+## 4. Quality Checks
+
+| Check | Result |
+|---|---|
+| Ruff check | Passed |
+| Ruff format | 95 files already formatted |
+| PostgreSQL health | Passed |
+| Redis health | Passed |
+| Redis queue connection | Passed |
+| ARQ worker configuration | Passed |
+| Actual ARQ worker startup | Passed |
+
+Worker startup log confirmed:
+
+`Starting worker for 1 functions: ingest_document`
+
+`Worker ready; 0 unfinished item(s) restored to Redis`
+
+## 5. Issues and Fixes
+
+- Installed and configured ARQ for background job processing.
+- Fixed import ordering using Ruff.
+- Applied Ruff formatting to the affected files.
+- Verified Redis connectivity using `scripts/check_redis.py`.
+- Confirmed that the worker starts and performs its recovery check successfully.
+
+## 6. Final Outcome
+
+Implemented the asynchronous ingestion foundation using PostgreSQL, Redis and ARQ. Verified queue connectivity, worker startup, job processing behaviour, retry handling, duplicate protection and database integration.
+
+Final combined test result: **249 passed, 0 failed**.
+
+Code-quality checks and worker startup verification completed successfully.
+
+**Status:** Day 10 implementation and validation completed. Git submission is pending.
