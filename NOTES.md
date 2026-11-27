@@ -1312,3 +1312,44 @@ Final combined test result: **249 passed, 0 failed**.
 Code-quality checks and worker startup verification completed successfully.
 
 **Status:** Day 10 implementation and validation completed. Git submission is pending.
+
+
+## Day 10 — Ingestion API and CLI
+
+### API implementation
+- Added `POST /v1/ingest` to submit asynchronous ingestion jobs.
+- Added `GET /v1/ingest/{job_id}` to monitor job progress.
+- Added `GET /v1/ingest/dead-letter` to inspect permanently failed items.
+- Added admin-token authentication for ingestion submission.
+- Added FastAPI dependencies for the ingestion repository, Redis queue, and manifest.
+- Registered the ingestion router in the application.
+- Added optional embedded worker startup and graceful shutdown handling.
+
+### CLI implementation
+- Added `scripts/ingest.py`.
+- Supports submitting ingestion jobs, filtering by source, retrying failed items, and watching job progress.
+- Verified CLI help output successfully.
+
+### Testing and quality checks
+- Unit tests: 238 passed.
+- Integration tests: 20 passed.
+- Total: 258 passed, zero failures.
+- Ruff lint: passed.
+- Ruff formatting: passed.
+- CLI help: verified.
+- PostgreSQL and Redis Docker containers: healthy.
+
+### Integration test configuration
+- Started PostgreSQL and Redis using Docker Compose.
+- Applied Alembic migrations.
+- Configured `TEST_DATABASE_URL` for the current CMD session.
+- Successfully executed all 20 integration tests.
+
+### Files added or updated
+- `src/stw_guide/api/deps.py`
+- `src/stw_guide/api/main.py`
+- `src/stw_guide/api/routes/ingest.py`
+- `tests/unit/conftest.py`
+- `tests/unit/test_ingest_api.py`
+- `scripts/ingest.py`
+- `NOTES.md`
