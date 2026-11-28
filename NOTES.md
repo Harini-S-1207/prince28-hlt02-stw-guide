@@ -1141,7 +1141,7 @@ The production health endpoint reported application status `ok` and environment 
 ### Extraction run
 
 - Prompt version: `extract_v1`.
-- Latest confirmed corpus status: 41 documents successfully extracted, 0 failed, 9 pending, out of 50 target documents.
+- Intermediate checkpoint: 41/50 documents extracted, 0 failed, 9 pending. This status was superseded by the final verification on 2026-11-27.
 - Latest one-document run: 1 successful, 0 repaired, 0 failed; 2,490 input tokens, 1,296 output tokens; estimated cost ₹0.0547.
 - Full-corpus extraction did not finish because the Gemini provider returned HTTP 429 quota errors. The pipeline stopped safely and can resume.
 - Five original ICMR PDFs were manually checked against their source documents. Two extracted records had missing publication years even though dates were present in the PDFs.
@@ -1224,3 +1224,36 @@ Two non-blocking dependency warnings appeared during testing.
 #### Final outcome
 
 The 50-document extraction target was completed with zero pending and zero failed records reported by the database status query. Unit tests, integration tests, lint and formatting checks passed. The earlier provider quota interruptions and successful resumable extraction process remain documented in the development history.
+
+---
+
+# Latest Milestone Verification – D09 (2026-11-28)
+
+## Final Metadata Extraction Status
+
+The D09 extraction target was successfully completed on November 27, 2026.
+The earlier 41/50 result was an intermediate checkpoint.
+
+| Metric | Final Result |
+|---|---:|
+| Target documents | 50 |
+| Successfully extracted | 50 |
+| Pending documents | 0 |
+| Failed documents | 0 |
+| Completion rate | 100% |
+
+### Verification Evidence
+
+- Final database status: 50 extracted, 0 pending, 0 failed.
+- Final verification documented in commit `75d89aa`.
+- Documentation merged into main through PR #20.
+- 225 tests passed (209 unit + 16 integration).
+- Ruff lint and formatting checks passed.
+
+### Final Outcome
+
+D09 metadata extraction is complete.
+The 50-document target was achieved with zero pending
+and zero failed documents.
+
+This final result supersedes the earlier 41/50 checkpoint.
